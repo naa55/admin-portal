@@ -44,6 +44,7 @@
     "ngx-pagination": "^6.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",
     "rxjs": "~6.6.0",
+    "sass-migrator": "^2.0.3",
     "smartwizard": "^5.1.1",
     "sweetalert2": "^11.7.3",
     "text-mask-addons": "^3.8.0",
