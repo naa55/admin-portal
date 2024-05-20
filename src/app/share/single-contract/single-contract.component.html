@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <!-- <h4 class="modal-title pull-left">Driver Licence</h4> -->
+  <ng-content select="h4"></ng-content>
+  
+   <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="dimissFirst()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span> 
+  </button> 
+  <!-- <ng-content select=".dismissed"></ng-content> -->
+</div>
+<div class="modal-body">
+ <div class="container mx-auto justify-content-center d-flex">
+  <div class="mx-auto">
+      <img [src]="photo" height="300px" width="300px" alt="">
+  </div>
+ </div>
+ <div class="mx-auto justify-content-center d-flex mt-4">
+  <!-- <button class="btn btn-success text-white">Approval</button>
+  <button class="btn btn-danger text-white">Decline</button> -->
+  <ng-content select=".my-buttons"></ng-content>
+ </div>
+</div>
