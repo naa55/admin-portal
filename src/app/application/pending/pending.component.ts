@@ -57,7 +57,7 @@ export class PendingComponent implements OnInit, OnDestroy {
 
   allContractors() {
     let token = sessionStorage.getItem('token');
-    this.getAllContractors = this.auth.get('/admin/approved/contractors', token).subscribe({
+    this.getAllContractors = this.auth.get('/admin/approved/contractors').subscribe({
       next: (response) => {
         console.log(response)
         this.contractors = response['contractors']
@@ -209,21 +209,21 @@ export class PendingComponent implements OnInit, OnDestroy {
   // }
 
 
-  getAll() {
-    let token = sessionStorage.getItem('token');
-    this.auth.get('/user/shipments', token).subscribe({
-      next: (response) => {
-        // console.log(response)
-      },
-      error: (error) => {
-        if (error.error['errors']) {
-        } else {
-          // this.toast.error({ detail: 'Error', summary: error.error['message'], duration: 5000 })
+  // getAll() {
+  //   let token = sessionStorage.getItem('token');
+  //   this.auth.get('/user/shipments', token).subscribe({
+  //     next: (response) => {
+        
+  //     },
+  //     error: (error) => {
+  //       if (error.error['errors']) {
+  //       } else {
+         
 
-        }
-      }
-    });
-  }
+  //       }
+  //     }
+  //   });
+  // }
 
   ngOnDestroy(): void {
     // this.getAllContractors.unsubscribe()

@@ -9,6 +9,8 @@ import { FooterComponent } from "./footer/footer.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ColorSwitcherComponent } from './color-switcher/color-switcher.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 
 
@@ -25,6 +27,8 @@ import { ColorSwitcherComponent } from './color-switcher/color-switcher.componen
         RouterModule,
         CommonModule,
         NgbModule,
+        NgxSpinnerModule,
+        BrowserAnimationsModule,
         PerfectScrollbarModule
     ],
     declarations: [

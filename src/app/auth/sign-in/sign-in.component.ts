@@ -10,7 +10,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+  UserType = {
+    Guest: 2,
+    Admin: 1
+  }
 
+  selectedUser = 2
   signInForms = new FormGroup({
     email: new FormControl('',
     [
@@ -20,6 +25,7 @@ export class SignInComponent implements OnInit {
      ),
     password: new FormControl('',  Validators.required)
   })
+  
 
     constructor(
       private router: Router,
@@ -43,60 +49,48 @@ export class SignInComponent implements OnInit {
   }
 
   signIn(e) {
-    console.log(this.signInForms.value)
+
+    let url  = this.selectedUser == this.UserType.Guest ? '/auth/login':'/admin/auth/login'
     let payload = {
       email: this.signInForms?.get('email')?.value,
       password: this.signInForms?.get('password')?.value,
-      user_role: 'shipper'
     }
 
-    console.log(payload)
 
-    this.auth.store('/user/login', payload).subscribe({
+    this.auth.store(url, payload).subscribe({
       next: (response: any) => {
 
+        console.log(response)
+
         if (response['status'] === 'failed') {
-          // this.toast.error({ detail: 'Error', summary: response['message'], duration: 5000 })
-          console.log(response)
-          // this.isLoading = false
-
+      
         } else {
-          // this.isLoading = false
+          
           sessionStorage.setItem('token', response['token']);
-          sessionStorage.setItem('userData', JSON.stringify(response['user']));
-          console.log(response['user'])
-          sessionStorage.setItem('userRole', response['login_as']);
-          // this.userRole = response['login_as'];
-          this.router.navigateByUrl('/dashboard/default', { replaceUrl: true });
-
-          // if (this.userRole == 'shipper') {
-          //   sessionStorage.setItem('shipping_address', JSON.parse(response['user']['shipper_details'][0]['address']));
-          //   this.router.navigateByUrl('/full/dashboard/default', { replaceUrl: true });
-          // } else {
-          //   this.router.navigateByUrl('/full/dashboard/alternate', { replaceUrl: true });
-          // }
+          sessionStorage.setItem('userData', JSON.stringify(response['admin']));
+           this.router.navigateByUrl('/dashboard/default', { replaceUrl: true });
         }
 
       },
       error: (error) => {
-       
-        console.log(error.error.message)
-        // this.toast.error({ detail: 'Error', summary: error.error.message, duration: 5000 })
-
-
+       console.log(error);
         if (error.error.errors['email']) {
-          // this.toast.error({ detail: 'Error', summary: error.error.errors['email'][0], duration: 5000 })
-          console.log(error.error.errors['email'][0])
+
         } else if (error.error.errors['password']) {
-          // this.toast.error({ detail: 'Error', summary: error.error.errors['password'][0], duration: 5000 })
+         
 
           console.log(error.error.errors['password'][0])
         } else {
-          // this.toast.error({ detail: 'Error', summary: error.error.errors['message'], duration: 5000 })
+          
 
         }
       }
     });
+  }
+  
+
+  selectUser(userType){
+    this.selectedUser = userType
   }
 
 }

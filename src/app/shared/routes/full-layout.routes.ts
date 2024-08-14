@@ -6,12 +6,66 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 export const Full_ROUTES: Routes = [
     {
         path: 'dashboard',
-        // canActivate: [AuthGuard],
+         canActivate: [AuthGuard],
         loadChildren: () => import('../../dashboard/dashboard.module').then(m => m.DashboardModule)
     },
     {
         path: 'application',
         loadChildren: () => import('../../application/application.module').then(m => m.ApplicationModule)
+
+    },
+    {
+        path: 'user-management',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('../../user-management/user-managment.module').then(m => m.UserManagementModule)
+
+    },
+    {
+        path: 'case-law',
+        loadChildren: () => import('../../case-law/case-law.module').then(m => m.CaseLawModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'contact',
+        loadChildren: () => import('../../contact/contact.module').then(m => m.ContactModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'categories',
+        loadChildren: () => import('../../categories/categories.component.module').then(m => m.CategoriesModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'councellors',
+        loadChildren: () => import('../../councellors/councellors.module').then(m => m.CouncellorsModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'marriage-officers',
+        loadChildren: () => import('../../marriage-officers/marriage-officers.module').then(m => m.MarriageOfficersModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'lawyers',
+        loadChildren: () => import('../../lawyers/lawyers.module').then(m => m.LawyersModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'case-law',
+        loadChildren: () => import('../../case-law/case-law.module').then(m => m.CaseLawModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'venues',
+        loadChildren: () => import('../../venues/venues.module').then(m => m.VenuesModule),
+        canActivate: [AuthGuard]
 
     },
     {

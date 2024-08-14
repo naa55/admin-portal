@@ -43,6 +43,7 @@
     "ngx-bootstrap": "^10.2.0",
     "ngx-pagination": "^6.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",
+    "ngx-spinner": "^17.0.0",
     "rxjs": "~6.6.0",
     "sass-migrator": "^2.0.3",
     "smartwizard": "^5.1.1",

@@ -1,0 +1,172 @@
+<div class="d-flex justify-content-end mx-3">
+  <!-- <button type="button" class="btn btn-primary">Add User</button> -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleLargeModal"
+    (click)="addCase()"
+  >
+    Add Case
+  </button>
+</div>
+<div class="card mt-2">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Title</th>
+            <th>Case Law</th>
+            <th>Summary</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody
+          *ngFor="
+            let user of casesArray
+              | paginate : { itemsPerPage: 10, currentPage: p }
+          "
+        >
+          <tr *ngFor="let item of casesArray">
+            <td>{{ item.case_title }}</td>
+            <td>{{ item.court }}</td>
+            <td>{{ item.category_name }}</td>
+            <td>{{ item.summary }}</td>
+            <td>
+              <div class="dropdown">
+                <button
+                  class="btn btn-primary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Action
+                </button>
+                <ul class="dropdown-menu">
+                  <li
+                    (click)="edit(item)"
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleLargeModal"
+                  >
+                    Edit
+                  </li>
+                  <li (click)="view(item)" class="dropdown-item">View</li>
+                  <li (click)="deleteCat(item.id)" class="dropdown-item">
+                    Delete
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div style="float: right; margin-bottom: 50px">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Case</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form class="my-4" [formGroup]="caseLawGroup">
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="form-label">Case Title</label>
+              <input
+                type="text"
+                formControlName="case_title"
+                class="form-control form-control-lg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="form-label">Summary</label>
+              <textarea
+                type="text"
+                formControlName="summary"
+                class="form-control form-control-lg"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="form-label">Court</label>
+              <textarea
+                type="text"
+                formControlName="court"
+                class="form-control form-control-lg"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="form-label">Category</label>
+              <select formControlName="category_id" id="" class="form-control">
+                <option value="" disabled selected>Select Category</option>
+                <option
+                  [value]="category?.uuid"
+                  *ngFor="let category of categories"
+                >
+                  {{ category?.title }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label">Case File</label>
+              <input
+                type="file"
+                (change)="onFileChange($event)"
+                formControlName="case_file"
+                accept=".pdf,.docx,.doc,.xlsx,.xls,.csv"
+                class="form-control form-control-lg"
+              />
+            </div>
+          </div>
+          <!-- <div class="d-grid gap-2">
+                        <button type="button" (click)="onSubmit($event)" class="btn btn-primary btn-lg mt-2">Send</button> <a href="javascript:;" (click)="onSignIn()" class="btn btn-light btn-lg"><i class='bx bx-arrow-back me-1'></i>Back to Login</a>
+                    </div> -->
+        </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="true"
+            (click)="case_id ? update() : store()"
+          >
+          <span
+              [ngClass]="{ 'spinner-border': isLoading }"
+              style="font-size: 10px; height: 20px; width: 20px"
+              role="status"
+            >
+        </span>
+            {{ case_id ? " Update " : "Save changes" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
