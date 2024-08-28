@@ -87,35 +87,42 @@ export const ROUTES: RouteInfo[] = [
     //     path: '/application/contractors', title: 'All Contractors', icon: 'bx bx-car', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
     // },
     {
-        path: '/user-management', title: 'User Management', icon: ' bx bx-shocked', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/user-management', title: 'User Management', icon: ' bx bx-shocked', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/marriage-officers', title: 'Marriage Officers', icon: ' bx bx-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/marriage-officers', title: 'Marriage Officers', icon: ' bx bx-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/lawyers', title: 'Lawyers', icon: ' bx bx-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/lawyers', title: 'Lawyers', icon: ' bx bx-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/venues', title: 'Venues', icon: ' bx bx-planet', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/venues', title: 'Venues', icon: ' bx bx-planet', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/contact', title: 'Contact', icon: ' bx bx-notepad', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/contact', title: 'Contact', icon: ' bx bx-notepad', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/councellors', title: 'Councellors', icon: ' bx bx-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/councellors', title: 'Councellors', icon: ' bx bx-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/courts', title: 'Courts', icon: ' bx bx-building-house', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/courts', title: 'Courts', icon: ' bx bx-building-house', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/categories', title: 'Categories', icon: ' bx bx-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/categories', title: 'Categories', icon: ' bx bx-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/case-law', title: 'Case Law', icon: ' bx bx-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/case-law', title: 'Case Law', icon: ' bx bx-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/application/payment', title: 'Payments', icon: 'bx bx-money', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+        path: '/application/payment', title: 'Payments', icon: 'bx bx-money', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
+
+
+    {path: '/guest/glossary', title: 'Glossary', icon: 'bx bx-money', class:'',badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'guest'},
+    {path: '/guest/venues', title: 'Venues', icon: 'bx bx-money', class:'',badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'guest'},
+    {path: '/guest/marriage-officers', title: 'Marriage Officers', icon: 'bx bx-money', class:'',badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'guest'},
+    {path: '/guest/muslim-marriage-officer', title: 'Muslim Marriage Officer', icon: 'bx bx-money', class:'',badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'guest'},
+    {path: '/guest/word', title: 'Word', icon: 'bx bx-money', class:'',badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'guest'},
     // {
     //     path: '/application/payment', title: 'Payments', icon: 'bx bx-money', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
     // },

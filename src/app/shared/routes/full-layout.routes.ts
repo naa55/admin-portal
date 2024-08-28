@@ -132,5 +132,8 @@ export const Full_ROUTES: Routes = [
         path: 'maps',
         loadChildren: () => import('../../maps/maps.module').then(m => m.MapsModule)
 
+    },{
+        path: 'guest',
+        loadChildren: () => import('../../guest/guest.module').then(m => m.GuestModule)
     }
 ];

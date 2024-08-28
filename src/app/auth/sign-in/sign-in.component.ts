@@ -67,7 +67,13 @@ export class SignInComponent implements OnInit {
         } else {
           
           sessionStorage.setItem('token', response['token']);
-          sessionStorage.setItem('userData', JSON.stringify(response['admin']));
+          if(this.selectedUser == this.UserType.Guest){
+            sessionStorage.setItem('userData', JSON.stringify(response['user']));
+            sessionStorage.setItem('role', 'user')
+          }else{
+            sessionStorage.setItem('userData', JSON.stringify(response['admin']));
+          }
+         
            this.router.navigateByUrl('/dashboard/default', { replaceUrl: true });
         }
 

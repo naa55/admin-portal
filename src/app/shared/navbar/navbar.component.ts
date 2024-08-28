@@ -11,7 +11,7 @@ import { SidebarService } from '../sidebar/sidebar.service';
 })
 
 export class NavbarComponent implements OnInit{
-
+    user:any
     constructor(public sidebarservice: SidebarService, private auth: AuthService, private router: Router) { }
         
     toggleSidebar() {
@@ -38,10 +38,15 @@ export class NavbarComponent implements OnInit{
             })
         });
 
+        this.getUserDetails()
     }
 
     logOut() {
         this.auth.logout()
         this.router.navigate(['auth/sign-in'])
+    }
+
+    getUserDetails(){
+        this.user = JSON.parse(sessionStorage.getItem('userData'));
     }
 }

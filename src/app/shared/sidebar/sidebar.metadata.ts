@@ -8,5 +8,5 @@ export interface RouteInfo {
     badgeClass: string;
     isExternalLink: boolean;
     submenu : RouteInfo[];
-    permission?:boolean
+    permission?:string
 }

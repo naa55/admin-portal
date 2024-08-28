@@ -14,6 +14,7 @@ import * as $ from 'jquery';
 export class SidebarComponent implements OnInit {
     
     public menuItems: any[];
+    user:any
 
   
     constructor( public sidebarservice: SidebarService,private router: Router) {
@@ -74,9 +75,24 @@ export class SidebarComponent implements OnInit {
     
 
     ngOnInit() {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        const userRole = sessionStorage.getItem('role');
+        
+            if(userRole == 'user'){
+                this.menuItems = ROUTES.filter((menuItem => menuItem?.permission !== 'admin'));
+            }else{
+                this.menuItems = ROUTES.filter((menuItem => menuItem?.permission === 'admin'))
+            }
+        
+
+       // this.menuItems = ROUTES.filter(menuItem => console.log(menuItem));
+
         $.getScript('./assets/js/app-sidebar.js');
 
+        this.getLoggedInUserRole()
+    }
+
+    getLoggedInUserRole(){
+        this.user = JSON.parse(sessionStorage.getItem('userData'))
     }
 
 }
