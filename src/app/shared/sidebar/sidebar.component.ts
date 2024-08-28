@@ -82,9 +82,6 @@ export class SidebarComponent implements OnInit {
             }else{
                 this.menuItems = ROUTES.filter((menuItem => menuItem?.permission === 'admin'))
             }
-        
-
-       // this.menuItems = ROUTES.filter(menuItem => console.log(menuItem));
 
         $.getScript('./assets/js/app-sidebar.js');
 
