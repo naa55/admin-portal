@@ -1,0 +1,13 @@
+<button
+type="button"
+class="btn btn-primary"
+[disabled]="disabled"
+>
+<span
+  [ngClass]="{ 'spinner-border': isLoading }"
+  style="font-size: 10px; height: 20px; width: 20px"
+  role="status"
+>
+</span>
+{{buttonText}}
+</button>

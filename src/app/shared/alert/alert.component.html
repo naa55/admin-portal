@@ -1,0 +1,14 @@
+<div
+class="alert alert-{{alertType}} border-0 bg-{{alertType}} alert-dismissible fade show" *ngIf="visible"
+>
+<div  class="text-white">
+  {{alertText}}
+</div>
+<button
+  type="button"
+  data-bs-dismiss="alert"
+  aria-label="Close"
+  class="btn-close"
+  #closeButton
+></button>
+</div>

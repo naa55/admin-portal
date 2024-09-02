@@ -12,7 +12,7 @@
             </div>
         </div>
         <!-- Sidebar Header Ends -->
-    <div class="sidebar-content" [perfectScrollbar]>
+    <div class="sidebar-content">
         <ul class="navigation">
             <!-- First level menu -->
             <li *ngFor="let menuItem of menuItems" [ngClass]="[menuItem.class]" [routerLinkActive]="menuItem.submenu.length != 0 ? '' : 'active'"

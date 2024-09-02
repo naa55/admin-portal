@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-marriage-officers',
@@ -10,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class MarriageOfficersComponent {
   @ViewChild('#exampleLargeModal') cateogoryModal
+  @ViewChild('alert') alertNotifier:AlertComponent
 
   marriageOfficerForm:FormGroup
     p:number = 1
@@ -38,18 +40,18 @@ export class MarriageOfficersComponent {
 
     initializeForm(){
         this.marriageOfficerForm = new FormGroup({
-            name: new FormControl(),
-            gender: new FormControl(),
-            designation: new FormControl(),
-            denomination: new FormControl(),
-            church: new FormControl(),
-            region: new FormControl(),
-            location: new FormControl(),
-            gazette_number: new FormControl(),
-            gazette_date: new FormControl(),
-            license_officer: new FormControl(),
+            name: new FormControl('',Validators.required),
+            gender: new FormControl('',Validators.required),
+            designation: new FormControl('',Validators.required),
+            denomination: new FormControl('',Validators.required),
+            church: new FormControl('',Validators.required),
+            region: new FormControl('',Validators.required),
+            location: new FormControl('',Validators.required),
+            gazette_number: new FormControl('',Validators.required),
+            gazette_date: new FormControl('',Validators.required),
+            license_officer: new FormControl('',Validators.required),
             
-            appointment_date: new FormControl(),
+            appointment_date: new FormControl('',Validators.required),
         })
     }
 
@@ -61,9 +63,10 @@ export class MarriageOfficersComponent {
             next: (result) => {
               this.modalService.dismissAll()
               this.getAllOfficers();
+              this.alertNotifier.success('Marriage Officer created successfully')
             },
             error: (result) => {
-              console.log(result)
+              this.alertNotifier.success('Marriage Officer creation unsuccessful')
             }
     })
 }
@@ -114,10 +117,10 @@ deleteCategory(cateogry:any){
          this.category_id = null
          this.modalService.dismissAll()
          this.getAllOfficers()
-         console.log(result) 
+        this.alertNotifier.success('Marriage Officer deleted successfully')
        },
        error: (result) => {
-         console.log(result)
+        this.alertNotifier.error('Deletion unsuccessful')
        }
    })
  }

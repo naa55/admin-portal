@@ -11,6 +11,8 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ColorSwitcherComponent } from './color-switcher/color-switcher.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AlertComponent } from './alert/alert.component';
+import { ButtonComponent } from './button/button.component';
 
 
 
@@ -21,6 +23,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         NavbarComponent,
         SidebarComponent,
         ColorSwitcherComponent,
+        AlertComponent,
+        ButtonComponent,
         NgbModule
     ],
     imports: [
@@ -28,14 +32,16 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         CommonModule,
         NgbModule,
         NgxSpinnerModule,
-        BrowserAnimationsModule,
-        PerfectScrollbarModule
+        // BrowserAnimationsModule,
+        // PerfectScrollbarModule
     ],
     declarations: [
         FooterComponent,
         NavbarComponent,
         SidebarComponent,
-        ColorSwitcherComponent
+        ColorSwitcherComponent,
+        AlertComponent,
+        ButtonComponent
     ],
     providers: [ ],
 })

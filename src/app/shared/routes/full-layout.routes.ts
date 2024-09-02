@@ -51,6 +51,12 @@ export const Full_ROUTES: Routes = [
 
     },
     {
+        path: 'family-lawyers',
+        loadChildren: () => import('../../family-lawyers/family-lawyer.module').then(m => m.FamilyLawyerModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
         path: 'lawyers',
         loadChildren: () => import('../../lawyers/lawyers.module').then(m => m.LawyersModule),
         canActivate: [AuthGuard]
@@ -59,6 +65,12 @@ export const Full_ROUTES: Routes = [
     {
         path: 'case-law',
         loadChildren: () => import('../../case-law/case-law.module').then(m => m.CaseLawModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'courts',
+        loadChildren: () => import('../../courts/courts.module').then(m => m.CourtsModule),
         canActivate: [AuthGuard]
 
     },
@@ -76,6 +88,11 @@ export const Full_ROUTES: Routes = [
     {
         path: 'ecommerce',
         loadChildren: () => import('../../ecommerce/ecommerce.module').then(m => m.EcommerceModule)
+
+    },
+    {
+        path: 'admin-users',
+        loadChildren: () => import('../../admin-users/admin-users.module').then(m => m.AdminUsersModule)
 
     },
     {

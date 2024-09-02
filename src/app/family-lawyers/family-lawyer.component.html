@@ -1,0 +1,223 @@
+<app-alert #alert></app-alert>
+<div class="d-flex justify-content-end mx-3">
+ 
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleLargeModal"
+    (click)="open(cateogoryModal)"
+  >
+    Add Lawyer
+  </button>
+</div>
+<div class="card mt-2">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Case Track Record</th>
+            <th>Postion Held</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of familyLawyers
+                | paginate : { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td>{{ item.lawyer_name }}</td>
+
+            <td>
+              <span>{{ item.case_track_record }}</span>
+            </td>
+            <td>{{ item?.position_held }}</td>
+            <td>
+              <div class="dropdown">
+                <button
+                  class="btn btn-primary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Action
+                </button>
+                <ul class="dropdown-menu">
+                  <li
+                    (click)="edit(category)"
+                    class="dropdown-item"
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleLargeModal"
+                  >
+                    Edit
+                  </li>
+                  <li (click)="view(item)" class="dropdown-item">View</li>
+                  <li (click)="deleteCategory(item)" class="dropdown-item">
+                    Delete
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div style="float: right; margin-bottom: 50px">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<ng-template #cateogoryModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">New Category</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="close()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form class="my-4" [formGroup]="categoriesForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Email</label>
+          <input
+            type="text"
+            formControlName="email"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Phone Number</label>
+          <input
+            type="text"
+            formControlName="phone_number"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Location</label>
+          <input
+            type="text"
+            formControlName="location"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Place of Work</label>
+          <input
+            type="text"
+            formControlName="place_of_work"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Position Held</label>
+          <input
+            type="text"
+            formControlName="position_held"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">About</label>
+          <input
+            type="text"
+            formControlName="position_held"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Professional Membership</label>
+          <input
+            type="text"
+            formControlName="professional_membership"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Case Track Record</label>
+          <input
+            type="text"
+            formControlName="case_track_record"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Work Experience</label>
+          <input
+            type="text"
+            formControlName="work_experience"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Date of call</label>
+          <input
+            type="date"
+            formControlName="date_of_call"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Profile Picture</label>
+          <input
+            type="date"
+            formControlName="profile_picture"
+            class="form-control form-control-lg"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="form-label">Slug</label>
+          <textarea
+            type="text"
+            formControlName="slug"
+            class="form-control form-control-lg"
+          ></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal"
+      (click)="close()"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="caseLawGroup.invalid"
+      (click)="case_id ? update() : store()"
+    >
+      <span
+        [ngClass]="{ 'spinner-border': isLoading }"
+        style="font-size: 10px; height: 20px; width: 20px"
+        role="status"
+      >
+      </span>
+      {{ case_id ? " Update " : "Save changes" }}
+    </button>
+  </div>
+</ng-template>

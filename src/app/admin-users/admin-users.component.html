@@ -1,6 +1,6 @@
 <app-alert #alert></app-alert>
 <div class="d-flex justify-content-end mx-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal" (click)="open(cateogoryModal)">Add Court</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal" (click)="open(cateogoryModal)">Add Admin</button>
   </div>
 <div class="card mt-2">
     <div class="card-body">
@@ -8,28 +8,28 @@
         <table class="table align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th>Courts</th>
-              <th> Location</th>
-              <th>Jurisdiction</th>
+              <th>Name</th>
+              <th> Email</th>
+              <th>Role</th>
               <th></th>
             </tr>
           </thead>
           <tbody >
             <tr *ngFor="let item of categoryArray | paginate: { itemsPerPage: 10, currentPage: p }">
-              <td>{{item.court}}</td>
+              <td>{{item.full_name}}</td>
               
               <td>
-                <span>{{item.location}}</span>
+                <span>{{item.email}}</span>
               </td>
               <td>
-                <span>{{item.jurisdiction}}</span>
+                <span>{{item.role =='super_admin'?'Super Admin':item.role == 'lawyer'?'Lawyer':item.role == 'counsellor'?'Councellor':null}}</span>
               </td>
             
               <td>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                     <ul class="dropdown-menu">
-                        <li (click)="edit(category)" class="dropdown-item" class="dropdown-item"
+                        <li (click)="edit(item,cateogoryModal)" class="dropdown-item" class="dropdown-item"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleLargeModal">Edit
                         </li>
@@ -61,36 +61,46 @@
   <div class="modal-body">
     <form class="my-4" [formGroup]="categoriesForm">
         <div class="row">
-            <div class="col-sm-12">
-                <label class="form-label">Court</label>
+            <div class="col-6 col-sm-12">
+                <label class="form-label">First name</label>
                 <input type="text"
-                formControlName="title"
+                formControlName="first_name"
                  class="form-control form-control-lg" />
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <label class="form-label">Description</label>
-                <textarea type="text"
-                formControlName="slug"
-                 class="form-control form-control-lg" ></textarea>
+        
+            <div class="col-6 col-sm-12">
+                <label class="form-label">Last name</label>
+                <input type="text"
+                formControlName="last_name"
+                 class="form-control form-control-lg" />
+               
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-            <label for="">Select Catgory</label>
-            <select name="" id="" class="form-control">
-                <option value=""></option>
-            </select>
-        </div>
-        </div>
-    </form></div>
+            <div class="col-6 col-sm-12">
+                <label for="">Email</label>
+                <input type="email" formControlName="email" class="form-control" id="">
+            </div>
+            <div class="col-6 col-sm-12">
+                <label for="">Contact</label>
+                <input type="email" formControlName="phone_number" class="form-control" id="">
+            </div>
+            <div class="col-12 col-sm-12">
+            <label>Select Role</label>
+                <select formControlName="role" id="" class="form-control">
+                    <option value="" selected disabled>Select Role</option>
+                    <option value="super_admin">Super Admin</option>
+                    <option value="lawyer">Lawyer</option>
+                    <option value="counsellor">Counsellor</option>
+                </select>
+            </div>
+    </form>
+</div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
       <button
       type="button"
       class="btn btn-primary"
-      [disabled]="categoriesForm.invalid"
+     [disabled]="categoriesForm.invalid"
       (click)="case_id ? update() : store()"
     >
     <span

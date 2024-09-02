@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 
 @Component({
@@ -10,10 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+  @ViewChild('alert') alertNotifier:AlertComponent
   UserType = {
     Guest: 2,
     Admin: 1
   }
+  isLoading = false
 
   selectedUser = 2
   signInForms = new FormGroup({
@@ -48,8 +51,10 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signIn(e) {
+ 
 
+  signIn(e) {
+    this.isLoading = true
     let url  = this.selectedUser == this.UserType.Guest ? '/auth/login':'/admin/auth/login'
     let payload = {
       email: this.signInForms?.get('email')?.value,
@@ -59,11 +64,11 @@ export class SignInComponent implements OnInit {
 
     this.auth.store(url, payload).subscribe({
       next: (response: any) => {
-
-        console.log(response)
+        this.isLoading = false
+        console.log(response);
 
         if (response['status'] === 'failed') {
-      
+          this.alertNotifier.error('Invalid credentials')
         } else {
           
           sessionStorage.setItem('token', response['token']);
@@ -79,17 +84,15 @@ export class SignInComponent implements OnInit {
 
       },
       error: (error) => {
-       console.log(error);
-        if (error.error.errors['email']) {
+        this.isLoading = false
+        this.alertNotifier.error('Invalid credentials')
+        // if (error.error.errors['email']) {
 
-        } else if (error.error.errors['password']) {
+        // } else if (error.error.errors['password']) {
          
 
-          console.log(error.error.errors['password'][0])
-        } else {
-          
-
-        }
+        //   console.log(error.error.errors['password'][0])
+        // } 
       }
     });
   }

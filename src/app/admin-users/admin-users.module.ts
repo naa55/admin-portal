@@ -1,26 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MarriageOfficersRoutingModule } from './marriage-officers-routing.module';
-import { MarriageOfficersComponent } from './marriage-officers.component';
+import { AdminUsersRoutingModule } from './admin-users-routing.module';
+import { AdminUsersComponent } from './admin-users.component';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModalModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [
-    MarriageOfficersComponent
+    AdminUsersComponent
   ],
   imports: [
     CommonModule,
-    NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
+    AdminUsersRoutingModule,
+    NgbModule,
     NgbModalModule,
-    MarriageOfficersRoutingModule,
+    NgxPaginationModule,
     SharedModule
-  ],
-  providers: [NgbActiveModal]
+  ]
 })
-export class MarriageOfficersModule { }
+export class AdminUsersModule { }

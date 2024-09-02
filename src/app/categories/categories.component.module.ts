@@ -26,6 +26,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { CategoriesComponent } from './categories.component';
 import { CategoriesRoutingModule } from './categories.component-routing.module';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     CategoriesComponent
@@ -45,7 +46,8 @@ import { CommonModule } from '@angular/common';
     CategoriesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedModule
   ],
   providers: [
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG }

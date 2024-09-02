@@ -1,3 +1,4 @@
+<app-alert #alert></app-alert>
 <div class="d-flex justify-content-end mx-3">
   <!-- <button type="button" class="btn btn-primary">Add User</button> -->
   <button
@@ -5,7 +6,7 @@
     class="btn btn-primary"
     data-bs-toggle="modal"
     data-bs-target="#exampleLargeModal"
-    (click)="addCase()"
+    (click)="open(caseModal)"
   >
     Add Case
   </button>
@@ -45,7 +46,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li
-                    (click)="edit(item)"
+                    (click)="edit(item,caseModal)"
                     class="dropdown-item"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleLargeModal"
@@ -70,15 +71,14 @@
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
-<div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+<ng-template #caseModal let-c="close" let-d="dismiss">
+
       <div class="modal-header">
         <h5 class="modal-title">New Case</h5>
         <button
           type="button"
           class="btn-close"
-          data-bs-dismiss="modal"
+          (click)="close()"
           aria-label="Close"
         ></button>
       </div>
@@ -107,11 +107,11 @@
           <div class="row">
             <div class="col-sm-12">
               <label class="form-label">Court</label>
-              <textarea
-                type="text"
-                formControlName="court"
-                class="form-control form-control-lg"
-              ></textarea>
+              <select formControlName="court" id="" class="form-control">
+                <option value="" disabled selected>--Select Court--</option>
+                <option [value]="item.court" *ngFor="let item of courtsArray"  >{{court?.title}}</option>
+              </select>
+             
             </div>
           </div>
           <div class="row">
@@ -140,21 +140,18 @@
               />
             </div>
           </div>
-          <!-- <div class="d-grid gap-2">
-                        <button type="button" (click)="onSubmit($event)" class="btn btn-primary btn-lg mt-2">Send</button> <a href="javascript:;" (click)="onSignIn()" class="btn btn-light btn-lg"><i class='bx bx-arrow-back me-1'></i>Back to Login</a>
-                    </div> -->
         </form>
         <div class="modal-footer">
           <button
             type="button"
             class="btn btn-secondary"
-            data-bs-dismiss="modal"
+            (click)="close()"
           >Close
           </button>
           <button
             type="button"
             class="btn btn-primary"
-            [disabled]="true"
+            [disabled]="caseLawGroup.invalid"
             (click)="case_id ? update() : store()"
           >
           <span
@@ -167,6 +164,5 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    
+</ng-template>

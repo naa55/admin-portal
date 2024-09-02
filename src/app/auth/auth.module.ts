@@ -11,6 +11,7 @@ import { SigninWithHeaderFooterComponent } from './signin-with-header-footer/sig
 import { SignupWithHeaderFooterComponent } from './signup-with-header-footer/signup-with-header-footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormModule } from '../form/form.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FormModule } from '../form/form.module';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    FormModule
+    FormModule,
+    SharedModule,
   ]
 })
 export class AuthModule { }

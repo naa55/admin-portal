@@ -77,11 +77,9 @@ export class SidebarComponent implements OnInit {
     ngOnInit() {
         const userRole = sessionStorage.getItem('role');
         
-            if(userRole == 'user'){
-                this.menuItems = ROUTES.filter((menuItem => menuItem?.permission !== 'admin'));
-            }else{
-                this.menuItems = ROUTES.filter((menuItem => menuItem?.permission === 'admin'))
-            }
+        this.menuItems = ROUTES.filter(menuItem => 
+            userRole === 'user' ? menuItem?.permission !== 'admin' : menuItem?.permission === 'admin'
+        );
 
         $.getScript('./assets/js/app-sidebar.js');
 

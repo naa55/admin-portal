@@ -1,7 +1,11 @@
-import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { SpinnerService } from '../services/loader.service';
+import Swal from 'sweetalert2';
+
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 
 
@@ -11,7 +15,7 @@ import { SpinnerService } from '../services/loader.service';
   styleUrls: ['./case-law.component.scss']
 })
 export class CaseLawComponent {
-
+  @ViewChild('alert') alertNotifier:AlertComponent
   p: number = 1;
   users: []
   caseLawGroup:FormGroup
@@ -19,11 +23,13 @@ export class CaseLawComponent {
   categories:[]=[]
   casesArray: any;
   case_id: any;
-  isLoading = true
+  isLoading = false
+  courtsArray:any
   
  
 
-  constructor( private auth: AuthService){
+  constructor( private auth: AuthService, private spinner: SpinnerService, private modalService: NgbModal,
+    public activeModal: NgbActiveModal){
     this.initialiseForm()
   }
 
@@ -31,16 +37,19 @@ export class CaseLawComponent {
     // this.service.show()
     this.getCategories()
     this.getAllCases()
+    this.getAllCourts()
+      
   }
+  
 
   initialiseForm(){
     this.caseLawGroup = new FormGroup({
-      case_title: new FormControl(),
-      case_law: new FormControl(),
-      summary: new FormControl(),
-      category_id: new FormControl(),
-      court: new FormControl(),
-      case_file: new FormControl(),
+      case_title: new FormControl('',Validators.required),
+      case_law: new FormControl('',Validators.required),
+      summary: new FormControl('',Validators.required),
+      category_id: new FormControl('',Validators.required),
+      court: new FormControl('',Validators.required),
+      case_file: new FormControl(''),
     })
 }
 
@@ -53,11 +62,13 @@ export class CaseLawComponent {
      this.auth.store('/admin/case-law/store', payload).subscribe({
       next: (result) => {
         this.isLoading = false
-        console.log(result) 
+        this.modalService.dismissAll()
+        
       },
       error: (result) => {
         this.isLoading = false
-        console.log(result)
+        this.modalService.dismissAll()
+       
       }
   })
 }
@@ -68,8 +79,6 @@ onFileChange(event: any) {
 
   reader.onloadend = () => {
    this.base64File = reader.result;
-    // You can now use the base64String for further processing
- //nsole.log(base64String);
   };
 
   reader.readAsDataURL(file);
@@ -79,7 +88,7 @@ getAllCases(){
   this.auth.get('/admin/case-law/all').subscribe({
       next: (response) => {
           this.casesArray = response['case_laws']
-       
+         
         console.log(response) 
       },
       error: (result) => {
@@ -89,22 +98,23 @@ getAllCases(){
 }
 
 getCategories(){
+  this.spinner.show()
   this.auth.get('/admin/categories').subscribe({
     next: (response) => {
       this.categories = response['categories']
-
-      console.log(response);
+      this.spinner.hide()
     },
     error: (error) => {
-
-      console.log(error);
+      this.spinner.hide()
     }
   })
 }
 
-edit(category:any){
+edit(category:any,context){
+  this.open(context)
   this.case_id = category?.uuid
   console.log(category)
+  
   this.caseLawGroup.patchValue(category)
 
 }
@@ -120,7 +130,7 @@ update(){
       next: (result) => {
         this.case_id = null
         this.isLoading = false
-        console.log(result) 
+        this.modalService.dismissAll()
       },
       error: (result) => {
         console.log(result)
@@ -143,8 +153,29 @@ delete(id:string){
   })
 }
 
+getAllCourts(){
+  this.auth.get('/admin/courts/all').subscribe({
+      next: (response) => {
+          this.courtsArray = response['courts']
+        console.log(response) 
+      },
+      error: (result) => {
+        console.log(result)
+      }
+})
+}
+
 addCase(){
   this.caseLawGroup.reset()
   this.case_id = null
+}
+
+open(content){
+  this.caseLawGroup.reset()
+  this.modalService.open(content, { size: 'lg' });
+}
+
+close(){
+  this.modalService.dismissAll()
 }
 }

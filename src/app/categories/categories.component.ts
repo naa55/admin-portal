@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../services/auth.service";
 import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertComponent } from "../shared/alert/alert.component";
 
 @Component({
     selector: 'app-users',
@@ -10,11 +11,12 @@ import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-
   })
   export class CategoriesComponent implements OnInit {
     @ViewChild('#exampleLargeModal') cateogoryModal
+    @ViewChild('alert') alertNotifier:AlertComponent
 
     categoriesForm:FormGroup
     p:number = 1
     categoryArray:any;
-  category_id: any;
+    category_id: any;
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,){
@@ -27,8 +29,7 @@ import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-
     }
 
     ngAfterViewInit(): void {
-      console.log('cat ',this.cateogoryModal)
-      //this.modalService.open()
+      
     }
 
     open(content){
@@ -36,10 +37,10 @@ import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-
     }
 
     initializeForm(){
-        this.categoriesForm = new FormGroup({
-            title: new FormControl(),
-            slug: new FormControl()
-        })
+      this.categoriesForm = new FormGroup({
+        title: new FormControl('', Validators.required),
+        slug: new FormControl('', Validators.required)
+      });
     }
 
     store(){
@@ -50,9 +51,10 @@ import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-
             next: (result) => {
               this.modalService.dismissAll()
               this.getAllCategories();
+              this.alertNotifier.success('Category created successfully')
             },
             error: (result) => {
-              console.log(result)
+              this.alertNotifier.error('Error creating category')
             }
     })
 }
@@ -93,13 +95,17 @@ deleteCategory(cateogry:any){
          this.category_id = null
          this.modalService.dismissAll()
          this.getAllCategories()
-         console.log(result) 
+         this.alertNotifier.success('Category deleted successfully')
        },
        error: (result) => {
-         console.log(result)
+        this.alertNotifier.success('Failed to delete category')
        }
    })
  }
+
+ close(){
+  this.modalService.dismissAll()
+}
 
   }
   

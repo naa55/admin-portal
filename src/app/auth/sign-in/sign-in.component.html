@@ -1,82 +1,145 @@
+<app-alert #alert></app-alert>
 <div class="">
-	<!--wrapper-->
-	<div class="wrapper">
-		<p class="position-absolute top-10 end-0" style="top:20px; right: 50px !important;">Don't have an acount? <a class="" routerLink="/auth/sign-up"> Create</a></p>
-		
-		<div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
-			<div class="container-fluid">
-				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-					<div class="col mx-auto">
-						<!-- <div class="mb-4 text-center">
+  <!--wrapper-->
+  <div class="wrapper">
+    <p
+      class="position-absolute top-10 end-0"
+      style="top: 20px; right: 50px !important"
+    >
+      Don't have an acount? <a class="" routerLink="/auth/sign-up"> Create</a>
+    </p>
+
+    <div
+      class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0"
+    >
+      <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+          <div class="col mx-auto">
+            <!-- <div class="mb-4 text-center">
 							<img src="assets/images/logo-img.png" width="180" alt="" />
 						</div> -->
-						<div class="card">
-							<div class="card-body">
-								<div class="border p-4 rounded">
-									<div class="d-flex justify-content-center">
-										<span class=" badge {{selectedUser == UserType.Guest ? 'bg-primary':'bg-light text-dark' }} m-1 p-2" (click)="selectUser(UserType.Guest)">Guest</span>
-										<span class=" badge {{selectedUser == UserType.Admin ? 'bg-primary':'bg-light text-dark' }} m-1 p-2" (click)="selectUser(UserType.Admin)">Admin</span>
-									</div>
-									<div class="text-center">
-										<h3 class="">Sign in</h3>
-										<!-- <p>Don't have an account yet? <a href="JavaScript:;" (click)="onSignup()">Sign up here</a>
+            <div class="card">
+              <div class="card-body">
+                <div class="border p-4 rounded">
+                  <div class="d-flex justify-content-center">
+                    <span
+                      class=" badge {{
+                        selectedUser == UserType.Guest
+                          ? 'bg-primary'
+                          : 'bg-light text-dark'
+                      }} m-1 p-2"
+                      (click)="selectUser(UserType.Guest)"
+                      >Guest</span
+                    >
+                    <span
+                      class=" badge {{
+                        selectedUser == UserType.Admin
+                          ? 'bg-primary'
+                          : 'bg-light text-dark'
+                      }} m-1 p-2"
+                      (click)="selectUser(UserType.Admin)"
+                      >Admin</span
+                    >
+                  </div>
+                  <div class="text-center">
+                    <h3 class="">Sign in</h3>
+                    <!-- <p>Don't have an account yet? <a href="JavaScript:;" (click)="onSignup()">Sign up here</a>
 										</p> -->
-									</div>
-									<!-- <div class="d-grid">
+                  </div>
+                  <!-- <div class="d-grid">
 										<a class="btn my-4 shadow-sm btn-white" href="#" (click)="$event.preventDefault()"> <span class="d-flex justify-content-center align-items-center">
 											<img class="me-2" src="assets/images/icons/search.svg" width="16" alt="Image Description">
 											<span>Sign in with Google</span>
 											</span>
 										</a> <a href="#" (click)="$event.preventDefault()" class="btn btn-facebook"><i class="bx bxl-facebook"></i>Sign in with Facebook</a>
 									</div> -->
-									<!-- <div class="login-separater text-center mb-4"> <span>OR SIGN IN WITH EMAIL</span>
+                  <!-- <div class="login-separater text-center mb-4"> <span>OR SIGN IN WITH EMAIL</span>
 										<hr/>
 									</div> -->
-									<div class="form-body">
-										<form class="row g-3" [formGroup]="signInForms">
-											<div class="col-12">
-												<label for="inputEmailAddress" class="form-label">Email Address</label>
-												<input type="email" formControlName="email" class="form-control" id="inputEmailAddress" >
-												<div class="mt-4 text-danger" *ngIf=" signInForms.get('email').invalid &&
-												(signInForms.get('email').dirty ||
-												signInForms.get('email').touched )">
-													Email is required
-												</div>
-											</div>
-											<div class="col-12">
-												<label for="" class="form-label">Password</label>
-												<input type="password" formControlName="password" class="form-control" id="" >
-												<div class="mt-4 text-danger" *ngIf=" signInForms.get('password').invalid &&
-												(signInForms.get('password').dirty ||
-												signInForms.get('password').touched )">
-													Password is required
-												</div>
-											</div>
-											
-											<!-- <div class="col-md-6">
+                  <div class="form-body">
+                    <form class="row g-3" [formGroup]="signInForms">
+                      <div class="col-12">
+                        <label for="inputEmailAddress" class="form-label"
+                          >Email Address</label
+                        >
+                        <input
+                          type="email"
+                          formControlName="email"
+                          class="form-control"
+                          id="inputEmailAddress"
+                        />
+                        <div
+                          class="mt-4 text-danger"
+                          *ngIf="
+                            signInForms.get('email').invalid &&
+                            (signInForms.get('email').dirty ||
+                              signInForms.get('email').touched)
+                          "
+                        >
+                          Email is required
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="" class="form-label">Password</label>
+                        <input
+                          type="password"
+                          formControlName="password"
+                          class="form-control"
+                          id=""
+                        />
+                        <div
+                          class="mt-4 text-danger"
+                          *ngIf="
+                            signInForms.get('password').invalid &&
+                            (signInForms.get('password').dirty ||
+                              signInForms.get('password').touched)
+                          "
+                        >
+                          Password is required
+                        </div>
+                      </div>
+
+                      <!-- <div class="col-md-6">
 												<div class="form-check form-switch">
 													<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
 													<label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
 												</div>
 											</div> -->
-										
-											<div class="col-12">
-												<div class="d-grid">
-													<button type="button" class="btn btn-primary" (click)="signIn($event)"><i class="bx bxs-lock-open"></i>Sign in</button>
-												</div>
-											</div>
-											<div class="">	<a routerLink="/auth/forgot-password" (click)="onForgotpassword()">Forgot Password ?</a> 
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--end row-->
-			</div>
-		</div>
-	</div>
-	<!--end wrapper-->
+
+                      <div class="col-12">
+                        <div class="d-grid">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="signIn($event)"
+                          >
+                            <span
+                              [ngClass]="{ 'spinner-border': isLoading }"
+                              style="font-size: 10px; height: 20px; width: 20px"
+                              role="status"
+                            >
+                            </span>
+                            <i class="bx bxs-lock-open" *ngIf="!isLoading"></i>Sign in
+                          </button>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a
+                          routerLink="/auth/forgot-password"
+                          (click)="onForgotpassword()"
+                          >Forgot Password ?</a
+                        >
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end row-->
+      </div>
+    </div>
+  </div>
+  <!--end wrapper-->
 </div>

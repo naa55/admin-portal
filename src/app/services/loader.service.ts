@@ -28,4 +28,8 @@ export class SpinnerService {
               "<img src='https://media.giphy.com/media/o8igknyuKs6aY/giphy.gif' />",
           });
     }
+
+    hide(){
+      this.spinner.hide("mySpinner");
+    }
 }
