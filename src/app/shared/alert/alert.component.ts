@@ -13,8 +13,10 @@ export class AlertComponent {
   constructor( private renderer: Renderer2){}
 
   show() {
+    this.visible = true;
     setTimeout(() => {
-      this.closeAlert();
+      this.visible = false;
+     // this.closeAlert();
     }, 3000);
   }
 
