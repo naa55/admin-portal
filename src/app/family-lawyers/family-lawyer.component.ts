@@ -170,6 +170,8 @@ export class FamilyLawyerComponent {
   }
 
   close() {
+    this.case_id = null
+    this.caseLawGroup.reset()
     this.modalService.dismissAll();
   }
 

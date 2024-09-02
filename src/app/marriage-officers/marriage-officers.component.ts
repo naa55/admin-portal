@@ -35,6 +35,7 @@ export class MarriageOfficersComponent {
     }
 
     open(content){
+      this.marriageOfficerForm.reset()
       this.modalService.open(content, { size: 'lg' });
     }
 
@@ -89,6 +90,8 @@ save() {
 }
 
 close() {
+  this.category_id = null
+  this.marriageOfficerForm.reset()
   this.modalService.dismissAll() 
 }
 
@@ -105,7 +108,7 @@ edit(data:any,modal){
   this.category_id = data?.id
 
 this.marriageOfficerForm.patchValue(data)
-this.open(modal)
+this.modalService.open(modal, { size: 'lg' });
 }
 
 

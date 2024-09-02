@@ -111,6 +111,8 @@ const deleteId  = cateogry?.uuid
 }
 
 close(){
+  this.category_id = null
+  this.categoriesForm.reset()
 this.modalService.dismissAll()
 }
 

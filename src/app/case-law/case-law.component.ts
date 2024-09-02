@@ -176,6 +176,8 @@ open(content){
 }
 
 close(){
+  this.caseLawGroup.reset()
+  this.case_id = null
   this.modalService.dismissAll()
 }
 }

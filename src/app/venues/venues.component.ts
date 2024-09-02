@@ -26,6 +26,7 @@ category_id: any;
   }
 
   open(content){
+    this.venueForm.reset()
     this.modalService.open(content, { size: 'lg' });
   }
 
@@ -87,11 +88,12 @@ view(data:any){
 }
 
 edit(data:any,modal){
-console.log(data)
+
 this.category_id = data?.id
 
 this.venueForm.patchValue(data)
-this.open(modal)
+this.modalService.open(modal, { size: 'lg' });
+
 }
 
 

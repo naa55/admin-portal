@@ -33,6 +33,7 @@ import { AlertComponent } from "../shared/alert/alert.component";
     }
 
     open(content){
+      this.categoriesForm.reset()
       this.modalService.open(content, { size: 'lg' });
     }
 
@@ -63,7 +64,7 @@ getAllCategories(){
     this.auth.get('/admin/categories').subscribe({
         next: (response) => {
             this.categoryArray = response['categories']
-          console.log(response) 
+     
         },
         error: (result) => {
           console.log(result)
@@ -79,9 +80,12 @@ view(data:any){
 
 }
 
-edit(data:any){
+edit(data:any,context){
+  this.category_id = null
+  this.categoriesForm.reset()
   this.category_id = data?.uuid
-console.log(data);
+
+  this.modalService.open(context, { size: 'lg' });
 this.categoriesForm.patchValue(data)
 
 }
