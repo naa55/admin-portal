@@ -45,12 +45,6 @@ export const Full_ROUTES: Routes = [
 
     },
     {
-        path: 'marriage-officers',
-        loadChildren: () => import('../../marriage-officers/marriage-officers.module').then(m => m.MarriageOfficersModule),
-        canActivate: [AuthGuard]
-
-    },
-    {
         path: 'family-lawyers',
         loadChildren: () => import('../../family-lawyers/family-lawyer.module').then(m => m.FamilyLawyerModule),
         canActivate: [AuthGuard]
@@ -92,7 +86,8 @@ export const Full_ROUTES: Routes = [
     },
     {
         path: 'admin-users',
-        loadChildren: () => import('../../admin-users/admin-users.module').then(m => m.AdminUsersModule)
+        loadChildren: () => import('../../admin-users/admin-users.module').then(m => m.AdminUsersModule),
+        canActivate: [AuthGuard]
 
     },
     {
@@ -152,5 +147,10 @@ export const Full_ROUTES: Routes = [
     },{
         path: 'guest',
         loadChildren: () => import('../../guest/guest.module').then(m => m.GuestModule)
+    },
+
+    {
+        path: 'marriage-officers',
+        loadChildren: () => import('../../marriage-officers/marriage-officers.module').then(m => m.MarriageOfficersModule)
     }
 ];

@@ -6,13 +6,14 @@ import { MuslimMarriageOfficersComponent } from './muslim-marriage-officers/musl
 import { MarriageOfficersComponent } from '../marriage-officers/marriage-officers.component';
 import { GlossaryComponent } from './glossary/glossary.component';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { GuestMarriageOfficersComponent } from './marriage-officers/marriage-officers.component';
 
 
 const routes: Routes = [
   {path: 'words', component:WordsComponent},
   {path: 'venues', component: VenuesComponent},
   {path: 'muslim-marriage-officer', component: MuslimMarriageOfficersComponent},
-  {path: 'marriage-officers', component: MarriageOfficersComponent},
+  {path: 'marriage-officers', component: GuestMarriageOfficersComponent},
   {path: 'glossary', component:GlossaryComponent}
 ];
 

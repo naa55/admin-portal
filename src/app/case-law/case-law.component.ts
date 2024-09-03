@@ -180,4 +180,8 @@ close(){
   this.case_id = null
   this.modalService.dismissAll()
 }
+
+search($event){
+  console.log($event)
+ }
 }

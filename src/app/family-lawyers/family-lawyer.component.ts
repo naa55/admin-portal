@@ -175,5 +175,7 @@ export class FamilyLawyerComponent {
     this.modalService.dismissAll();
   }
 
- 
+  search($event){
+    console.log($event)
+   }
 }

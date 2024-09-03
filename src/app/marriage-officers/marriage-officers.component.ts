@@ -128,4 +128,8 @@ deleteCategory(cateogry:any){
    })
  }
 
+ search($event){
+  console.log($event)
+ }
+
 }

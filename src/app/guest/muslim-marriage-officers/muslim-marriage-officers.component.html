@@ -24,14 +24,11 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                     <ul class="dropdown-menu">
-                        <li (click)="edit(category)" class="dropdown-item" class="dropdown-item"
+                        <li (click)="open(item,officersModal)" class="dropdown-item" class="dropdown-item"
                         data-bs-toggle="modal"
-                        data-bs-target="#exampleLargeModal">Edit
+                        data-bs-target="#exampleLargeModal">Open
                         </li>
-                        <li (click)="view(item)" class="dropdown-item">View
-                        </li>
-                        <li (click)="deleteCategory(item)" class="dropdown-item">Delete
-                        </li>
+                        
                     </ul>
                 </div>
               </td>
@@ -47,3 +44,50 @@
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   
   </div>
+
+  <ng-template #officersModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">Marriage Officer</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+  </div>
+  <div class="modal-body">
+    <form class="my-4" [formGroup]="marriageOfficerForm">
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="form-label">Officer Name</label>
+                <input type="text"
+                formControlName="officer_name"
+                 class="form-control form-control-lg" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <label class="form-label">Licence Officer</label>
+              <input type="text"
+              formControlName="license_officer"
+               class="form-control form-control-lg" />
+               
+            </div>
+        
+            <div class="col-md-6 col-sm-12">
+                <label class="form-label">License Number</label>
+                <input type="text"
+                formControlName="license_number"
+                 class="form-control form-control-lg" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">License Officer Designation</label>
+                <input type="text"
+                formControlName="license_officer_designation"
+                 class="form-control form-control-lg" />
+            </div>
+        </div>
+    </form>
+</div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()()">Close</button>
+      
+  </div>
+  </ng-template>

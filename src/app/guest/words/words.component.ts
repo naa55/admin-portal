@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,12 +11,19 @@ import { AuthService } from 'src/app/services/auth.service';
 export class WordsComponent {
 
   wordsArray:any
-  constructor(private auth: AuthService){
+  p = 1
+  wordsForm:FormGroup
+  constructor(private auth: AuthService,private modalService: NgbModal){
     
   }
 
-  getVenues() {
-    this.auth.get('/admin/categories').subscribe({
+  ngOnInit() {
+    this.getWords()
+    this.initializeForm()
+  }
+
+  getWords() {
+    this.auth.get('/guest/active-word').subscribe({
       next: (response) => {
         this.wordsArray = response['glossary'];
         console.log(response);
@@ -24,4 +33,23 @@ export class WordsComponent {
       },
     });
   }
+
+  initializeForm(){
+    this.wordsForm = new FormGroup({
+        word: new FormControl('',Validators.required),
+        source: new FormControl('',Validators.required),
+        meaning: new FormControl('',Validators.required),
+        related_terms: new FormControl('',Validators.required),
+    })
+}
+
+open(data,content){
+  this.wordsForm.reset()
+  this.wordsForm.patchValue(data)
+  this.modalService.open(content, { size: 'lg' });
+}
+
+close(){
+  
+}
 }

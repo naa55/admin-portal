@@ -107,4 +107,8 @@ deleteCategory(cateogry:any){
  close(){
   this.modalService.dismissAll()
 }
+
+search($event){
+  console.log($event)
+ }
 }

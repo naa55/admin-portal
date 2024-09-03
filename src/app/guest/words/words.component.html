@@ -1,1 +1,93 @@
-<p>words works!</p>
+<div class="card mt-2">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Name</th>
+              <th> Town</th>
+              <th>District</th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let item of wordsArray | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>{{item.word }}</td>
+              
+              <td>
+                <span>{{item.meaning}}</span>
+              </td>
+              <td>
+                <span>{{item.related_terms }}</span>
+              </td>
+             
+              <td>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+                    <ul class="dropdown-menu">
+                        <li (click)="open(item,officersModal)" class="dropdown-item" class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleLargeModal">Open
+                        </li>
+                        
+                    </ul>
+                </div>
+              </td>
+            </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="float: right; margin-bottom: 50px;">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+  </div>
+
+  <ng-template #officersModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">Marriage Officer</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+  </div>
+  <div class="modal-body">
+    <form class="my-4" [formGroup]="marriageOfficerForm">
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="form-label">Word</label>
+                <input type="text"
+                formControlName="word"
+                 class="form-control form-control-lg" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <label class="form-label">Source</label>
+              <input type="text"
+              formControlName="source"
+               class="form-control form-control-lg" />
+               
+            </div>
+        
+            <div class="col-md-6 col-sm-12">
+                <label class="form-label">Meaning</label>
+                <input type="text"
+                formControlName="meaning"
+                 class="form-control form-control-lg" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Related Terms</label>
+                <input type="text"
+                formControlName="related_terms"
+                 class="form-control form-control-lg" />
+            </div>
+        </div>
+    </form>
+</div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()()">Close</button>
+      
+  </div>
+  </ng-template>

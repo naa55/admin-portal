@@ -112,4 +112,8 @@ const deleteId  = cateogry?.uuid
      }
  })
 }
+
+search($event){
+  console.log($event)
+ }
 }

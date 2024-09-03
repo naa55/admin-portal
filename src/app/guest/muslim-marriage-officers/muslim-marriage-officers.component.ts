@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,11 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MuslimMarriageOfficersComponent {
   muslimMarriageOfficers:any
   p = 1
-  constructor(private auth: AuthService){
+  marriageOfficerForm:FormGroup
+  constructor(private auth: AuthService,private modalService: NgbModal,){
     
   }
 
   ngOnInit() {
+    this.initializeForm()
     this.getMuslimMarriageOfficers()
   }
 
@@ -28,4 +32,23 @@ export class MuslimMarriageOfficersComponent {
       },
     });
   }
+
+  initializeForm(){
+    this.marriageOfficerForm = new FormGroup({
+        officer_name: new FormControl('',Validators.required),
+        license_officer: new FormControl('',Validators.required),
+        license_number: new FormControl('',Validators.required),
+        license_officer_designation: new FormControl('',Validators.required),
+    })
+}
+
+open(data,content){
+  this.marriageOfficerForm.reset()
+  this.marriageOfficerForm.patchValue(data)
+  this.modalService.open(content, { size: 'lg' });
+}
+
+close(){
+  this.modalService.dismissAll()
+}
 }

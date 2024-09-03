@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MarriageOfficersComponent } from './marriage-officers/marriage-officers.component';
+import { GuestMarriageOfficersComponent } from './marriage-officers/marriage-officers.component';
 import { MuslimMarriageOfficersComponent } from './muslim-marriage-officers/muslim-marriage-officers.component';
 import { VenuesComponent } from './venues/venues.component';
 import { MarriageCounsellorsComponent } from './marriage-counsellors/marriage-counsellors.component';
@@ -10,11 +10,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ShareModule } from '../share/share.module';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { GlossaryComponent } from './glossary/glossary.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    MarriageOfficersComponent,
+    GuestMarriageOfficersComponent,
     MuslimMarriageOfficersComponent,
     VenuesComponent,
     MarriageCounsellorsComponent,
@@ -25,7 +26,8 @@ import { GlossaryComponent } from './glossary/glossary.component';
     CommonModule,
     GuestRoutingModule,
     ShareModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: PERFECT_SCROLLBAR_CONFIG }

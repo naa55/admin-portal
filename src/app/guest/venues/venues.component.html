@@ -23,14 +23,11 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                     <ul class="dropdown-menu">
-                        <li (click)="edit(category)" class="dropdown-item" class="dropdown-item"
+                        <li (click)="open(item,cateogoryModal)" class="dropdown-item" class="dropdown-item"
                         data-bs-toggle="modal"
-                        data-bs-target="#exampleLargeModal">Edit
+                        data-bs-target="#exampleLargeModal">View
                         </li>
-                        <li (click)="view(item)" class="dropdown-item">View
-                        </li>
-                        <li (click)="deleteCategory(item)" class="dropdown-item">Delete
-                        </li>
+                        
                     </ul>
                 </div>
               </td>
@@ -46,3 +43,103 @@
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   
   </div>
+
+  <ng-template #cateogoryModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">Venue</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="close()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form class="my-4" [formGroup]="venuesForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="form-label">Branch</label>
+            <input
+              type="text"
+              formControlName="branch"
+              class="form-control form-control-lg"
+            />
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label">Denomination</label>
+            <input
+              type="text"
+              formControlName="denomination"
+              class="form-control form-control-lg"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="form-label">Designation</label>
+            <input
+              type="text"
+              formControlName="designation"
+              class="form-control form-control-lg"
+            />
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label">Licence Officer</label>
+            <input
+              type="text"
+              formControlName="license_officer"
+              class="form-control form-control-lg"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="form-label">Location</label>
+            <input
+              type="text"
+              formControlName="location"
+              class="form-control form-control-lg"
+            />
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label">Region</label>
+            <input
+              type="text"
+              formControlName="region"
+              class="form-control form-control-lg"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="form-label">Gazette Number</label>
+            <input
+              type="text"
+              formControlName="gazette_number"
+              class="form-control form-control-lg"
+            />
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label">Gazette Date</label>
+            <input
+              type="text"
+              formControlName="gazette_date"
+              class="form-control form-control-lg"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        (click)="close()"
+      >
+        Close
+      </button>
+  
+    </div>
+  </ng-template>
