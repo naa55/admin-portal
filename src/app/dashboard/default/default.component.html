@@ -1,41 +1,77 @@
 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-	<div class="col">
-		<div class="card radius-10 border-start border-0 border-3 border-info">
-			<div class="card-body">
-				<div class="d-flex align-items-center">
-					<div>
-						<p class="mb-0 text-secondary">Active Contractors</p>
-						<h4 class="my-1 text-info">4805</h4>
-						<!-- <p class="mb-0 font-13">+2.5% from last week</p> -->
+	<a routerLink="/marriage-officers">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-info">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Marriage Officers</p>
+							<h4 *ngIf="officersLength; else notOfficer" class="my-1 text-info">{{ officersLength }}</h4>
+							<ng-template #notOfficer>
+								<div *ngIf="!officersLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+								class='bx bx-user'></i>
+						</div>
 					</div>
-					<!-- <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class='bx bxs-cart'></i>
-					</div> -->
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col">
-		<div class="card radius-10 border-start border-0 border-3 border-danger">
-			<div class="card-body">
-				<div class="d-flex align-items-center">
-					<div>
-						<p class="mb-0 text-secondary">Pending Approval</p>
-						<h4 class="my-1 text-danger">245</h4>
-						<!-- <p class="mb-0 font-13">+5.4% from last week</p> -->
+	</a>
+	<a routerLink="/case-law">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-info">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Case Law & Statutes</p>
+							<h4 *ngIf="caseListLength; else notCase" class="my-1 text-secondary">{{ caseListLength }}
+							</h4>
+							<ng-template #notCase>
+								<div *ngIf="!officersLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bx-book-reader' style='color:#ffffff' ></i>
+						</div>
 					</div>
-					<!-- <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bxs-wallet'></i>
-					</div> -->
 				</div>
 			</div>
 		</div>
-	</div>
-	 <div class="col">
+	</a>
+	<a routerLink="/venues">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-danger">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Venues</p>
+							<h4 *ngIf="venuesLength; else notVenues" class="my-1 text-danger">{{ venuesLength }}</h4>
+							<ng-template #notVenues>
+								<div *ngIf="!venuesLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+							<!-- <p class="mb-0 font-13">+5.4% from last week</p> -->
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bx-buildings' style='color:#ffffff' ></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+	<div class="col">
 		<div class="card radius-10 border-start border-0 border-3 border-success">
 			<div class="card-body">
 				<div class="d-flex align-items-center">
 					<div>
-						<p class="mb-0 text-secondary">Revenue Generated</p>
-						<h4 class="my-1 text-success">$3434</h4>
+						<p class="mb-0 text-secondary">Imams</p>
+						<!-- <h4 class="my-1 text-success">$3434</h4> -->
 						<!-- <p class="mb-0 font-13">-4.5% from last week</p> -->
 					</div>
 					<!-- <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bxs-bar-chart-alt-2'></i>
@@ -44,21 +80,51 @@
 			</div>
 		</div>
 	</div>
-	<!--<div class="col">
-		<div class="card radius-10 border-start border-0 border-3 border-warning">
-			<div class="card-body">
-				<div class="d-flex align-items-center">
-					<div>
-						<p class="mb-0 text-secondary">Total Customers</p>
-						<h4 class="my-1 text-warning">8.4K</h4>
-						<p class="mb-0 font-13">+8.4% from last week</p>
-					</div>
-					<div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bxs-group'></i>
+	<a routerLink="/courts">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-warning">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Courts</p>
+							<h4 *ngIf="courtListLength; else notCourts" class="my-1 text-warning">{{ courtListLength }}
+							</h4>
+							<ng-template #notCourts>
+								<div *ngIf="!courtListLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bx-building-house'></i>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</a>
+	<a routerLink="/marriage-officers">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-info">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Family Lawyers</p>
+							<h4 *ngIf="familyLawyerLength; else notLawyer" class="my-1 text-info">{{ familyLawyerLength
+								}}</h4>
+							<ng-template #notLawyer>
+								<div *ngIf="!familyLawyerLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+								class='bx bx-user'></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
 </div>
 <!--end row-->
 <!-- <div class="row">
