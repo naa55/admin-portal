@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../services/auth.service";
 import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from "../shared/alert/alert.component";
+import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-users',
@@ -18,6 +19,7 @@ export class AdminUsersComponent {
   categoryArray:any;
  category_id: any;
  isLoading = false
+ model: NgbDateStruct;
 
   constructor(private auth: AuthService,
     private modalService: NgbModal,){

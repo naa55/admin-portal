@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
@@ -17,6 +17,7 @@ export class CourtsComponent {
     p:number = 1
     categoryArray:any;
   category_id: any;
+  model: NgbDateStruct;
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,){
@@ -38,8 +39,9 @@ export class CourtsComponent {
 
     initializeForm(){
         this.categoriesForm = new FormGroup({
-            title: new FormControl('',Validators.required),
-            slug: new FormControl('',Validators.required)
+          court: new FormControl('',Validators.required),
+          description: new FormControl('',Validators.required),
+          category: new FormControl('',Validators.required),
         })
     }
 
@@ -47,7 +49,7 @@ export class CourtsComponent {
       
         const payload = this.categoriesForm.value
 
-        this.auth.store('/admin/create-category', payload).subscribe({
+        this.auth.store('/admin/courts/store', payload).subscribe({
             next: (result) => {
               this.modalService.dismissAll()
               this.getAllCategories();
@@ -79,10 +81,10 @@ view(data:any){
 
 }
 
-edit(data:any){
+edit(data:any,context){
   this.category_id = data?.uuid
-console.log(data);
-this.categoriesForm.patchValue(data)
+  this.categoriesForm.patchValue(data)
+  this.open(context)
 
 }
 
@@ -108,7 +110,25 @@ deleteCategory(cateogry:any){
   this.modalService.dismissAll()
 }
 
+
+
 search($event){
   console.log($event)
  }
+
+ update(){
+      
+  const payload = this.categoriesForm.value
+
+  this.auth.store(`/admin/courts/update/${this.category_id}`, payload).subscribe({
+      next: (result) => {
+        this.modalService.dismissAll()
+        this.getAllCategories();
+        this.alertNotifier.success('Court updated successfully')
+      },
+      error: (result) => {
+        this.alertNotifier.error('Error updated court')
+      }
+})
+}
 }

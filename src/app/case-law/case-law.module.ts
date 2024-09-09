@@ -5,7 +5,7 @@ import { CaseLawRoutingModule } from './case-law-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CaseLawComponent } from './case-law.component';
-import { NgbActiveModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDatepickerModule, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -22,6 +22,7 @@ import { SharedModule } from '../shared/shared.module';
     NgxPaginationModule,
     NgbModule,
     NgbModalModule,
+    NgbDatepickerModule,
     SharedModule
   ],
   providers: [NgbActiveModal]

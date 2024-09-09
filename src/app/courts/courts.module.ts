@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CourtsRoutingModule } from './courts-routing.module';
 import { CourtsComponent } from './courts.component';
-import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -19,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbDatepickerModule,
     NgbModule,
     NgbModalModule,
     SharedModule

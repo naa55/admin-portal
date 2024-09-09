@@ -194,12 +194,32 @@
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Gazette Date</label>
+          <!-- <label class="form-label">Gazette Date</label>
           <input
             type="date"
             formControlName="gazette_date"
             class="form-control form-control-lg"
-          />
+          /> -->
+          <div class="calendar">
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp"
+                [(ngModel)]="gazette_date"
+                formControlName="gazette_date"
+                class="form-control form-control-lg"
+                ngbDatepicker
+                #d1="ngbDatepicker"
+              />
+              <button
+                class="btn btn-outline-secondary bx bxs-calendar"
+                (click)="d1.toggle()"
+                type="button"
+              ></button>
+            </div>
+            
+          </div>
         </div>
       </div>
       <div class="row">
@@ -213,12 +233,31 @@
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Appointment Date</label>
+          <!-- <label class="form-label">Appointment Date</label>
           <input
             type="date"
             formControlName="appointment_date"
             class="form-control form-control-lg"
-          />
+          /> -->
+          <div class="calendar">
+            <div class="input-group">
+              <input
+                class="form-control form-control-lg"
+                placeholder="yyyy-mm-dd"
+                formControlName="appointment_date"
+                name="dp"
+                [(ngModel)]="appointment_date"
+                ngbDatepicker
+                #d2="ngbDatepicker"
+              />
+              <button
+                class="btn btn-outline-secondary bx bxs-calendar"
+                (click)="d2.toggle()"
+                type="button"
+              ></button>
+            </div>
+           
+          </div>
         </div>
       </div>
     </form>
@@ -235,10 +274,10 @@
     <button
       type="button"
       class="btn btn-primary"
-      (click)="store()"
+      (click)="category_id? update() : store()"
       [disabled]="marriageOfficerForm.invalid"
     >
-      Save changes
+      {{!category_id? 'Save' : 'Update'}}
     </button>
   </div>
 </ng-template>

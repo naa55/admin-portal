@@ -6,6 +6,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { NotifierService } from 'angular-notifier';
 import { AlertComponent } from '../shared/alert/alert.component';
+import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-family-lawyer',
@@ -14,7 +16,7 @@ import { AlertComponent } from '../shared/alert/alert.component';
 })
 export class FamilyLawyerComponent {
   @ViewChild('alert') alertNotifier:AlertComponent
-
+  model: NgbDateStruct;
   p: number = 1;
   users: [];
   caseLawGroup: FormGroup;
@@ -31,12 +33,13 @@ export class FamilyLawyerComponent {
     private notifier: NotifierService,
    
   ) {
-    this.initialiseForm();
+
   }
 
   ngOnInit() {
     // this.service.show()
     this.getCategories();
+    this.initialiseForm();
   }
 
   ngAfterViewInit() {}
@@ -67,14 +70,16 @@ export class FamilyLawyerComponent {
       work_experience: new FormControl('',Validators.required),
       date_of_call: new FormControl('',Validators.required),
       profile_picture: new FormControl('',Validators.required),
+      slug: new FormControl(''),
     });
   }
 
   store() {
+   
     this.isLoading = true;
     let payload = this.caseLawGroup.value;
-    payload['case_file'] = this.base64File;
-    payload['case_law'] = 'First human law';
+    payload['profile_picture'] = this.base64File;
+    // payload['case_law'] = 'First human law';
 
     this.auth.store('/admin/lawyers/store', payload).subscribe({
       next: (result) => {
@@ -164,7 +169,7 @@ export class FamilyLawyerComponent {
   }
 
   open(content) {
-    this.alertNotifier.success('We have an alert now');
+    
     this.caseLawGroup.reset()
     this.modalService.open(content, { size: 'lg' });
   }
@@ -178,4 +183,6 @@ export class FamilyLawyerComponent {
   search($event){
     console.log($event)
    }
+
+   
 }

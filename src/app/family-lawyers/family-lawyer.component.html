@@ -89,7 +89,7 @@
 
 <ng-template #cateogoryModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h5 class="modal-title">New Category</h5>
+    <h5 class="modal-title">Family Lawyers</h5>
     <button
       type="button"
       class="btn-close"
@@ -99,13 +99,13 @@
     ></button>
   </div>
   <div class="modal-body">
-    <form class="my-4" [formGroup]="categoriesForm">
+    <form class="my-4" [formGroup]="caseLawGroup">
       <div class="row">
         <div class="col-sm-12">
           <label class="form-label">Name</label>
           <input
             type="text"
-            formControlName="name"
+            formControlName="lawyer"
             class="form-control form-control-lg"
           />
         </div>
@@ -153,7 +153,7 @@
           <label class="form-label">About</label>
           <input
             type="text"
-            formControlName="position_held"
+            formControlName="about"
             class="form-control form-control-lg"
           />
         </div>
@@ -192,7 +192,8 @@
         <div class="col-sm-12">
           <label class="form-label">Profile Picture</label>
           <input
-            type="date"
+            type="file"
+            (change)="onFileChange($event)"
             formControlName="profile_picture"
             class="form-control form-control-lg"
           />
@@ -222,7 +223,7 @@
     <button
       type="button"
       class="btn btn-primary"
-      [disabled]="caseLawGroup.invalid"
+      [disabled]="false"
       (click)="case_id ? update() : store()"
     >
       <span

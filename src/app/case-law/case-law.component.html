@@ -123,7 +123,7 @@
               <label class="form-label">Court</label>
               <select formControlName="court" id="" class="form-control">
                 <option value="" disabled selected>--Select Court--</option>
-                <option [value]="item.court" *ngFor="let item of courtsArray"  >{{court?.title}}</option>
+                <option [value]="item.court" *ngFor="let item of courtsArray" >{{item?.court}}</option>
               </select>
              
             </div>

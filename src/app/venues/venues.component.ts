@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-venues',
@@ -9,7 +10,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./venues.component.scss']
 })
 export class VenuesComponent {
-
+  @ViewChild('alert') alertNotifier:AlertComponent
   venueForm:FormGroup
   p:number = 1
   officers:any;
@@ -52,10 +53,12 @@ category_id: any;
 
       this.auth.store('/admin/venues/store', payload).subscribe({
           next: (result) => {
+            this.alertNotifier.success('Venue was successfully stored')
             this.modalService.dismissAll()
             this.getAllVenues();
           },
           error: (result) => {
+            this.alertNotifier.error('Venue was not successfully ')
             console.log(result)
           }
   })
@@ -76,6 +79,7 @@ getAllVenues(){
 
 
 close() {
+  this.category_id = null;
 this.modalService.dismissAll() 
 }
 
@@ -99,7 +103,7 @@ this.modalService.open(modal, { size: 'lg' });
 
 deleteCategory(cateogry:any){
 console.log(cateogry)
-const deleteId  = cateogry?.uuid
+const deleteId  = cateogry?.id
     this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
      next: (result) => {
        this.category_id = null
@@ -115,5 +119,20 @@ const deleteId  = cateogry?.uuid
 
 search($event){
   console.log($event)
+ }
+
+ update(){
+  const payload = this.venueForm.value
+
+  this.auth.store(`/admin/venues/update/${this.category_id}`, payload).subscribe({
+      next: (result) => {
+        this.alertNotifier.success('Venue was successfully updated')
+        this.modalService.dismissAll()
+        this.getAllVenues();
+      },
+      error: (result) => {
+        this.alertNotifier.error('Venue was not updated successfully ')
+      }
+})
  }
 }

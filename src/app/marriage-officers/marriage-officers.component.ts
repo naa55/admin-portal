@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertComponent } from '../shared/alert/alert.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-marriage-officers',
@@ -16,7 +17,10 @@ export class MarriageOfficersComponent {
   marriageOfficerForm:FormGroup
     p:number = 1
     officers:any;
-  category_id: any;
+    category_id: any;
+    model: NgbDateStruct;
+    gazette_date:NgbDateStruct
+    appointment_date: NgbDateStruct
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,
@@ -27,11 +31,6 @@ export class MarriageOfficersComponent {
        this.initializeForm()
        this.getAllOfficers()
        
-    }
-
-    ngAfterViewInit(): void {
-      console.log('cat ',this.cateogoryModal)
-      //this.modalService.open()
     }
 
     open(content){
@@ -51,7 +50,6 @@ export class MarriageOfficersComponent {
             gazette_number: new FormControl('',Validators.required),
             gazette_date: new FormControl('',Validators.required),
             license_officer: new FormControl('',Validators.required),
-            
             appointment_date: new FormControl('',Validators.required),
         })
     }
@@ -75,8 +73,8 @@ export class MarriageOfficersComponent {
 getAllOfficers(){
     this.auth.get('/admin/marriage-officers/all').subscribe({
         next: (response) => {
-            this.officers = response['officers']
           console.log(response) 
+          this.officers = response['officers']
         },
         error: (result) => {
           console.log(result)
@@ -85,7 +83,7 @@ getAllOfficers(){
 }
 
 save() {
- // Perform save operation
+
   this.activeModal.close('Save'); 
 }
 
@@ -108,6 +106,12 @@ edit(data:any,modal){
   this.category_id = data?.id
 
 this.marriageOfficerForm.patchValue(data)
+this.marriageOfficerForm.controls['name'].setValue(data?.officer_name)
+this.marriageOfficerForm.controls['designation'].setValue(data?.license_officer_designation)
+this.gazette_date = this.formatDateToStruct( moment(data?.gazette_date,'YYYY-MMM-DD').format('YYYY-MM-DD'))
+this.appointment_date = this.formatDateToStruct( moment(data?.appointment_date,'YYYY-MMM-DD').format('YYYY-MM-DD'))
+
+
 this.modalService.open(modal, { size: 'lg' });
 }
 
@@ -132,4 +136,40 @@ deleteCategory(cateogry:any){
   console.log($event)
  }
 
+ update(){
+      
+  const payload = this.marriageOfficerForm.value
+  payload['gazette_date']= this.reverseDateStruct(payload['gazette_date'])
+  payload['appointment_date']= this.reverseDateStruct(payload['appointment_date'])
+//console.log('p ', payload);
+
+  this.auth.update(`/admin/marriage-officers/christian/update/${this.category_id}`, payload).subscribe({
+      next: (result) => {
+        this.modalService.dismissAll()
+        this.getAllOfficers();
+        this.alertNotifier.success('Marriage Officer created successfully')
+      },
+      error: (result) => {
+        this.alertNotifier.success('Marriage Officer creation unsuccessful')
+      }
+})
+}
+
+formatDateToStruct(date: string){
+  let dateArray = date.split('-')
+  let model:NgbDateStruct = {
+    year: Number(dateArray[0]),
+  month: Number(dateArray[1]),
+  day: Number(dateArray[2])
+  }
+
+  return model;
+}
+
+
+reverseDateStruct(date: NgbDateStruct){
+  return moment(`${date?.year}-${date?.month}-${date?.day}`,'YYYY-MM-DD').format('YYYY-MM-DD')
+  console.log(`${date?.year}-${date?.month}-${date?.day}`)
+ return `${date?.year}-${date?.month}-${date?.day}`
+}
 }

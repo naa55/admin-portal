@@ -23,7 +23,7 @@
           <thead class="table-light">
             <tr>
               <th>Courts</th>
-              <th> Location</th>
+              <th> Category</th>
               <th>Jurisdiction</th>
               <th></th>
             </tr>
@@ -33,7 +33,7 @@
               <td>{{item.court}}</td>
               
               <td>
-                <span>{{item.location}}</span>
+                <span>{{item.category}}</span>
               </td>
               <td>
                 <span>{{item.jurisdiction}}</span>
@@ -43,7 +43,7 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                     <ul class="dropdown-menu">
-                        <li (click)="edit(category)" class="dropdown-item" class="dropdown-item"
+                        <li (click)="edit(item,cateogoryModal)" class="dropdown-item" class="dropdown-item"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleLargeModal">Edit
                         </li>
@@ -78,7 +78,7 @@
             <div class="col-sm-12">
                 <label class="form-label">Court</label>
                 <input type="text"
-                formControlName="title"
+                formControlName="court"
                  class="form-control form-control-lg" />
             </div>
         </div>
@@ -86,7 +86,7 @@
             <div class="col-sm-12">
                 <label class="form-label">Description</label>
                 <textarea type="text"
-                formControlName="slug"
+                formControlName="description"
                  class="form-control form-control-lg" ></textarea>
             </div>
         </div>
@@ -119,36 +119,4 @@
   </div>
   </ng-template>
 
-  <!-- <div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">New Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="my-4" [formGroup]="categoriesForm">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label class="form-label">Title</label>
-                            <input type="text"
-                            formControlName="title"
-                             class="form-control form-control-lg" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label class="form-label">Slug</label>
-                            <textarea type="text"
-                            formControlName="slug"
-                             class="form-control form-control-lg" ></textarea>
-                        </div>
-                    </div>
-                </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" (click)="store()">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> -->
+ 

@@ -5,7 +5,7 @@ import { MarriageOfficersRoutingModule } from './marriage-officers-routing.modul
 import { MarriageOfficersComponent } from './marriage-officers.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModalModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbActiveModal, NgbDatepickerModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -18,6 +18,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     NgbModalModule,
+    NgbDatepickerModule,
+    NgbAlertModule,
     MarriageOfficersRoutingModule,
     SharedModule
   ],

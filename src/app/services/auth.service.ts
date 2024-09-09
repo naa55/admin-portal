@@ -120,10 +120,10 @@ export class AuthService {
     });
   }
   // update a single resource
-  update(url, payload, token) {
+  update(url, payload) {
     const config = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: 'Bearer ' + this.token,
     });
     return this.http.patch(`${this.server}${url}`, payload, {
       headers: config,
