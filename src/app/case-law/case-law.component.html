@@ -15,26 +15,24 @@
   <div class="card-body">
     <div class="d-lg-flex align-items-center mb-4 gap-3">
       <div class="position-relative">
-        <input
-          type="text"
-          class="form-control ps-5 radius-30"
-          placeholder="Search Order"
-          (keydown)="search($event.target.value)"
-        />
-        <span
-          class="position-absolute top-50 product-show translate-middle-y"
-          ><i class="bx bx-search"></i
-        ></span>
+        <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="title" placeholder="Case" 
+           />
+      </div>
+      <div class="position-relative">
+        <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="court" placeholder="Court"/>
+      </div>
+      <div>
+        <button type="submit" (click)="searchCase()" class="btn btn-primary">Search</button>
       </div>
     </div>
     <div class="table-responsive">
       <table class="table align-middle mb-0">
         <thead class="table-light">
           <tr>
-            <th>Title</th>
-            <th>Case Law</th>
-            <th>Summary</th>
+            <th>Case</th>
+            <th>Court</th>
             <th>Category</th>
+            <th>Summary</th>
           </tr>
         </thead>
         <tbody

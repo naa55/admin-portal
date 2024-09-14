@@ -25,6 +25,8 @@ export class CaseLawComponent {
   case_id: any;
   isLoading = false
   courtsArray:any
+  title: string = "";
+  court: string =  "";
   
  
 
@@ -181,7 +183,15 @@ close(){
   this.modalService.dismissAll()
 }
 
-search($event){
-  console.log($event)
- }
+searchCase() {
+   console.log('search')
+    this.auth.get(`/admin/case-law/filter?title=${this.title}&court=${this.court}`).subscribe({
+      next: (response) => {
+        console.log(response)
+        if(response) {
+          this.casesArray = response['caseLaws']
+        }
+      }
+    })
+}
 }

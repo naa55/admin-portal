@@ -17,6 +17,11 @@ export class DefaultComponent implements OnInit {
   caseListLength: number;
   familyLawyerList: any;
   familyLawyerLength: any;
+  ImamLength: number;
+  ImamList: any;
+  glossaryList: any;
+  glossaryLength: any;
+  
 
 
   constructor(private auth: AuthService) { }
@@ -29,6 +34,8 @@ export class DefaultComponent implements OnInit {
     this.getAllCourts();
     this.getAllCases();
     this.getAllFamilyLawyers();
+    this.getImamList();
+    this.getGlossaryList()
   }
 
 
@@ -90,6 +97,35 @@ export class DefaultComponent implements OnInit {
         this.familyLawyerList = response['lawyers'];
         this.familyLawyerLength = response['lawyers'].length;
         console.log(this.familyLawyerLength)
+      },
+      error: (result) => {
+        console.log(result)
+      }
+    })
+  }
+
+  getImamList() {
+    const category = "muslim";
+    this.auth.get(`/admin/marriage-officers/all?type=${category}`).subscribe({
+      next: (response) => {
+        console.log(response)
+        this.ImamList = response['officers'];
+        this.ImamLength = response['officers'].length;
+        console.log(this.ImamLength)
+      },
+      error: (result) => {
+        console.log(result)
+      }
+    })
+  }
+  getGlossaryList() {
+    this.auth.get('/admin/glossary/all').subscribe({
+      next: (response) => {
+        console.log(response)
+        this.glossaryList = response['words'];
+        this.glossaryLength = response['words'].length;
+
+     
       },
       error: (result) => {
         console.log(result)

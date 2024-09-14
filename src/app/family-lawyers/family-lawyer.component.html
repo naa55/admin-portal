@@ -15,25 +15,20 @@
   <div class="card-body">
     <div class="d-lg-flex align-items-center mb-4 gap-3">
       <div class="position-relative">
-        <input
-          type="text"
-          class="form-control ps-5 radius-30"
-          placeholder="Search Order"
-          (keydown)="search($event.target.value)"
-        />
-        <span
-          class="position-absolute top-50 product-show translate-middle-y"
-          ><i class="bx bx-search"></i
-        ></span>
+        <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="name" placeholder="Lawyer Name" 
+           />
+      </div>
+      <div>
+        <button type="submit" (click)="searchFamily()" class="btn btn-primary">Search</button>
       </div>
     </div>
     <div class="table-responsive">
       <table class="table align-middle mb-0">
         <thead class="table-light">
           <tr>
-            <th>Name</th>
+            <th>Lawyer</th>
             <th>Case Track Record</th>
-            <th>Postion Held</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -43,12 +38,10 @@
                 | paginate : { itemsPerPage: 10, currentPage: p }
             "
           >
-            <td>{{ item.lawyer_name }}</td>
-
+            <td>{{ item.lawyer_name}}</td>
             <td>
               <span>{{ item.case_track_record }}</span>
             </td>
-            <td>{{ item?.position_held }}</td>
             <td>
               <div class="dropdown">
                 <button

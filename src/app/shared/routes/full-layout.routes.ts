@@ -29,14 +29,26 @@ export const Full_ROUTES: Routes = [
 
     },
     {
-        path: 'councellors',
-        loadChildren: () => import('../../councellors/councellors.module').then(m => m.CouncellorsModule),
+        path: 'counsellors',
+        loadChildren: () => import('../../counsellors/counsellors.module').then(m => m.CounsellorsModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'glossary',
+        loadChildren: () => import('../../glossary/glossary.module').then(m => m.GlossaryModule),
         canActivate: [AuthGuard]
 
     },
     {
         path: 'family-lawyers',
         loadChildren: () => import('../../family-lawyers/family-lawyer.module').then(m => m.FamilyLawyerModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'imams',
+        loadChildren: () => import('../../imams/imams.module').then(m => m.ImamsModule),
         canActivate: [AuthGuard]
 
     },

@@ -110,22 +110,22 @@ export class AuthService {
   }
 
   // update a single resource
-  updateWithId(url, id, payload, token) {
+  updateWithId(url, id, payload) {
     const config = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: 'Bearer ' + this.token,
     });
     return this.http.patch(`${this.server}${url}/${id}`, payload, {
       headers: config,
     });
   }
   // update a single resource
-  update(url, payload, token) {
+  update(url, payload) {
     const config = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: 'Bearer ' + this.token,
     });
-    return this.http.patch(`${this.server}${url}`, payload, {
+    return this.http.post(`${this.server}${url}`, payload, {
       headers: config,
     });
   }
@@ -137,14 +137,16 @@ export class AuthService {
     });
     return this.http.delete(`${this.server}${url}/${id}`, { headers: config });
   }
-  destroyShip(url, id, token) {
+  destroyUrl(url) {
+    console.log(url)
+    console.log(url)
     const config = new HttpHeaders({
-      Authorization: 'Bearer ' + token,
+      Authorization: 'Bearer ' + this.token,
     });
-    return this.http.delete(`${this.server}${url}?shipment=${id}`, {
-      headers: config,
-    });
+    console.log(config)
+    return this.http.get(`${this.server}${url}`, { headers: config });
   }
+
 
   // authentication for user login
   authenticate(url, payload) {

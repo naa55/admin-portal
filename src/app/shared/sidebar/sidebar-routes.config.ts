@@ -114,6 +114,9 @@ export const ROUTES: RouteInfo[] = [
         path: '/categories', title: 'Categories', icon: ' bx bx-pyramid', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
+        path: '/glossary', title: 'Glossary', icon: ' bx bx-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
+    },
+    {
         path: '/case-law', title: 'Case Law', icon: ' bx bx-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {

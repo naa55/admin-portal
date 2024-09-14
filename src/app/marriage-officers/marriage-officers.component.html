@@ -1,32 +1,47 @@
 <app-alert #alert></app-alert>
 <div class="d-flex justify-content-end mx-3">
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleLargeModal"
-    (click)="open(officersModal)"
-  >
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal"
+    (click)="open(officersModal)">
     Add Officer
   </button>
 </div>
 <div class="card mt-2">
   <div class="card-body">
-    <div class="d-lg-flex align-items-center mb-4 gap-3">
-      <div class="position-relative">
-        <input
-          type="text"
-          class="form-control ps-5 radius-30"
-          placeholder="Search Order"
-          (keydown)="search($event.target.value)"
-        />
-        <span
-          class="position-absolute top-50 product-show translate-middle-y"
-          ><i class="bx bx-search"></i
-        ></span>
+      <div class="d-lg-flex align-items-center mb-4 gap-3">
+        <div class="position-relative">
+          <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="name" placeholder="Officers Name" 
+             />
+        </div>
+        <div class="position-relative">
+          <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="church" placeholder="Church"/>
+        </div>
+        <div class="position-relative">
+          <div>
+            <select class="p-2 rounded" [(ngModel)]="region">
+                <option value="Region">-- Region --</option>
+                <option value="Greater Accra">Greater Accra</option>
+                <option value="Northern">Northern</option>
+                <option value="Upper West">Upper West</option>
+                <option value="Ashanti">Ashanti</option>
+                <option value="Brong Ahafo">Brong Ahafo</option>
+                <option value="Central">Central</option>
+                <option value="Eastern">Eastern</option>
+                <option value="Upper East">Upper East</option>
+                <option value="Western">Western</option>
+                <option value="Savannah">Savannah</option>
+                <option value="Bono East">Bono East</option>
+                <option value="Oti">Oti</option>
+                <option value="Ahafo">Ahafo</option>
+                <option value="Western North">Western North</option>
+                <option value="North East">North East</option>
+            </select>
+        </div>
+        </div>
+        <div>
+          <button type="submit" (click)="searchMarriage()" class="btn btn-primary">Search</button>
+        </div>
       </div>
-    </div>
-    <div class="table-responsive">
+    <div *ngIf="officers.length > 0" class="table-responsive">
       <table class="table align-middle mb-0">
         <thead class="table-light">
           <tr>
@@ -37,12 +52,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="
+          <tr *ngFor="
               let item of officers
                 | paginate : { itemsPerPage: 10, currentPage: p }
-            "
-          >
+            ">
             <td>{{ item.officer_name }}</td>
 
             <td>
@@ -55,22 +68,13 @@
 
             <td>
               <div class="dropdown">
-                <button
-                  class="btn btn-primary dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
                   Action
                 </button>
                 <ul class="dropdown-menu">
-                  <li
-                    (click)="edit(item, officersModal)"
-                    class="dropdown-item"
-                    class="dropdown-item"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleLargeModal"
-                  >
+                  <li (click)="edit(item, officersModal)" class="dropdown-item" class="dropdown-item"
+                    data-bs-toggle="modal" data-bs-target="#exampleLargeModal">
                     Edit
                   </li>
                   <li (click)="view(item)" class="dropdown-item">View</li>
@@ -84,6 +88,10 @@
         </tbody>
       </table>
     </div>
+    <div>
+      <h1 *ngIf="officers.length == 0">Nothing to see here</h1>
+    </div>
+
   </div>
 </div>
 
@@ -94,24 +102,14 @@
 <ng-template #officersModal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h5 class="modal-title">Marriage Officer</h5>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="modal"
-      aria-label="Close"
-      (click)="close()"
-    ></button>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
   </div>
   <div class="modal-body">
     <form class="my-4" [formGroup]="marriageOfficerForm">
       <div class="row">
         <div class="col-sm-12">
           <label class="form-label">Name</label>
-          <input
-            type="text"
-            formControlName="name"
-            class="form-control form-control-lg"
-          />
+          <input type="text" formControlName="name" class="form-control form-control-lg" />
         </div>
       </div>
       <div class="row">
@@ -125,29 +123,17 @@
 
         <div class="col-md-6 col-sm-12">
           <label class="form-label">Designation</label>
-          <input
-            type="text"
-            formControlName="designation"
-            class="form-control form-control-lg"
-          />
+          <input type="text" formControlName="designation" class="form-control form-control-lg" />
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label class="form-label">Denomination</label>
-          <input
-            type="text"
-            formControlName="denomination"
-            class="form-control form-control-lg"
-          />
+          <input type="text" formControlName="denomination" class="form-control form-control-lg" />
         </div>
         <div class="col-md-6">
           <label class="form-label">Church</label>
-          <input
-            type="text"
-            formControlName="church"
-            class="form-control form-control-lg"
-          />
+          <input type="text" formControlName="church" class="form-control form-control-lg" />
         </div>
       </div>
       <div class="row">
@@ -176,68 +162,38 @@
         </div>
         <div class="col-md-6 col-sm-12">
           <label class="form-label">Location</label>
-          <input
-            type="text"
-            formControlName="location"
-            class="form-control form-control-lg"
-          />
+          <input type="text" formControlName="location" class="form-control form-control-lg" />
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label class="form-label">Gazette Number</label>
-          <input
-            type="text"
-            formControlName="gazette_number"
-            class="form-control form-control-lg"
-          />
+          <input type="text" formControlName="gazette_number" class="form-control form-control-lg" />
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Gazette Date</label>
-          <input
-            type="date"
-            formControlName="gazette_date"
-            class="form-control form-control-lg"
-          />
+          <input type="date" formControlName="gazette_date" class="form-control form-control-lg" />
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label class="form-label">Licence Officer</label>
-          <input
-            type="text"
-            formControlName="license_officer"
-            class="form-control form-control-lg"
-          />
+          <input type="text" formControlName="license_officer" class="form-control form-control-lg" />
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Appointment Date</label>
-          <input
-            type="date"
-            formControlName="appointment_date"
-            class="form-control form-control-lg"
-          />
+          <input type="date" formControlName="appointment_date" class="form-control form-control-lg" />
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-secondary"
-      data-bs-dismiss="modal"
-      (click)="close()()"
-    >
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()()">
       Close
     </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="store()"
-      [disabled]="marriageOfficerForm.invalid"
-    >
+    <button type="button" class="btn btn-primary" (click)="store()" [disabled]="marriageOfficerForm.invalid">
       Save changes
     </button>
   </div>

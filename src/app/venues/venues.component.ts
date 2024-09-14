@@ -12,8 +12,11 @@ export class VenuesComponent {
 
   venueForm:FormGroup
   p:number = 1
-  officers:any;
-category_id: any;
+  venuesArray:any;
+  category_id: any;
+  place: string = "";
+  region: string = "";
+  church: string = "Greater Accra"
 
   constructor(private auth: AuthService,
     private modalService: NgbModal){
@@ -64,7 +67,7 @@ category_id: any;
 getAllVenues(){
   this.auth.get('/admin/venues/all').subscribe({
       next: (response) => {
-          this.officers = response['venues']
+          this.venuesArray = response['venues']
         console.log(response) 
       },
       error: (result) => {
@@ -116,4 +119,18 @@ const deleteId  = cateogry?.uuid
 search($event){
   console.log($event)
  }
+
+ 
+ searchMarriage() {
+  console.log('search')
+  console.log(this.region)
+  this.auth.get(`/admin/venues/filter?place=${this.place}&denomination=${this.church}&region=${this.region}`).subscribe({
+    next: (response) => {
+      console.log(response)
+      if(response) {
+        this.venuesArray = response['venues'];
+      }
+    }
+  })
+}
 }

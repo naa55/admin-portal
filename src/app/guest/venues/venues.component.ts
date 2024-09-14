@@ -13,6 +13,8 @@ export class VenuesComponent {
   venuesArray:any
   p = 1
   venuesForm:FormGroup
+ 
+  // licenseOfficer: string = ""
 
   constructor(private auth: AuthService, private fb: FormBuilder,private modalService: NgbModal){
     this.venuesForm = this.fb.group({
@@ -53,4 +55,6 @@ export class VenuesComponent {
   close(){
     this.modalService.dismissAll()
   }
+
+
 }

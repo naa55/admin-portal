@@ -23,9 +23,8 @@
           <thead class="table-light">
             <tr>
               <th>Courts</th>
-              <th> Location</th>
-              <th>Jurisdiction</th>
-              <th></th>
+              <th>Description</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody >
@@ -33,12 +32,8 @@
               <td>{{item.court}}</td>
               
               <td>
-                <span>{{item.location}}</span>
+                <span>{{item.description}}</span>
               </td>
-              <td>
-                <span>{{item.jurisdiction}}</span>
-              </td>
-            
               <td>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>

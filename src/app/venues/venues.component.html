@@ -5,36 +5,58 @@
     <div class="card-body">
       <div class="d-lg-flex align-items-center mb-4 gap-3">
         <div class="position-relative">
-          <input
-            type="text"
-            class="form-control ps-5 radius-30"
-            placeholder="Search Order"
-            (keydown)="search($event.target.value)"
-          />
-          <span
-            class="position-absolute top-50 product-show translate-middle-y"
-            ><i class="bx bx-search"></i
-          ></span>
+          <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="place" placeholder="Venue" 
+             />
+        </div>
+        <!-- <div class="position-relative">
+          <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="church" placeholder="Church"/>
+        </div> -->
+        <div class="position-relative">
+          <div>
+            <select class="p-2 rounded" [(ngModel)]="region">
+                <option value="Region">-- Region --</option>
+                <option value="Greater Accra">Greater Accra</option>
+                <option value="Northern">Northern</option>
+                <option value="Upper West">Upper West</option>
+                <option value="Ashanti">Ashanti</option>
+                <option value="Brong Ahafo">Brong Ahafo</option>
+                <option value="Central">Central</option>
+                <option value="Eastern">Eastern</option>
+                <option value="Upper East">Upper East</option>
+                <option value="Western">Western</option>
+                <option value="Savannah">Savannah</option>
+                <option value="Bono East">Bono East</option>
+                <option value="Oti">Oti</option>
+                <option value="Ahafo">Ahafo</option>
+                <option value="Western North">Western North</option>
+                <option value="North East">North East</option>
+            </select>
+        </div>
+        </div>
+        <div>
+          <button type="submit" (click)="searchMarriage()" class="btn btn-primary">Search</button>
         </div>
       </div>
       <div class="table-responsive">
         <table class="table align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th>Title</th>
-              <th> Church</th>
+              <th>Venue</th>
+              <th>Region</th>
+              <!-- <th> Church</th> -->
               <th> Location</th>
               <th></th>
             </tr>
           </thead>
           <tbody >
-            <tr *ngFor="let item of officers | paginate: { itemsPerPage: 10, currentPage: p }">
+            <tr *ngFor="let item of venuesArray | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>{{item.place_of_worship}}</td>
               <td>{{item.region}}</td>
               
-              <td>
+              <!-- <td>
                 <span>{{item.branch
                 }}</span>
-              </td>
+              </td> -->
 
               <td>
                 <span>{{item.location

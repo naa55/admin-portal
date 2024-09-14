@@ -23,6 +23,7 @@ export class FamilyLawyerComponent {
   familyLawyers: any[] = [];
   case_id: any;
   isLoading = false;
+  name: string = ""
 
   constructor(
     private auth: AuthService,
@@ -105,6 +106,7 @@ export class FamilyLawyerComponent {
     this.auth.get('/admin/lawyers/all').subscribe({
       next: (response) => {
         this.familyLawyers = response['lawyers'];
+        console.log(this.familyLawyers)
         this.spinner.hide();
       },
       error: (error) => {
@@ -175,7 +177,15 @@ export class FamilyLawyerComponent {
     this.modalService.dismissAll();
   }
 
-  search($event){
-    console.log($event)
-   }
+  searchFamily() {
+    console.log('search')
+    this.auth.get(`/admin/lawyers/filter?name=${this.name}`).subscribe({
+      next: (response) => {
+        console.log(response)
+        if(response) {
+          this.familyLawyers = response['data'];
+        }
+      }
+    })
+  }
 }
