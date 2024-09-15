@@ -11,104 +11,165 @@ import { AlertComponent } from '../shared/alert/alert.component';
 })
 export class CourtsComponent {
   @ViewChild('#exampleLargeModal') cateogoryModal
-  @ViewChild('alert') alertNotifier:AlertComponent
+  @ViewChild('alert') alertNotifier: AlertComponent
 
-    categoriesForm:FormGroup
-    p:number = 1
-    categoryArray:any;
+  courtForm: FormGroup
+  p: number = 1
+  courtArray: any;
   category_id: any;
+  courtId: any;
+  categoryArray: any;
+  categoryItem: any
+  storeData = false
+  editData = false
 
-    constructor(private auth: AuthService,
-      private modalService: NgbModal,){
+  constructor(private auth: AuthService,
+    private modalService: NgbModal,) {
 
-    }
-    ngOnInit(): void {
-       this.initializeForm()
-       this.getAllCategories()
-       
-    }
+  }
+  ngOnInit(): void {
+    this.initializeForm()
+    this.getAllCourt()
+    this.getAllCategories()
 
-    ngAfterViewInit(): void {
-      
-    }
+  }
 
-    open(content){
-      this.modalService.open(content, { size: 'lg' });
-    }
+  ngAfterViewInit(): void {
 
-    initializeForm(){
-        this.categoriesForm = new FormGroup({
-            title: new FormControl('',Validators.required),
-            slug: new FormControl('',Validators.required)
-        })
-    }
+  }
 
-    store(){
-      
-        const payload = this.categoriesForm.value
+  open(content) {
+    this.storeData = true
+    this.editData = false
 
-        this.auth.store('/admin/create-category', payload).subscribe({
-            next: (result) => {
-              this.modalService.dismissAll()
-              this.getAllCategories();
-              this.alertNotifier.success('Court created successfully')
-            },
-            error: (result) => {
-              this.alertNotifier.error('Error creating court')
-            }
+    this.courtForm.reset()
+    this.modalService.open(content, { size: 'lg' });
+  }
+
+  initializeForm() {
+    this.courtForm = new FormGroup({
+      court: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required)
+
     })
-}
+  }
 
-getAllCategories(){
+
+
+  store() {
+
+    const payload = this.courtForm.value
+    console.log(payload)
+
+    this.auth.store('/admin/courts/store', payload).subscribe({
+      next: (result) => {
+        this.modalService.dismissAll()
+        this.getAllCourt();
+        this.alertNotifier.success('Court created successfully')
+      },
+      error: (result) => {
+        this.alertNotifier.error('Error creating court')
+      }
+    })
+  }
+
+  getAllCourt() {
     this.auth.get('/admin/courts/all').subscribe({
-        next: (response) => {
-            this.categoryArray = response['courts']
-          console.log(response) 
-        },
-        error: (result) => {
+      next: (response) => {
+        this.courtArray = response['courts']
+        console.log(response)
+      },
+      error: (result) => {
+        console.log(result)
+      }
+    })
+  }
+  getAllCategories() {
+
+    this.auth.get('/admin/categories').subscribe({
+      next: (response) => {
+        this.categoryArray = response['categories']
+        console.log(response)
+      },
+      error: (result) => {
+        console.log(result)
+      }
+    })
+  }
+
+  getCategoryFromItem(e) {
+    console.log(e)
+  }
+
+  deleteCat(data: any) {
+
+  }
+
+  view(data: any) {
+
+  }
+
+  edit(data: any, modal) {
+    console.log(data)
+
+    this.courtId = data?.id
+    this.open(modal)
+    console.log(this.courtId)
+    console.log(data);
+    this.storeData = false
+    this.editData = true
+    this.courtForm.patchValue(data)
+
+  }
+
+
+
+  update() {
+    let payload = this.courtForm.value;
+    console.log(payload);
+    console.log(this.courtId);
+
+    this.auth.update(`/admin/courts/update/${this.courtId}`, payload)
+      .subscribe({
+        next: (result) => {
           console.log(result)
+          if (result['status'] === "success") {
+            this.alertNotifier.success('Updated Successfully');
+            this.modalService.dismissAll()
+            this.getAllCourt()
+          }
+        },
+        error: (error) => {
+          console.log(error)
         }
-})
-}
+      })
 
-deleteCat(data:any){
-
-}
-
-view(data:any){
-
-}
-
-edit(data:any){
-  this.category_id = data?.uuid
-console.log(data);
-this.categoriesForm.patchValue(data)
-
-}
+  }
 
 
-deleteCategory(cateogry:any){
-  console.log(cateogry)
-  const deleteId  = cateogry?.uuid
-      this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
-       next: (result) => {
-         this.category_id = null
-         this.modalService.dismissAll()
-        
-         this.alertNotifier.success('Court deleted successfully')
-         this.getAllCategories()
-       },
-       error: (result) => {
+
+  deleteCourt(item: any) {
+    console.log(item)
+
+    const deleteId = item?.uuid
+    this.auth.delete(`/admin/courts/remove/${deleteId}`).subscribe({
+      next: (result) => {
+        this.getAllCourt()
+        this.modalService.dismissAll()
+        this.alertNotifier.success('Court deleted successfully')
+      },
+      error: (result) => {
         this.alertNotifier.error('Court deleted successfully')
-       }
-   })
- }
+      }
+    })
+  }
 
- close(){
-  this.modalService.dismissAll()
-}
+  close() {
+    this.modalService.dismissAll()
+  }
 
-search($event){
-  console.log($event)
- }
+  search($event) {
+    console.log($event)
+  }
 }

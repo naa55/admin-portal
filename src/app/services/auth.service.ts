@@ -129,6 +129,15 @@ export class AuthService {
       headers: config,
     });
   }
+  updateTwo(url, payload) {
+    const config = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + this.token,
+    });
+    return this.http.patch(`${this.server}${url}`, payload, {
+      headers: config,
+    });
+  }
 
   // delete a particular resource
   destroy(url, id, token) {

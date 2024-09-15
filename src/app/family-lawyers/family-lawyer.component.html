@@ -6,7 +6,7 @@
     class="btn btn-primary"
     data-bs-toggle="modal"
     data-bs-target="#exampleLargeModal"
-    (click)="open(cateogoryModal)"
+    (click)="open(familyModal)"
   >
     Add Lawyer
   </button>
@@ -54,7 +54,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li
-                    (click)="edit(category)"
+                    (click)="edit(item, familyModal)"
                     class="dropdown-item"
                     class="dropdown-item"
                     data-bs-toggle="modal"
@@ -80,9 +80,9 @@
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
-<ng-template #cateogoryModal let-c="close" let-d="dismiss">
+<ng-template #familyModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h5 class="modal-title">New Category</h5>
+    <h5 class="modal-title">Family Lawyers</h5>
     <button
       type="button"
       class="btn-close"
@@ -92,13 +92,13 @@
     ></button>
   </div>
   <div class="modal-body">
-    <form class="my-4" [formGroup]="categoriesForm">
+    <form class="my-4" [formGroup]="familyLawyersForm">
       <div class="row">
         <div class="col-sm-12">
           <label class="form-label">Name</label>
           <input
             type="text"
-            formControlName="name"
+            formControlName="lawyer"
             class="form-control form-control-lg"
           />
         </div>
@@ -146,7 +146,7 @@
           <label class="form-label">About</label>
           <input
             type="text"
-            formControlName="position_held"
+            formControlName="about"
             class="form-control form-control-lg"
           />
         </div>
@@ -191,40 +191,18 @@
           />
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <label class="form-label">Slug</label>
-          <textarea
-            type="text"
-            formControlName="slug"
-            class="form-control form-control-lg"
-          ></textarea>
-        </div>
-      </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-secondary"
-      data-bs-dismiss="modal"
-      (click)="close()"
-    >
-      Close
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+        Close
     </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      [disabled]="caseLawGroup.invalid"
-      (click)="case_id ? update() : store()"
-    >
-      <span
-        [ngClass]="{ 'spinner-border': isLoading }"
-        style="font-size: 10px; height: 20px; width: 20px"
-        role="status"
-      >
-      </span>
-      {{ case_id ? " Update " : "Save changes" }}
+    <button type="button" class="btn btn-primary"
+        (click)="editData ? update() : store()">
+        <span [ngClass]="{ 'spinner-border': isLoading }" style="font-size: 10px; height: 20px; width: 20px"
+            role="status">
+        </span>
+        {{ editData ? " Update " : "Save changes" }}
     </button>
-  </div>
+</div>
 </ng-template>

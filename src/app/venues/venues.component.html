@@ -45,7 +45,7 @@
               <th>Region</th>
               <!-- <th> Church</th> -->
               <th> Location</th>
-              <th></th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody >
@@ -67,13 +67,13 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                     <ul class="dropdown-menu">
-                        <li (click)="edit(item,officersModal)" class="dropdown-item" class="dropdown-item"
+                        <li (click)="edit(item, officersModal)" class="dropdown-item" class="dropdown-item"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleLargeModal">Edit
                         </li>
                         <li (click)="view(item)" class="dropdown-item">View
                         </li>
-                        <li (click)="deleteCategory(item)" class="dropdown-item">Delete
+                        <li (click)="deleteFromList(item)" class="dropdown-item">Delete
                         </li>
                     </ul>
                 </div>
@@ -128,8 +128,7 @@
                     <option value="Ashanti">Ashanti</option>
                     <option value="Brong Ahafo">Brong Ahafo</option>
                     <option value="Central">Central</option>
-                    <option value="Eastern">Eastern</   
-                  option>
+                    <option value="Eastern">Eastern</option>
                     <option value="Northern">Northern</option>
                     <option value="Upper East">Upper East</option>
                     <option value="Upper West">Upper West</option>
@@ -171,7 +170,7 @@
         
             <div class="col-md-6">
                 <label class="form-label">Licence Date</label>
-                <input type="date"
+                <input type="text"
                 formControlName="license_date"
                  class="form-control form-control-lg" />
             </div>
@@ -186,17 +185,25 @@
         
             <div class="col-md-6">
                 <label class="form-label">Gazette Date</label>
-                <input type="date"
+                <input type="text"
                 formControlName="gazette_date"
                  class="form-control form-control-lg" />
             </div>
         </div>
     </form>
 </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()()">Close</button>
-      <button type="button" class="btn btn-primary" (click)="store()">Save changes</button>
-  </div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+      Close
+  </button>
+  <button type="button" class="btn btn-primary" [disabled]="venueForm.invalid"
+      (click)="editData ? update() : store()">
+      <span [ngClass]="{ 'spinner-border': isLoading }" style="font-size: 10px; height: 20px; width: 20px"
+          role="status">
+      </span>
+      {{ editData ? " Update " : "Save changes" }}
+  </button>
+</div>
   </ng-template>
 
   

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-venues',
@@ -9,14 +10,18 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./venues.component.scss']
 })
 export class VenuesComponent {
+  @ViewChild('alert') alertNotifier: AlertComponent
 
   venueForm:FormGroup
   p:number = 1
   venuesArray:any;
   category_id: any;
   place: string = "";
-  region: string = "";
-  church: string = "Greater Accra"
+  region: string = "Greater Accra";
+  church: string = ""
+  storeData = false
+  editData = false
+  venueId: any;
 
   constructor(private auth: AuthService,
     private modalService: NgbModal){
@@ -29,6 +34,8 @@ export class VenuesComponent {
   }
 
   open(content){
+    this.storeData = true
+    this.editData = false
     this.venueForm.reset()
     this.modalService.open(content, { size: 'lg' });
   }
@@ -82,17 +89,12 @@ close() {
 this.modalService.dismissAll() 
 }
 
-deleteCat(data:any){
-
-}
-
-view(data:any){
-
-}
 
 edit(data:any,modal){
+  this.storeData = false
+  this.editData = true
 
-this.category_id = data?.id
+this.venueId = data.id
 
 this.venueForm.patchValue(data)
 this.modalService.open(modal, { size: 'lg' });
@@ -121,6 +123,46 @@ search($event){
  }
 
  
+
+ update() {
+  let payload = this.venueForm.value;
+  console.log(payload);
+  console.log(this.venueId);
+
+  this.auth.update(`/admin/venues/update/${this.venueId}`, payload)
+    .subscribe({
+      next: (result) => {
+        console.log(result)
+        if (result['status'] === "success") {
+          this.alertNotifier.success('Updated Successfully');
+          this.modalService.dismissAll()
+          this.getAllVenues()
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+
+}
+
+
+deleteFromList(item) {
+  console.log(item)
+  this.auth.destroyUrl(`/admin/venues/remove/${item?.id}`).subscribe({
+    next: (response) => {
+      if (response['status'] === "success") {
+        this.alertNotifier.success('Deleted Successfully');
+        this.getAllVenues()
+        this.modalService.dismissAll()
+      }
+    }
+  })
+
+}
+
+
+ 
  searchMarriage() {
   console.log('search')
   console.log(this.region)
@@ -133,4 +175,6 @@ search($event){
     }
   })
 }
+
+
 }

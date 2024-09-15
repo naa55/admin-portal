@@ -21,6 +21,8 @@ export class DefaultComponent implements OnInit {
   ImamList: any;
   glossaryList: any;
   glossaryLength: any;
+  counsellors: any;
+  counsellorsLength: any;
   
 
 
@@ -36,6 +38,7 @@ export class DefaultComponent implements OnInit {
     this.getAllFamilyLawyers();
     this.getImamList();
     this.getGlossaryList()
+    this.getAllCounsellors()
   }
 
 
@@ -131,6 +134,21 @@ export class DefaultComponent implements OnInit {
         console.log(result)
       }
     })
+  }
+
+  getAllCounsellors() {
+    this.auth.get('/admin/marriage-counsellors/all').subscribe({
+      next: (response) => {
+        console.log(response)
+        this.counsellors = response['counsellors'];
+        this.counsellorsLength = response['counsellors'].length;
+
+        console.log(this.counsellors)
+      },
+      error: (error) => {
+        console.log(error)
+      },
+    });
   }
 
 

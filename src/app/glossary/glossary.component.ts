@@ -44,7 +44,6 @@ export class GlossaryComponent {
     this.glossaryForm = new FormGroup({
       word: new FormControl('', Validators.required),
       meaning: new FormControl('', Validators.required),
-      town: new FormControl('', Validators.required),
       source: new FormControl('', Validators.required),
       related_terms: new FormControl('', Validators.required),
     })
@@ -56,7 +55,7 @@ export class GlossaryComponent {
         console.log(response)
         this.getGlossaryList = response['words'];
 
-     
+
       },
       error: (result) => {
         console.log(result)
@@ -72,27 +71,29 @@ export class GlossaryComponent {
     this.glossaryForm.reset()
     this.modalService.open(content, { size: 'lg' });
   }
-  edit(id: any, context) {
+  edit(data: any, context) {
 
-    this.gloId  = id;
+    this.gloId = data.id;
+    console.log(this.gloId)
     this.open(context);
+    this.storeData = false
+    this.editData = true
+    this.glossaryForm.patchValue(data)
 
-  
-    this.auth.get(`/admin/glossary/show/id=${id}`).subscribe({
-      next: (response) => {
-        if (response['words']) {
-          let data = response['words'];
-          this.storeData = false
-          this.editData = true
-          this.glossaryForm.get("word").patchValue(data?.word);
-          this.glossaryForm.get("meaning").patchValue(data?.meaning);
-          this.glossaryForm.get("town").patchValue(data?.town);
-          this.glossaryForm.get("license_officer").patchValue(data?.license_officer);
-          this.glossaryForm.get("source").patchValue(data?.source);
-          this.glossaryForm.get("related_terms").patchValue(data?.related_terms);
-        }
-      }
-    })
+
+    // this.auth.get(`/admin/glossary/show/id=${data.id}`).subscribe({
+    //   next: (response) => {
+    //     if (response['words']) {
+    //       let data = response['words'];
+    //       this.storeData = false
+    //       this.editData = true
+    //       this.glossaryForm.get("word").patchValue(data?.word);
+    //       this.glossaryForm.get("meaning").patchValue(data?.meaning);
+    //       this.glossaryForm.get("source").patchValue(data?.source);
+    //       this.glossaryForm.get("related_terms").patchValue(data?.related_terms);
+    //     }
+    //   }
+    // })
 
     // this.ImamLength.patchValue(this.);
   }
@@ -108,25 +109,50 @@ export class GlossaryComponent {
     console.log($event)
   }
 
+  store() {
+    this.isLoading = true;
+    let payload = this.glossaryForm.value;
+    console.log(payload)
+
+    this.auth.store('/admin/glossary/store', payload).subscribe({
+      next: (result) => {
+        if (result['status'] === 'success') {
+          this.isLoading = false;
+          this.alertNotifier.success('Added Successfully');
+          this.modalService.dismissAll();
+          this.getGlossaryList()
+
+        }
+      },
+      error: (result) => {
+        this.alertNotifier.error('Failed to Add');
+        this.isLoading = false;
+      },
+    });
+
+
+  }
+
 
   update() {
     let payload = this.glossaryForm.value;
     console.log(payload);
+    console.log(this.gloId);
 
-    this.auth.update(`/admin/glossary/update/id=${this.gloId}`, payload)
-      .subscribe({
-        next: (result) => {
-          console.log(result)
-          if (result['status'] === "success") {
-            this.alertNotifier.success('Updated Successfully');
-            this.modalService.dismissAll()
-            this.getGlossaryList()
-          }
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
+    // this.auth.update(`/admin/glossary/update/${this.gloId}`, payload)
+    //   .subscribe({
+    //     next: (result) => {
+    //       console.log(result)
+    //       if (result['status'] === "success") {
+    //         this.alertNotifier.success('Updated Successfully');
+    //         this.modalService.dismissAll()
+    //         this.getGlossaryList()
+    //       }
+    //     },
+    //     error: (error) => {
+    //       console.log(error)
+    //     }
+    //   })
 
   }
 
@@ -149,7 +175,7 @@ export class GlossaryComponent {
     this.auth.get(`/admin/glossary/filter?word=${this.word}`).subscribe({
       next: (response) => {
         console.log(response)
-        if(response) {
+        if (response) {
           this.getGlossaryList = response['words'];
         }
       }

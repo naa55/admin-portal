@@ -122,6 +122,9 @@ export const ROUTES: RouteInfo[] = [
     {
         path: '/family-lawyers', title: 'Family Lawyers', icon: 'bx bx-face', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
+    {
+        path: '/counsellors', title: 'Family Lawyers', icon: 'bx bx-face', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
+    },
     // {
     //     path: '/application/payment', title: 'Payments', icon: 'bx bx-money', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     // },

@@ -13,34 +13,37 @@ import { AlertComponent } from '../shared/alert/alert.component';
   styleUrls: ['./family-lawyer.component.scss'],
 })
 export class FamilyLawyerComponent {
-  @ViewChild('alert') alertNotifier:AlertComponent
+  @ViewChild('alert') alertNotifier: AlertComponent
 
   p: number = 1;
-  users: [];
-  caseLawGroup: FormGroup;
+  familyLawyersForm: FormGroup;
   base64File: any;
   categories: [] = [];
   familyLawyers: any[] = [];
   case_id: any;
   isLoading = false;
   name: string = ""
+  familyId: any;
+  storeData = false
+  editData = false
+
 
   constructor(
     private auth: AuthService,
     private spinner: SpinnerService,
     private modalService: NgbModal,
     private notifier: NotifierService,
-   
+
   ) {
     this.initialiseForm();
   }
 
   ngOnInit() {
     // this.service.show()
-    this.getCategories();
+    this.getAllFamilyLawyers();
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   showSuccess(message: string) {
     this.notifier.notify('success', message);
@@ -55,27 +58,27 @@ export class FamilyLawyerComponent {
   // }
 
   initialiseForm() {
-    this.caseLawGroup = new FormGroup({
-      lawyer: new FormControl('',Validators.required),
-      email: new FormControl('',Validators.required),
-      phone_number: new FormControl('',Validators.required),
-      location: new FormControl('',Validators.required),
-      place_of_work: new FormControl('',Validators.required),
-      position_held: new FormControl('',Validators.required),
-      about: new FormControl('',Validators.required),
-      professional_membership: new FormControl('',Validators.required),
-      case_track_record: new FormControl('',Validators.required),
-      work_experience: new FormControl('',Validators.required),
-      date_of_call: new FormControl('',Validators.required),
-      profile_picture: new FormControl('',Validators.required),
+    this.familyLawyersForm = new FormGroup({
+      lawyer: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      phone_number: new FormControl('', Validators.required),
+      location: new FormControl('', Validators.required),
+      place_of_work: new FormControl('', Validators.required),
+      position_held: new FormControl('', Validators.required),
+      about: new FormControl('', Validators.required),
+      professional_membership: new FormControl('', Validators.required),
+      case_track_record: new FormControl('', Validators.required),
+      work_experience: new FormControl('', Validators.required),
+      date_of_call: new FormControl('', Validators.required),
+      profile_picture: new FormControl('', Validators.required),
     });
   }
 
   store() {
     this.isLoading = true;
-    let payload = this.caseLawGroup.value;
-    payload['case_file'] = this.base64File;
-    payload['case_law'] = 'First human law';
+    let payload = this.familyLawyersForm.value;
+    console.log(payload)
+  
 
     this.auth.store('/admin/lawyers/store', payload).subscribe({
       next: (result) => {
@@ -101,7 +104,7 @@ export class FamilyLawyerComponent {
     reader.readAsDataURL(file);
   }
 
-  getCategories() {
+  getAllFamilyLawyers() {
     this.spinner.show();
     this.auth.get('/admin/lawyers/all').subscribe({
       next: (response) => {
@@ -116,24 +119,27 @@ export class FamilyLawyerComponent {
     });
   }
 
-  edit(category: any, context) {
+  edit(item: any, context) {
     this.open(context);
-    this.case_id = category?.uuid;
-    console.log(category);
+    this.familyId = item?.id
+    console.log(item);
 
-    this.caseLawGroup.patchValue(category);
+    this.storeData = false
+    this.editData = true
+    
+
+    this.familyLawyersForm.get("lawyer").patchValue(item?.lawyer_name);
+    this.familyLawyersForm.get("email").patchValue(item?.contact_details?.email);
+    this.familyLawyersForm.get("phone_number").patchValue(item?.contact_details?.phone);
+    this.familyLawyersForm.patchValue(item);
   }
 
   update() {
     this.isLoading = true;
-    let payload = this.caseLawGroup.value;
-    payload['case_file'] = this.base64File;
-    payload['case_law'] = 'First human law';
-    payload['case_id'] = this.case_id;
+    let payload = this.familyLawyersForm.value;
 
-    this.auth.store('/admin/lawyers/store', payload).subscribe({
+    this.auth.update(`/admin/lawyers/update/${this.familyId}`, payload).subscribe({
       next: (result) => {
-        this.case_id = null;
         this.isLoading = false;
         this.alertNotifier.success('Updated Successfully');
         this.modalService.dismissAll();
@@ -145,12 +151,11 @@ export class FamilyLawyerComponent {
     });
   }
 
-  delete(id: string) {
+  delete(id: any) {
     const deleteId = id;
 
-    this.auth.delete(`/admin/case-law/remove/${deleteId}`).subscribe({
+    this.auth.delete(`/admin/lawyers/remove/${deleteId}`).subscribe({
       next: (result) => {
-        this.case_id = null;
         this.alertNotifier.success('Deleted Successfully');
       },
       error: (result) => {
@@ -161,19 +166,20 @@ export class FamilyLawyerComponent {
   }
 
   addCase() {
-    this.caseLawGroup.reset();
-    this.case_id = null;
+    this.familyLawyersForm.reset();
   }
 
   open(content) {
-    this.alertNotifier.success('We have an alert now');
-    this.caseLawGroup.reset()
+    this.storeData = true
+    this.editData = false
+
+    this.familyLawyersForm.reset()
     this.modalService.open(content, { size: 'lg' });
   }
 
   close() {
     this.case_id = null
-    this.caseLawGroup.reset()
+    this.familyLawyersForm.reset()
     this.modalService.dismissAll();
   }
 
@@ -182,7 +188,7 @@ export class FamilyLawyerComponent {
     this.auth.get(`/admin/lawyers/filter?name=${this.name}`).subscribe({
       next: (response) => {
         console.log(response)
-        if(response) {
+        if (response) {
           this.familyLawyers = response['data'];
         }
       }

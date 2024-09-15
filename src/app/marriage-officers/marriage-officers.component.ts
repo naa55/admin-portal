@@ -21,6 +21,9 @@ export class MarriageOfficersComponent {
   region: string = "Greater Accra"
   name: string = ""
   church: string = ""
+  storeData = false
+  editData = false
+  christianId: any;
   constructor(private auth: AuthService,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal) {
@@ -49,7 +52,7 @@ export class MarriageOfficersComponent {
     this.auth.get(`/admin/marriage-officers/filter?type=${'christian'}&name=${this.name}&church=${this.church}&region=${this.region}`).subscribe({
       next: (response) => {
         console.log(response)
-        if(response) {
+        if (response) {
           this.officers = response['officers'];
         }
       }
@@ -127,33 +130,90 @@ export class MarriageOfficersComponent {
 
   }
 
+  getDateConversion(item) {
+    const dateStr = item;
+    const date = new Date(dateStr);
+
+    // Extract day, month, and year
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() is 0-indexed
+    const year = String(date.getFullYear()).slice(-2);
+
+    // Format to dd/mm/yy
+    const formattedDate = `${day}/${month}/${year}`;
+
+    return formattedDate
+
+  }
+
   edit(data: any, modal) {
     console.log(data)
-    this.category_id = data?.id
-
-    this.marriageOfficerForm.patchValue(data)
-    this.modalService.open(modal, { size: 'lg' });
-  }
-
-
-  deleteCategory(cateogry: any) {
-    console.log(cateogry)
-    const deleteId = cateogry?.uuid
-    this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
-      next: (result) => {
-        this.category_id = null
-        this.modalService.dismissAll()
-        this.getAllOfficers()
-        this.alertNotifier.success('Marriage Officer deleted successfully')
-      },
-      error: (result) => {
-        this.alertNotifier.error('Deletion unsuccessful')
+    this.storeData = false
+    this.editData = true
+    this.open(modal);
+    this.christianId = data?.id
+    this.auth.get(`/admin/marriage-officers/show?officer_id=${data?.id}&type=${'christian'}`).subscribe({
+      next: (response) => {
+        if (response['officer']) {
+          this.storeData = false
+          this.editData = true
+          this.marriageOfficerForm.get("name").patchValue(data?.officer_name);
+          this.marriageOfficerForm.get("gender").patchValue(data?.gender);
+          this.marriageOfficerForm.get("gazette_date").patchValue(data?.gazette_date);
+          this.marriageOfficerForm.get("gazette_number").patchValue(data?.gazette_number);
+          this.marriageOfficerForm.get("location").patchValue(data?.location);
+          this.marriageOfficerForm.get("region").patchValue(data?.region);
+          this.marriageOfficerForm.get("church").patchValue(data?.church);
+          this.marriageOfficerForm.get("denomination").patchValue(data?.denomination);
+          this.marriageOfficerForm.get("license_officer").patchValue(data?.license_officer);
+          this.marriageOfficerForm.get("designation").patchValue(data?.license_officer_designation);
+          this.marriageOfficerForm.get("appointment_date").patchValue(data?.appointment_date);
+        }
       }
     })
+
+
+    // console.log(data)
+    // this.category_id = data?.id
+
+    // this.marriageOfficerForm.patchValue(data)
+    // this.modalService.open(modal, { size: 'lg' });
   }
 
-  search($event) {
-    console.log($event)
+  update() {
+    let payload = this.marriageOfficerForm.value;
+    console.log(payload);
+    console.log(this.christianId)
+    
+    this.auth.update(`/admin/marriage-officers/christian/update/${this.christianId}`, payload)
+      .subscribe({
+        next: (result) => {
+          console.log(result)
+          if (result['status'] === "success") {
+            this.alertNotifier.success('Updated Successfully');
+            this.modalService.dismissAll()
+            this.getAllOfficers()
+          }
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+
+  }
+
+
+  deleteOfficer(item) {
+    console.log(item)
+    this.auth.destroyUrl(`/admin/marriage-officers/remove?type=${1}&officer_id=${item?.id}`).subscribe({
+      next: (response) => {
+        if (response['status'] === "success") {
+          this.alertNotifier.success('Deleted Successfully');
+          this.modalService.dismissAll()
+          this.getAllOfficers()
+        }
+      }
+    })
   }
 
 }

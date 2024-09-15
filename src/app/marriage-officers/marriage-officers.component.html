@@ -41,7 +41,7 @@
           <button type="submit" (click)="searchMarriage()" class="btn btn-primary">Search</button>
         </div>
       </div>
-    <div *ngIf="officers.length > 0" class="table-responsive">
+    <div *ngIf="officers" class="table-responsive">
       <table class="table align-middle mb-0">
         <thead class="table-light">
           <tr>
@@ -77,8 +77,8 @@
                     data-bs-toggle="modal" data-bs-target="#exampleLargeModal">
                     Edit
                   </li>
-                  <li (click)="view(item)" class="dropdown-item">View</li>
-                  <li (click)="deleteCategory(item)" class="dropdown-item">
+                  <!-- <li (click)="view(item)" class="dropdown-item">View</li> -->
+                  <li (click)="deleteOfficer(item)" class="dropdown-item">
                     Delete
                   </li>
                 </ul>
@@ -88,9 +88,9 @@
         </tbody>
       </table>
     </div>
-    <div>
+    <!-- <div>
       <h1 *ngIf="officers.length == 0">Nothing to see here</h1>
-    </div>
+    </div> -->
 
   </div>
 </div>
@@ -173,7 +173,7 @@
 
         <div class="col-md-6">
           <label class="form-label">Gazette Date</label>
-          <input type="date" formControlName="gazette_date" class="form-control form-control-lg" />
+          <input type="text" formControlName="gazette_date" class="form-control form-control-lg" />
         </div>
       </div>
       <div class="row">
@@ -184,17 +184,21 @@
 
         <div class="col-md-6">
           <label class="form-label">Appointment Date</label>
-          <input type="date" formControlName="appointment_date" class="form-control form-control-lg" />
+          <input type="text" formControlName="appointment_date" class="form-control form-control-lg" />
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()()">
-      Close
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+        Close
     </button>
-    <button type="button" class="btn btn-primary" (click)="store()" [disabled]="marriageOfficerForm.invalid">
-      Save changes
+    <button type="button" class="btn btn-primary" [disabled]="marriageOfficerForm.invalid"
+        (click)="editData ? update() : store()">
+        <span [ngClass]="{ 'spinner-border': isLoading }" style="font-size: 10px; height: 20px; width: 20px"
+            role="status">
+        </span>
+        {{ editData ? " Update " : "Save changes" }}
     </button>
-  </div>
+</div>
 </ng-template>

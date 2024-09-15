@@ -40,7 +40,7 @@
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Action</button>
                                 <ul class="dropdown-menu">
-                                    <li (click)="edit(item?.id, wordModal)" class="dropdown-item" class="dropdown-item"
+                                    <li (click)="edit(item, wordModal)" class="dropdown-item" class="dropdown-item"
                                         data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Edit
                                     </li>
                                     <!-- <li (click)="view(item)" class="dropdown-item">View
@@ -78,10 +78,6 @@
                 <div class="col-sm-12">
                     <label class="form-label">Meaning</label>
                     <textarea type="text" formControlName="meaning" class="form-control form-control-lg"></textarea>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="form-label">Town</label>
-                    <input type="text" formControlName="town" class="form-control form-control-lg" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="form-label">Source</label>

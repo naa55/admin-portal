@@ -1,12 +1,12 @@
 <app-alert #alert></app-alert>
 <div class="d-flex justify-content-end mx-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal" (click)="open(cateogoryModal)">Add Court</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal" (click)="open(courtModal)">Add Court</button>
   </div>
 <div class="card mt-2">
     <div class="card-body">
       <div class="table-responsive">
         <div class="d-lg-flex align-items-center mb-4 gap-3">
-          <div class="position-relative">
+          <!-- <div class="position-relative">
             <input
               type="text"
               class="form-control ps-5 radius-30"
@@ -17,7 +17,7 @@
               class="position-absolute top-50 product-show translate-middle-y"
               ><i class="bx bx-search"></i
             ></span>
-          </div>
+          </div> -->
         </div>
         <table class="table align-middle mb-0">
           <thead class="table-light">
@@ -28,7 +28,7 @@
             </tr>
           </thead>
           <tbody >
-            <tr *ngFor="let item of categoryArray | paginate: { itemsPerPage: 10, currentPage: p }">
+            <tr *ngFor="let item of courtArray | paginate: { itemsPerPage: 10, currentPage: p }">
               <td>{{item.court}}</td>
               
               <td>
@@ -38,13 +38,13 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                     <ul class="dropdown-menu">
-                        <li (click)="edit(category)" class="dropdown-item" class="dropdown-item"
+                        <li (click)="edit(item, courtModal)" class="dropdown-item" class="dropdown-item"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleLargeModal">Edit
                         </li>
                         <li (click)="view(item)" class="dropdown-item">View
                         </li>
-                        <li (click)="deleteCategory(item)" class="dropdown-item">Delete
+                        <li (click)="deleteCourt(item)" class="dropdown-item">Delete
                         </li>
                     </ul>
                 </div>
@@ -62,18 +62,18 @@
   
   </div>
   
-  <ng-template #cateogoryModal let-c="close" let-d="dismiss">
+  <ng-template #courtModal let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h5 class="modal-title">New Category</h5>
+      <h5 class="modal-title">Court</h5>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
   </div>
   <div class="modal-body">
-    <form class="my-4" [formGroup]="categoriesForm">
+    <form class="my-4" [formGroup]="courtForm">
         <div class="row">
             <div class="col-sm-12">
                 <label class="form-label">Court</label>
                 <input type="text"
-                formControlName="title"
+                formControlName="court"
                  class="form-control form-control-lg" />
             </div>
         </div>
@@ -81,36 +81,31 @@
             <div class="col-sm-12">
                 <label class="form-label">Description</label>
                 <textarea type="text"
-                formControlName="slug"
+                formControlName="description"
                  class="form-control form-control-lg" ></textarea>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12">
-            <label for="">Select Catgory</label>
-            <select name="" id="" class="form-control">
-                <option value=""></option>
-            </select>
-        </div>
-        </div>
+          <div class="col-sm-12">
+              <label for="categorySelect">Select Category</label>
+              <select name="categorySelect" id="categorySelect" class="form-control" formControlName="category">
+                  <option *ngFor="let item of categoryArray" [value]="item.title">{{ item.title }}</option>
+              </select>
+          </div>
+      </div>
+      
     </form></div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
-      <button
-      type="button"
-      class="btn btn-primary"
-      [disabled]="categoriesForm.invalid"
-      (click)="case_id ? update() : store()"
-    >
-    <span
-        [ngClass]="{ 'spinner-border': isLoading }"
-        style="font-size: 10px; height: 20px; width: 20px"
-        role="status"
-      >
-  </span>
-      {{ case_id ? " Update " : "Save changes" }}
-    </button>
-      <!-- <button type="button" class="btn btn-primary" (click)="store()">Save changes</button> -->
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+          Close
+      </button>
+      <button type="button" class="btn btn-primary" [disabled]="courtForm.invalid"
+          (click)="editData ? update() : store()">
+          <span [ngClass]="{ 'spinner-border': isLoading }" style="font-size: 10px; height: 20px; width: 20px"
+              role="status">
+          </span>
+          {{ editData ? " Update " : "Save changes" }}
+      </button>
   </div>
   </ng-template>
 
@@ -122,7 +117,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="my-4" [formGroup]="categoriesForm">
+                <form class="my-4" [formGroup]="courtForm">
                     <div class="row">
                         <div class="col-sm-12">
                             <label class="form-label">Title</label>

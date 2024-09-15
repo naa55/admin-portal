@@ -1,1 +1,205 @@
-<p>counsellors works!</p>
+<app-alert #alert></app-alert>
+<div class="d-flex justify-content-end mx-3">
+ 
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleLargeModal"
+    (click)="open(familyModal)"
+  >
+    Add Counsellors
+  </button>
+</div>
+<div class="card mt-2">
+  <div class="card-body">
+    <div class="d-lg-flex align-items-center mb-4 gap-3">
+      <div class="position-relative">
+        <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="name" placeholder="Counsellors Name" 
+           />
+      </div>
+      <div>
+        <button type="submit" (click)="searchFamily()" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Church</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of counsellors
+                | paginate : { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td>{{ item.name}}</td>
+            <td>
+              <span>{{ item.address }}</span>
+            </td>
+            <td>
+              <span>{{ item.church }}</span>
+            </td>
+            <td>
+              <div class="dropdown">
+                <button
+                  class="btn btn-primary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Action
+                </button>
+                <ul class="dropdown-menu">
+                  <li
+                    (click)="edit(item, familyModal)"
+                    class="dropdown-item"
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleLargeModal"
+                  >
+                    Edit
+                  </li>
+                  <li (click)="view(item)" class="dropdown-item">View</li>
+                  <li (click)="deleteCategory(item)" class="dropdown-item">
+                    Delete
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div style="float: right; margin-bottom: 50px">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<ng-template #familyModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">Counsellors</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="close()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form class="my-4" [formGroup]="counselllorsForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Profile Picture</label>
+          <input
+            type="text"
+            formControlName="profile_pic"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Address</label>
+          <input
+            type="text"
+            formControlName="address"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Bio</label>
+          <input
+            type="text"
+            formControlName="bio"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <!-- <div class="col-md-6 col-sm-12">
+          <label class="form-label">Location</label>
+          <input
+            type="text"
+            formControlName="location"
+            class="form-control form-control-lg"
+          />
+        </div> -->
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Qualifications
+        </label>
+          <input
+            type="text"
+            formControlName="qualifications"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Institution</label>
+          <input
+            type="text"
+            formControlName="institution"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Religion</label>
+          <input
+            type="text"
+            formControlName="religion"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Church</label>
+          <input
+            type="text"
+            formControlName="church"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Marital Status</label>
+          <input
+            type="text"
+            formControlName="marital_status"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Work Experience</label>
+          <input
+            type="text"
+            formControlName="years_of_experience"
+            class="form-control form-control-lg"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+        Close
+    </button>
+    <button type="button" class="btn btn-primary"
+        (click)="editData ? update() : store()">
+        <span [ngClass]="{ 'spinner-border': isLoading }" style="font-size: 10px; height: 20px; width: 20px"
+            role="status">
+        </span>
+        {{ editData ? " Update " : "Save changes" }}
+    </button>
+</div>
+</ng-template>

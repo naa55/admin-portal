@@ -28,7 +28,7 @@
 					<div class="d-flex align-items-center">
 						<div>
 							<p class="mb-0 text-secondary">Case Law & Statutes</p>
-							<h4 *ngIf="caseListLength; else notCase" class="my-1 text-secondary">{{ caseListLength }}
+							<h4 *ngIf="caseListLength; else notCase" class="my-1 text-success">{{ caseListLength }}
 							</h4>
 							<ng-template #notCase>
 								<div *ngIf="!officersLength" class="spinner-border mt-4" role="status"> <span
@@ -72,7 +72,7 @@
 				<div class="d-flex align-items-center">
 					<div>
 						<p class="mb-0 text-secondary">Imams</p>
-						<h4 *ngIf="ImamLength; else notImam" class="my-1 text-danger">{{ ImamLength }}</h4>
+						<h4 *ngIf="ImamLength; else notImam" class="my-1 text-success">{{ ImamLength }}</h4>
 							<ng-template #notImam>
 								<div *ngIf="!ImamLength" class="spinner-border mt-4" role="status"> <span
 										class="visually-hidden">Loading...</span>
@@ -148,6 +148,29 @@
 							</ng-template>
 						</div>
 						<div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bx-building-house'></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+
+	<a routerLink="/counsellors">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-danger">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Counsellors</p>
+							<h4 *ngIf="counsellorsLength; else notCounsellors" class="my-1 text-danger">{{ counsellorsLength }}</h4>
+							<ng-template #notCounsellors>
+								<div *ngIf="!counsellorsLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+							<!-- <p class="mb-0 font-13">+5.4% from last week</p> -->
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bx-user' style='color:#ffffff' ></i>
 						</div>
 					</div>
 				</div>
