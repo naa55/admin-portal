@@ -99,7 +99,7 @@
       <div class="modal-body">
         <form class="my-4" [formGroup]="caseLawGroup">
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 mt-2">
               <label class="form-label">Case Title</label>
               <input
                 type="text"
@@ -108,27 +108,29 @@
               />
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-12">
+          <div class="row mt-2">
+            <div class="col-sm-12 mt-2">
               <label class="form-label">Summary</label>
               <textarea
                 type="text"
                 formControlName="summary"
                 class="form-control form-control-lg"
+                rows="7"
               ></textarea>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-sm-12">
               <label class="form-label">Court</label>
-              <select formControlName="court" id="" class="form-control">
+              <input type="text" name="court" formControlName="court" class="form-control"  id="">
+              <!-- <select formControlName="court" id="" class="form-control">
                 <option value="" disabled selected>--Select Court--</option>
                 <option [value]="item.court" *ngFor="let item of courtsArray" >{{item?.court}}</option>
-              </select>
+              </select> -->
              
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-sm-12">
               <label class="form-label">Category</label>
               <select formControlName="category_id" id="" class="form-control">
@@ -142,7 +144,7 @@
               </select>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-6">
               <label class="form-label">Case File</label>
               <input
@@ -162,19 +164,9 @@
             (click)="close()"
           >Close
           </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            [disabled]="caseLawGroup.invalid"
-            (click)="case_id ? update() : store()"
-          >
-          <span
-              [ngClass]="{ 'spinner-border': isLoading }"
-              style="font-size: 10px; height: 20px; width: 20px"
-              role="status"
-            >
-        </span>
-            {{ case_id ? " Update " : "Save changes" }}
+
+          <button class="btn btn-primary" type="button" (click)="this.category_id ? update(): store()" [disabled]="caseLawGroup.invalid"> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+            <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.case_id?'Update':'Save'}}
           </button>
         </div>
       </div>

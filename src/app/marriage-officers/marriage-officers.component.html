@@ -164,8 +164,6 @@
             <option value="Upper West">Upper West</option>
             <option value="Volta">Volta</option>
             <option value="Western">Western</option>
-             
-
             <option value="Savannah">Savannah</option>
             <option value="Bono East">Bono East</option>
             <option value="Oti">Oti</option>
@@ -201,6 +199,7 @@
             class="form-control form-control-lg"
           /> -->
           <div class="calendar">
+             <label class="form-label">Gazette Date</label>
             <div class="input-group">
               <input
                 class="form-control"
@@ -233,12 +232,8 @@
         </div>
 
         <div class="col-md-6">
-          <!-- <label class="form-label">Appointment Date</label>
-          <input
-            type="date"
-            formControlName="appointment_date"
-            class="form-control form-control-lg"
-          /> -->
+          <label class="form-label">Appointment Date</label>
+          
           <div class="calendar">
             <div class="input-group">
               <input
@@ -271,13 +266,12 @@
     >
       Close
     </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="category_id? update() : store()"
-      [disabled]="marriageOfficerForm.invalid"
-    >
-      {{!category_id? 'Save' : 'Update'}}
+    
+
+    <button class="btn btn-primary" type="button" (click)="this.data_id ? update(): store()" [disabled]="marriageOfficerForm.invalid"> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.category_id?'Update':'Save'}}
     </button>
+    
+   
   </div>
 </ng-template>

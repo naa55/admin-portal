@@ -1,181 +1,243 @@
 <app-alert #alert></app-alert>
 <div class="d-flex justify-content-end mx-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal" (click)="open(officersModal)">Add Venue</button>
-  </div>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleLargeModal"
+    (click)="open(officersModal)"
+  >
+    Add Venue
+  </button>
+</div>
 <div class="card mt-2">
-    <div class="card-body">
-      <div class="d-lg-flex align-items-center mb-4 gap-3">
-        <div class="position-relative">
-          <input
-            type="text"
-            class="form-control ps-5 radius-30"
-            placeholder="Search Order"
-            (keydown)="search($event.target.value)"
-          />
-          <span
-            class="position-absolute top-50 product-show translate-middle-y"
-            ><i class="bx bx-search"></i
-          ></span>
-        </div>
-      </div>
-      <div class="table-responsive">
-        <table class="table align-middle mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>Title</th>
-              <th> Church</th>
-              <th> Location</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody >
-            <tr *ngFor="let item of officers | paginate: { itemsPerPage: 10, currentPage: p }">
-              <td>{{item.region}}</td>
-              
-              <td>
-                <span>{{item.branch
-                }}</span>
-              </td>
-
-              <td>
-                <span>{{item.location
-                }}</span>
-              </td>
-            
-              <td>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
-                    <ul class="dropdown-menu">
-                        <li (click)="edit(item,officersModal)" class="dropdown-item" class="dropdown-item"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleLargeModal">Edit
-                        </li>
-                        <li (click)="view(item)" class="dropdown-item">View
-                        </li>
-                        <li (click)="deleteCategory(item)" class="dropdown-item">Delete
-                        </li>
-                    </ul>
-                </div>
-              </td>
-            </tr>
-  
-          </tbody>
-        </table>
+  <div class="card-body">
+    <div class="d-lg-flex align-items-center mb-4 gap-3">
+      <div class="position-relative">
+        <input
+          type="text"
+          class="form-control ps-5 radius-30"
+          placeholder="Search Order"
+          (keydown)="search($event.target.value)"
+        />
+        <span class="position-absolute top-50 product-show translate-middle-y"
+          ><i class="bx bx-search"></i
+        ></span>
       </div>
     </div>
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Title</th>
+            <th>Church</th>
+            <th>Location</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of officers
+                | paginate : { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td>{{ item.region }}</td>
+
+            <td>
+              <span>{{ item.branch }}</span>
+            </td>
+
+            <td>
+              <span>{{ item.location }}</span>
+            </td>
+
+            <td>
+              <div class="dropdown">
+                <button
+                  class="btn btn-primary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Action
+                </button>
+                <ul class="dropdown-menu">
+                  <li
+                    (click)="edit(item, officersModal)"
+                    class="dropdown-item"
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleLargeModal"
+                  >
+                    Edit
+                  </li>
+                  <li (click)="view(item)" class="dropdown-item">View</li>
+                  <li (click)="deleteCategory(item)" class="dropdown-item">
+                    Delete
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  
-  <div style="float: right; margin-bottom: 50px;">
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-  
-  </div>
-  
-  <ng-template #officersModal let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h5 class="modal-title">Venue</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+</div>
+
+<div style="float: right; margin-bottom: 50px">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<ng-template #officersModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">Venue</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="close()"
+    ></button>
   </div>
   <div class="modal-body">
     <form class="my-4" [formGroup]="venueForm">
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <label class="form-label">Place Of Worship</label>
-                <input type="text"
-                formControlName="place_of_worship"
-                 class="form-control form-control-lg" />
-            </div>
-        
-            <div class="col-md-6 col-sm-12">
-                <label class="form-label">Denomination</label>
-                <input type="text"
-                formControlName="denomination"
-                 class="form-control form-control-lg" />
-               
-            </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Place Of Worship</label>
+          <input
+            type="text"
+            formControlName="place_of_worship"
+            class="form-control form-control-lg"
+          />
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <label class="form-label">Branch</label>
-                <input type="text"
-                formControlName="branch"
-                 class="form-control form-control-lg" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Region</label>
-                <select name="" id=""  class="form-control" formControlName="region"> 
-                    <option value="Greater Accra">Greater Accra</option>
-                    <option value="Ashanti">Ashanti</option>
-                    <option value="Brong Ahafo">Brong Ahafo</option>
-                    <option value="Central">Central</option>
-                    <option value="Eastern">Eastern</   
-                  option>
-                    <option value="Northern">Northern</option>
-                    <option value="Upper East">Upper East</option>
-                    <option value="Upper West">Upper West</option>
-                    <option value="Volta">Volta</option>
-                    <option value="Western">Western</option>   
-                  
-                    <option value="Savannah">Savannah</option>
-                    <option value="Bono East">Bono East</option>
-                    <option value="Oti">Oti</option>
-                    <option value="North East">North East</option>
-                    <option value="Ahafo">Ahafo</option>
-                    <option value="Bono">Bono</option>
-                </select>
-            </div>
-        </div>
-    
-        <div class="row">
-            <div class="col-md-6">
-                <label class="form-label">Location</label>
-                <input type="text"
-                formControlName="location"
-                 class="form-control form-control-lg" />
-            </div>
-        
-            <div class="col-md-6">
-                <label class="form-label">Licence Officer</label>
-                <input type="text"
-                formControlName="license_officer"
-                 class="form-control form-control-lg" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <label class="form-label">Designation</label>
-                <input type="text"
-                formControlName="designation"
-                 class="form-control form-control-lg" />
-            </div>
-        
-            <div class="col-md-6">
-                <label class="form-label">Licence Date</label>
-                <input type="date"
-                formControlName="license_date"
-                 class="form-control form-control-lg" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <label class="form-label">Gazette Number</label>
-                <input type="text"
-                formControlName="gazette_number"
-                 class="form-control form-control-lg" />
-            </div>
-        
-            <div class="col-md-6">
-                <label class="form-label">Gazette Date</label>
-                <input type="date"
-                formControlName="gazette_date"
-                 class="form-control form-control-lg" />
-            </div>
-        </div>
-    </form>
-</div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()()">Close</button>
-      <button type="button" class="btn btn-primary" (click)="this.category_id ? update(): store()">{{this.category_id?'Update':'Save'}}</button>
-  </div>
-  </ng-template>
 
-  
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Denomination</label>
+          <input
+            type="text"
+            formControlName="denomination"
+            class="form-control form-control-lg"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Branch</label>
+          <input
+            type="text"
+            formControlName="branch"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Region</label>
+          <select name="" id="" class="form-control" formControlName="region">
+            <option value="Greater Accra">Greater Accra</option>
+            <option value="Ashanti">Ashanti</option>
+            <option value="Brong Ahafo">Brong Ahafo</option>
+            <option value="Central">Central</option>
+            <option value="Eastern">Eastern</option>
+            <option value="Northern">Northern</option>
+            <option value="Upper East">Upper East</option>
+            <option value="Upper West">Upper West</option>
+            <option value="Volta">Volta</option>
+            <option value="Western">Western</option>
+             
+
+            <option value="Savannah">Savannah</option>
+            <option value="Bono East">Bono East</option>
+            <option value="Oti">Oti</option>
+            <option value="North East">North East</option>
+            <option value="Ahafo">Ahafo</option>
+            <option value="Bono">Bono</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Location</label>
+          <input
+            type="text"
+            formControlName="location"
+            class="form-control form-control-lg"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Licence Officer</label>
+          <input
+            type="text"
+            formControlName="license_officer"
+            class="form-control form-control-lg"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Designation</label>
+          <input
+            type="text"
+            formControlName="designation"
+            class="form-control form-control-lg"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Licence Date</label>
+          <input
+            type="date"
+            formControlName="license_date"
+            class="form-control form-control-lg"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Gazette Number</label>
+          <input
+            type="text"
+            formControlName="gazette_number"
+            class="form-control form-control-lg"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Gazette Date</label>
+          <input
+            type="date"
+            formControlName="gazette_date"
+            class="form-control form-control-lg"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal"
+      (click)="close()()"
+    >
+      Close
+    </button>
+
+    <button
+      class="btn btn-primary"
+      type="button"
+      (click)="this.category_id ? update() : store()"
+    >
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+        *ngIf="isLoading"
+      ></span>
+      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp;
+      {{ this.category_id ? "Update" : "Save" }}
+    </button>
+  </div>
+</ng-template>

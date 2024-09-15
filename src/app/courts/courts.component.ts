@@ -13,11 +13,12 @@ export class CourtsComponent {
   @ViewChild('#exampleLargeModal') cateogoryModal
   @ViewChild('alert') alertNotifier:AlertComponent
 
-    categoriesForm:FormGroup
+    courtForm:FormGroup
     p:number = 1
     categoryArray:any;
-  category_id: any;
-  model: NgbDateStruct;
+    courtsArray:any
+    court_id: any;
+    model: NgbDateStruct;
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,){
@@ -26,6 +27,7 @@ export class CourtsComponent {
     ngOnInit(): void {
        this.initializeForm()
        this.getAllCategories()
+       this.getAllCourts()
        
     }
 
@@ -38,7 +40,7 @@ export class CourtsComponent {
     }
 
     initializeForm(){
-        this.categoriesForm = new FormGroup({
+        this.courtForm = new FormGroup({
           court: new FormControl('',Validators.required),
           description: new FormControl('',Validators.required),
           category: new FormControl('',Validators.required),
@@ -47,7 +49,7 @@ export class CourtsComponent {
 
     store(){
       
-        const payload = this.categoriesForm.value
+        const payload = this.courtForm.value
 
         this.auth.store('/admin/courts/store', payload).subscribe({
             next: (result) => {
@@ -62,14 +64,26 @@ export class CourtsComponent {
 }
 
 getAllCategories(){
-    this.auth.get('/admin/courts/all').subscribe({
+    this.auth.get('/admin/categories').subscribe({
         next: (response) => {
-            this.categoryArray = response['courts']
+            this.categoryArray = response['categories']
           console.log(response) 
         },
         error: (result) => {
           console.log(result)
         }
+})
+}
+
+getAllCourts(){
+  this.auth.get('/admin/courts/all').subscribe({
+      next: (response) => {
+          this.courtsArray = response['courts']
+        console.log(response) 
+      },
+      error: (result) => {
+        console.log(result)
+      }
 })
 }
 
@@ -82,8 +96,8 @@ view(data:any){
 }
 
 edit(data:any,context){
-  this.category_id = data?.uuid
-  this.categoriesForm.patchValue(data)
+  this.court_id = data?.uuid
+  this.courtForm.patchValue(data)
   this.open(context)
 
 }
@@ -94,7 +108,7 @@ deleteCategory(cateogry:any){
   const deleteId  = cateogry?.uuid
       this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
        next: (result) => {
-         this.category_id = null
+         this.court_id = null
          this.modalService.dismissAll()
         
          this.alertNotifier.success('Court deleted successfully')
@@ -108,6 +122,7 @@ deleteCategory(cateogry:any){
 
  close(){
   this.modalService.dismissAll()
+  this.courtForm.reset()
 }
 
 
@@ -118,9 +133,9 @@ search($event){
 
  update(){
       
-  const payload = this.categoriesForm.value
+  const payload = this.courtForm.value
 
-  this.auth.store(`/admin/courts/update/${this.category_id}`, payload).subscribe({
+  this.auth.store(`/admin/courts/update/${this.court_id}`, payload).subscribe({
       next: (result) => {
         this.modalService.dismissAll()
         this.getAllCategories();

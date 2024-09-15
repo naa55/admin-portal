@@ -21,6 +21,7 @@ export class MarriageOfficersComponent {
     model: NgbDateStruct;
     gazette_date:NgbDateStruct
     appointment_date: NgbDateStruct
+    isLoading = false
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,
@@ -55,7 +56,7 @@ export class MarriageOfficersComponent {
     }
 
     store(){
-      
+        this.isLoading = true
         const payload = this.marriageOfficerForm.value
 
         this.auth.store('/admin/marriage-officers/christian/store', payload).subscribe({
@@ -63,8 +64,10 @@ export class MarriageOfficersComponent {
               this.modalService.dismissAll()
               this.getAllOfficers();
               this.alertNotifier.success('Marriage Officer created successfully')
+              this.isLoading = false
             },
             error: (result) => {
+              this.isLoading = false
               this.alertNotifier.success('Marriage Officer creation unsuccessful')
             }
     })
@@ -137,20 +140,22 @@ deleteCategory(cateogry:any){
  }
 
  update(){
-      
+    this.isLoading  = true
   const payload = this.marriageOfficerForm.value
   payload['gazette_date']= this.reverseDateStruct(payload['gazette_date'])
   payload['appointment_date']= this.reverseDateStruct(payload['appointment_date'])
 //console.log('p ', payload);
 
-  this.auth.update(`/admin/marriage-officers/christian/update/${this.category_id}`, payload).subscribe({
+  this.auth.store(`/admin/marriage-officers/christian/update/${this.category_id}`, payload).subscribe({
       next: (result) => {
         this.modalService.dismissAll()
         this.getAllOfficers();
         this.alertNotifier.success('Marriage Officer created successfully')
+        this.isLoading  = false
       },
       error: (result) => {
         this.alertNotifier.success('Marriage Officer creation unsuccessful')
+        this.isLoading  = false
       }
 })
 }
@@ -169,7 +174,5 @@ formatDateToStruct(date: string){
 
 reverseDateStruct(date: NgbDateStruct){
   return moment(`${date?.year}-${date?.month}-${date?.day}`,'YYYY-MM-DD').format('YYYY-MM-DD')
-  console.log(`${date?.year}-${date?.month}-${date?.day}`)
- return `${date?.year}-${date?.month}-${date?.day}`
 }
 }

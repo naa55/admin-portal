@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
 import { AlertComponent } from '../shared/alert/alert.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-venues',
@@ -15,6 +16,7 @@ export class VenuesComponent {
   p:number = 1
   officers:any;
 category_id: any;
+isLoading = false
 
   constructor(private auth: AuthService,
     private modalService: NgbModal){
@@ -48,7 +50,7 @@ category_id: any;
   }
 
   store(){
-    
+   this.isLoading = true
       const payload = this.venueForm.value
 
       this.auth.store('/admin/venues/store', payload).subscribe({
@@ -56,10 +58,12 @@ category_id: any;
             this.alertNotifier.success('Venue was successfully stored')
             this.modalService.dismissAll()
             this.getAllVenues();
+            this.isLoading = false
           },
           error: (result) => {
             this.alertNotifier.error('Venue was not successfully ')
             console.log(result)
+            this.isLoading = false
           }
   })
 }
@@ -92,10 +96,14 @@ view(data:any){
 }
 
 edit(data:any,modal){
-
+console.log(data)
 this.category_id = data?.id
 
 this.venueForm.patchValue(data)
+console.log(moment(data?.license_date,'YYYY-MMM-DD').format('DD/MM/YYYY'));
+
+this.venueForm.controls['license_date'].setValue(moment(data?.license_date,'YYYY-MMM-DD').format('YYYY-MM-DD'));
+this.venueForm.controls['gazette_date'].setValue(moment(data?.gazette_date,'YYYY-MMM-DD').format('YYYY-MM-DD'))
 this.modalService.open(modal, { size: 'lg' });
 
 }

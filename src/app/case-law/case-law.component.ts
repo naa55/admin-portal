@@ -35,9 +35,10 @@ export class CaseLawComponent {
 
   ngOnInit() {
     // this.service.show()
-    this.getCategories()
+    
     this.getAllCases()
     this.getAllCourts()
+    this.getCategories()
       
   }
   
@@ -102,6 +103,7 @@ getCategories(){
   this.auth.get('/admin/categories').subscribe({
     next: (response) => {
       this.categories = response['categories']
+      console.log('cat ',this.categories)
       this.spinner.hide()
     },
     error: (error) => {
@@ -110,12 +112,12 @@ getCategories(){
   })
 }
 
-edit(category:any,context){
+edit(data:any,context){
   this.open(context)
-  this.case_id = category?.uuid
-  console.log(category)
-  
-  this.caseLawGroup.patchValue(category)
+  this.case_id = data?.uuid
+  console.log(data)
+  this.caseLawGroup.patchValue(data)
+  this.caseLawGroup.controls['case_file'].setValue(data?.file_directory)
 
 }
 

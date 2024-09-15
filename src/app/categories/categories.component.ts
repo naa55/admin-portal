@@ -16,7 +16,7 @@ import { AlertComponent } from "../shared/alert/alert.component";
     categoriesForm:FormGroup
     p:number = 1
     categoryArray:any;
-    category_id: any;
+    data_id: any;
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,){
@@ -52,12 +52,30 @@ import { AlertComponent } from "../shared/alert/alert.component";
             next: (result) => {
               this.modalService.dismissAll()
               this.getAllCategories();
+              this.close()
               this.alertNotifier.success('Category created successfully')
             },
             error: (result) => {
               this.alertNotifier.error('Error creating category')
             }
     })
+}
+
+update(){
+
+  const payload = this.categoriesForm.value
+
+  this.auth.store(`/admin/update-category/${this.data_id}`, payload).subscribe({
+      next: (result) => {
+        this.modalService.dismissAll()
+        this.getAllCategories();
+        this.close()
+        this.alertNotifier.success('Category created successfully')
+      },
+      error: (result) => {
+        this.alertNotifier.error('Error creating category')
+      }
+})
 }
 
 getAllCategories(){
@@ -81,9 +99,9 @@ view(data:any){
 }
 
 edit(data:any,context){
-  this.category_id = null
+  this.data_id = null
   this.categoriesForm.reset()
-  this.category_id = data?.uuid
+  this.data_id = data?.uuid
 
   this.modalService.open(context, { size: 'lg' });
 this.categoriesForm.patchValue(data)
@@ -96,7 +114,7 @@ deleteCategory(cateogry:any){
   const deleteId  = cateogry?.uuid
       this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
        next: (result) => {
-         this.category_id = null
+         this.data_id = null
          this.modalService.dismissAll()
          this.getAllCategories()
          this.alertNotifier.success('Category deleted successfully')
@@ -108,6 +126,8 @@ deleteCategory(cateogry:any){
  }
 
  close(){
+  this.data_id = null
+  this.categoriesForm.reset()
   this.modalService.dismissAll()
 }
 

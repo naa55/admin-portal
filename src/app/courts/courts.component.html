@@ -29,7 +29,7 @@
             </tr>
           </thead>
           <tbody >
-            <tr *ngFor="let item of categoryArray | paginate: { itemsPerPage: 10, currentPage: p }">
+            <tr *ngFor="let item of courtsArray | paginate: { itemsPerPage: 10, currentPage: p }">
               <td>{{item.court}}</td>
               
               <td>
@@ -73,9 +73,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
   </div>
   <div class="modal-body">
-    <form class="my-4" [formGroup]="categoriesForm">
+    <form class="my-4" [formGroup]="courtForm">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 mt-3">
                 <label class="form-label">Court</label>
                 <input type="text"
                 formControlName="court"
@@ -83,39 +83,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm- mt-3">
                 <label class="form-label">Description</label>
                 <textarea type="text"
                 formControlName="description"
-                 class="form-control form-control-lg" ></textarea>
+                rows="6"
+                 class="form-control" ></textarea>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12">
-            <label for="">Select Catgory</label>
-            <select name="" id="" class="form-control">
-                <option value=""></option>
-            </select>
+            <div class="col-sm-12 mt-3">
+            <label for="">Category</label>
+            <input type="text"
+                formControlName="category"
+                 class="form-control form-control-lg" />
         </div>
         </div>
     </form></div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
-      <button
-      type="button"
-      class="btn btn-primary"
-      [disabled]="categoriesForm.invalid"
-      (click)="case_id ? update() : store()"
-    >
-    <span
-        [ngClass]="{ 'spinner-border': isLoading }"
-        style="font-size: 10px; height: 20px; width: 20px"
-        role="status"
-      >
-  </span>
-      {{ case_id ? " Update " : "Save changes" }}
+      
+    <button class="btn btn-primary" type="button" (click)="this.data_id ? update(): store()" [disabled]="courtForm.invalid"> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.case_id?'Update':'Save'}}
     </button>
-      <!-- <button type="button" class="btn btn-primary" (click)="store()">Save changes</button> -->
   </div>
   </ng-template>
 
