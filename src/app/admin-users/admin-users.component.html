@@ -185,21 +185,11 @@
     >
       Close
     </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      [disabled]="categoriesForm.invalid"
-      (click)="case_id ? update() : store()"
-    >
-      <span
-        [ngClass]="{ 'spinner-border': isLoading }"
-        style="font-size: 10px; height: 20px; width: 20px"
-        role="status"
-      >
-      </span>
-      {{ case_id ? " Update " : "Save changes" }}
+  
+
+    <button class="btn btn-primary" type="button" (click)="this.data_id ? update(): store()" [disabled]="adminForm.invalid"> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.category_id?'Update':'Save'}}
     </button>
-    <!-- <button type="button" class="btn btn-primary" (click)="store()">Save changes</button> -->
   </div>
 </ng-template>
 

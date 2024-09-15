@@ -14,10 +14,10 @@ export class AdminUsersComponent {
   @ViewChild('#exampleLargeModal') cateogoryModal
   @ViewChild('alert') alertNotifier:AlertComponent
 
-  categoriesForm:FormGroup
+  adminForm:FormGroup
   p:number = 1
   categoryArray:any;
- category_id: any;
+  data_id: any;
  isLoading = false
  model: NgbDateStruct;
 
@@ -40,7 +40,7 @@ export class AdminUsersComponent {
   }
 
   initializeForm(){
-      this.categoriesForm = new FormGroup({
+      this.adminForm = new FormGroup({
           first_name: new FormControl('',Validators.required),
           last_name: new FormControl('',Validators.required),
           email:new FormControl('',Validators.required),
@@ -51,7 +51,7 @@ export class AdminUsersComponent {
 
   store(){
     this.isLoading = true
-      const payload = this.categoriesForm.value
+      const payload = this.adminForm.value
 
       this.auth.store('/admin/new', payload).subscribe({
           next: (result) => {
@@ -66,6 +66,25 @@ export class AdminUsersComponent {
            
           }
   })
+}
+
+update(){
+  this.isLoading = true
+    const payload = this.adminForm.value
+
+    this.auth.store(`/admin/update/${this.data_id}`, payload).subscribe({
+        next: (result) => {
+          this.isLoading = false
+          this.modalService.dismissAll()
+          this.alertNotifier.success('Admin updated successfully')
+          this.getAllCategories();
+        },
+        error: (result) => {
+          this.alertNotifier.error('Failed to update admin')
+          this.isLoading = false
+         
+        }
+})
 }
 
 getAllCategories(){
@@ -89,9 +108,9 @@ view(data:any){
 }
 
 edit(data:any,context){
-this.category_id = data?.uuid
+this.data_id = data?.uuid
 this.open(context)
-this.categoriesForm.patchValue(data)
+this.adminForm.patchValue(data)
 
 }
 
@@ -101,7 +120,7 @@ console.log(cateogry)
 const deleteId  = cateogry?.uuid
     this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
      next: (result) => {
-       this.category_id = null
+       this.data_id = null
        this.modalService.dismissAll()
        this.getAllCategories()
       this.alertNotifier.success('Admin deleted successfully')
@@ -113,8 +132,8 @@ const deleteId  = cateogry?.uuid
 }
 
 close(){
-  this.category_id = null
-  this.categoriesForm.reset()
+  this.data_id = null
+  this.adminForm.reset()
 this.modalService.dismissAll()
 }
 
