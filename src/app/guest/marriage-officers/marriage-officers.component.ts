@@ -27,10 +27,9 @@ export class GuestMarriageOfficersComponent {
       next: (response) => {
         this.marriageOfficers = response['officers'];
         
-        console.log(response);
       },
       error: (result) => {
-        console.log(result);
+       
       },
     });
   }

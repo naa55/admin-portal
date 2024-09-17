@@ -70,13 +70,15 @@ update(){
         this.modalService.dismissAll()
         this.getAllCategories();
         this.close()
-        this.alertNotifier.success('Category created successfully')
+        this.alertNotifier.success('Category updated successfully')
       },
       error: (result) => {
-        this.alertNotifier.error('Error creating category')
+        this.alertNotifier.error('Error updated category')
       }
 })
 }
+
+
 
 getAllCategories(){
     this.auth.get('/admin/categories').subscribe({
@@ -85,13 +87,21 @@ getAllCategories(){
      
         },
         error: (result) => {
-          console.log(result)
+          
         }
 })
 }
 
 deleteCat(data:any){
+  this.auth.delete(`/admin/remove-category/${data?.uuid}`).subscribe({
+    next: (response) => {
+     
+    },
+    error: (result) => {
+      
+    }
 
+  })
 }
 
 view(data:any){
@@ -110,7 +120,7 @@ this.categoriesForm.patchValue(data)
 
 
 deleteCategory(cateogry:any){
-  console.log(cateogry)
+
   const deleteId  = cateogry?.uuid
       this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
        next: (result) => {

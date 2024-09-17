@@ -49,7 +49,7 @@
                         </li>
                         <li (click)="view(item)" class="dropdown-item">View
                         </li>
-                        <li (click)="deleteCategory(item)" class="dropdown-item">Delete
+                        <li (click)="deleteCourt(item)" class="dropdown-item">Delete
                         </li>
                     </ul>
                 </div>
@@ -103,8 +103,8 @@
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
       
-    <button class="btn btn-primary" type="button" (click)="this.data_id ? update(): store()" [disabled]="courtForm.invalid"> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
-      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.case_id?'Update':'Save'}}
+    <button class="btn btn-primary" type="button" (click)="this.court_id ? update(): store()" [disabled]="courtForm.invalid"> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.court_id?'Update':'Save'}}
     </button>
   </div>
   </ng-template>

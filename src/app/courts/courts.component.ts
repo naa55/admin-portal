@@ -67,10 +67,10 @@ getAllCategories(){
     this.auth.get('/admin/categories').subscribe({
         next: (response) => {
             this.categoryArray = response['categories']
-          console.log(response) 
+         
         },
         error: (result) => {
-          console.log(result)
+         
         }
 })
 }
@@ -79,10 +79,10 @@ getAllCourts(){
   this.auth.get('/admin/courts/all').subscribe({
       next: (response) => {
           this.courtsArray = response['courts']
-        console.log(response) 
+  
       },
       error: (result) => {
-        console.log(result)
+       
       }
 })
 }
@@ -103,16 +103,16 @@ edit(data:any,context){
 }
 
 
-deleteCategory(cateogry:any){
-  console.log(cateogry)
-  const deleteId  = cateogry?.uuid
-      this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
+deleteCourt(data:any){
+  
+  const deleteId  = data?.uuid
+      this.auth.delete(`/admin/courts/remove/${deleteId}`).subscribe({
        next: (result) => {
          this.court_id = null
          this.modalService.dismissAll()
         
          this.alertNotifier.success('Court deleted successfully')
-         this.getAllCategories()
+         this.ngOnInit()
        },
        error: (result) => {
         this.alertNotifier.error('Court deleted successfully')

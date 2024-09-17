@@ -27,10 +27,10 @@ export class GlossaryComponent {
     this.auth.store('/general/words',glossaryObj).subscribe({
         next: (response) => {
             this.glossaryArray = response['words']
-          console.log(response) 
+        
         },
         error: (result) => {
-          console.log(result)
+         
         }
 })
 }

@@ -122,7 +122,7 @@ export class FamilyLawyerComponent {
   edit(category: any, context) {
     this.open(context);
     this.case_id = category?.uuid;
-    console.log(category);
+    
 
     this.caseLawGroup.patchValue(category);
   }
@@ -157,7 +157,7 @@ export class FamilyLawyerComponent {
         this.alertNotifier.success('Deleted Successfully');
       },
       error: (result) => {
-        console.log(result);
+        
         this.alertNotifier.error('Unable to delete');
       },
     });

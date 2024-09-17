@@ -76,11 +76,11 @@ export class MarriageOfficersComponent {
 getAllOfficers(){
     this.auth.get('/admin/marriage-officers/all').subscribe({
         next: (response) => {
-          console.log(response) 
+          
           this.officers = response['officers']
         },
         error: (result) => {
-          console.log(result)
+       
         }
 })
 }
@@ -105,7 +105,7 @@ view(data:any){
 }
 
 edit(data:any,modal){
-  console.log(data)
+
   this.category_id = data?.id
 
 this.marriageOfficerForm.patchValue(data)
@@ -120,7 +120,7 @@ this.modalService.open(modal, { size: 'lg' });
 
 
 deleteCategory(cateogry:any){
-  console.log(cateogry)
+
   const deleteId  = cateogry?.uuid
       this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
        next: (result) => {
@@ -144,7 +144,6 @@ deleteCategory(cateogry:any){
   const payload = this.marriageOfficerForm.value
   payload['gazette_date']= this.reverseDateStruct(payload['gazette_date'])
   payload['appointment_date']= this.reverseDateStruct(payload['appointment_date'])
-//console.log('p ', payload);
 
   this.auth.store(`/admin/marriage-officers/christian/update/${this.category_id}`, payload).subscribe({
       next: (result) => {

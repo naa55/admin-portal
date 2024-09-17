@@ -16,10 +16,10 @@ export class MarriageCounsellorsComponent {
     this.auth.get('/admin/categories').subscribe({
       next: (response) => {
         this.marriageCounsellors = response['glossary'];
-        console.log(response);
+       
       },
       error: (result) => {
-        console.log(result);
+      
       },
     });
   }

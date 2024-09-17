@@ -62,7 +62,6 @@ isLoading = false
           },
           error: (result) => {
             this.alertNotifier.error('Venue was not successfully ')
-            console.log(result)
             this.isLoading = false
           }
   })
@@ -72,10 +71,8 @@ getAllVenues(){
   this.auth.get('/admin/venues/all').subscribe({
       next: (response) => {
           this.officers = response['venues']
-        console.log(response) 
       },
       error: (result) => {
-        console.log(result)
       }
 })
 }
@@ -96,11 +93,9 @@ view(data:any){
 }
 
 edit(data:any,modal){
-console.log(data)
 this.category_id = data?.id
 
 this.venueForm.patchValue(data)
-console.log(moment(data?.license_date,'YYYY-MMM-DD').format('DD/MM/YYYY'));
 
 this.venueForm.controls['license_date'].setValue(moment(data?.license_date,'YYYY-MMM-DD').format('YYYY-MM-DD'));
 this.venueForm.controls['gazette_date'].setValue(moment(data?.gazette_date,'YYYY-MMM-DD').format('YYYY-MM-DD'))
@@ -110,17 +105,14 @@ this.modalService.open(modal, { size: 'lg' });
 
 
 deleteCategory(cateogry:any){
-console.log(cateogry)
 const deleteId  = cateogry?.id
     this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
      next: (result) => {
        this.category_id = null
        this.modalService.dismissAll()
        this.getAllVenues()
-       console.log(result) 
      },
      error: (result) => {
-       console.log(result)
      }
  })
 }

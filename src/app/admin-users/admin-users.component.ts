@@ -53,7 +53,7 @@ export class AdminUsersComponent {
     this.isLoading = true
       const payload = this.adminForm.value
 
-      this.auth.store('/admin/new', payload).subscribe({
+      this.auth.update('/admin/new', payload).subscribe({
           next: (result) => {
             this.isLoading = false
             this.modalService.dismissAll()

@@ -124,6 +124,7 @@ export class AuthService {
     const config = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + this.token,
+      method: 'PATCH'
     });
     return this.http.patch(`${this.server}${url}`, payload, {
       headers: config,
@@ -185,7 +186,7 @@ export class AuthService {
       Authorization: 'Bearer ' + this.token,
     });
     //config.append('Accept', 'application/json');
-    return this.http.delete( this.server + url, { headers: config });
+    return this.http.get( this.server + url, { headers: config });
   }
 
 

@@ -131,7 +131,7 @@
     </button>
 
     <button class="btn btn-primary" type="button" (click)="this.data_id ? update(): store()" [disabled]="categoriesForm.invalid"> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
-      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.case_id?'Update':'Save'}}
+      <span class="visually-hidden" *ngIf="isLoading">Loading...</span>&nbsp; {{this.data_id?'Update':'Save'}}
     </button>
 
     <!-- <button type="button" class="btn btn-primary" (click)="store()">Save changes</button> -->

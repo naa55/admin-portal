@@ -64,12 +64,13 @@ export class CaseLawComponent {
       next: (result) => {
         this.isLoading = false
         this.modalService.dismissAll()
+        this.alertNotifier.success('Case is created successfully')
         
       },
       error: (result) => {
         this.isLoading = false
         this.modalService.dismissAll()
-       
+        this.alertNotifier.error('Case failed to create')
       }
   })
 }
@@ -89,11 +90,8 @@ getAllCases(){
   this.auth.get('/admin/case-law/all').subscribe({
       next: (response) => {
           this.casesArray = response['case_laws']
-         
-        console.log(response) 
       },
       error: (result) => {
-        console.log(result)
       }
 })
 }
@@ -103,7 +101,6 @@ getCategories(){
   this.auth.get('/admin/categories').subscribe({
     next: (response) => {
       this.categories = response['categories']
-      console.log('cat ',this.categories)
       this.spinner.hide()
     },
     error: (error) => {
@@ -115,7 +112,6 @@ getCategories(){
 edit(data:any,context){
   this.open(context)
   this.case_id = data?.uuid
-  console.log(data)
   this.caseLawGroup.patchValue(data)
   this.caseLawGroup.controls['case_file'].setValue(data?.file_directory)
 
@@ -133,24 +129,25 @@ update(){
         this.case_id = null
         this.isLoading = false
         this.modalService.dismissAll()
+        this.alertNotifier.success('Case is updated successfully')
       },
       error: (result) => {
-        console.log(result)
         this.isLoading = false
+        this.alertNotifier.error('Case failed to update')
       }
   })
 }
 
-delete(id:string){
+deleteCase(id:string){
  const deleteId  = id
    
-     this.auth.delete(`/admin/case-law/remove/${deleteId}`).subscribe({
+     this.auth.delete(`/admin/courts/remove/${deleteId}`).subscribe({
       next: (result) => {
         this.case_id = null
-        console.log(result) 
+        this.alertNotifier.success('Case is deleted successfully') 
       },
       error: (result) => {
-        console.log(result)
+        this.alertNotifier.error('Case failed to delete')
       }
   })
 }
@@ -159,10 +156,8 @@ getAllCourts(){
   this.auth.get('/admin/courts/all').subscribe({
       next: (response) => {
           this.courtsArray = response['courts']
-        console.log(response) 
       },
       error: (result) => {
-        console.log(result)
       }
 })
 }
@@ -184,6 +179,6 @@ close(){
 }
 
 search($event){
-  console.log($event)
+
  }
 }
