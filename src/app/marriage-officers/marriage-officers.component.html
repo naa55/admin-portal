@@ -5,6 +5,12 @@
     Add Officer
   </button>
 </div>
+<div *ngFor="let data of offData$ | async">
+  <div>
+      {{ data?.church }}
+  </div>
+
+</div>
 <div class="card mt-2">
   <div class="card-body">
       <div class="d-lg-flex align-items-center mb-4 gap-3">
@@ -18,24 +24,24 @@
         <div class="position-relative">
           <div>
             <select class="p-2 rounded" [(ngModel)]="region">
-                <option value="Region">-- Region --</option>
-                <option value="Greater Accra">Greater Accra</option>
-                <option value="Northern">Northern</option>
-                <option value="Upper West">Upper West</option>
-                <option value="Ashanti">Ashanti</option>
-                <option value="Brong Ahafo">Brong Ahafo</option>
-                <option value="Central">Central</option>
-                <option value="Eastern">Eastern</option>
-                <option value="Upper East">Upper East</option>
-                <option value="Western">Western</option>
-                <option value="Savannah">Savannah</option>
-                <option value="Bono East">Bono East</option>
-                <option value="Oti">Oti</option>
-                <option value="Ahafo">Ahafo</option>
-                <option value="Western North">Western North</option>
-                <option value="North East">North East</option>
+              <option value="" disabled selected>Region</option>
+              <option value="Greater Accra">Greater Accra</option>
+              <option value="Northern">Northern</option>
+              <option value="Upper West">Upper West</option>
+              <option value="Ashanti">Ashanti</option>
+              <option value="Brong Ahafo">Brong Ahafo</option>
+              <option value="Central">Central</option>
+              <option value="Eastern">Eastern</option>
+              <option value="Upper East">Upper East</option>
+              <option value="Western">Western</option>
+              <option value="Savannah">Savannah</option>
+              <option value="Bono East">Bono East</option>
+              <option value="Oti">Oti</option>
+              <option value="Ahafo">Ahafo</option>
+              <option value="Western North">Western North</option>
+              <option value="North East">North East</option>
             </select>
-        </div>
+          </div>
         </div>
         <div>
           <button type="submit" (click)="searchMarriage()" class="btn btn-primary">Search</button>
@@ -48,7 +54,7 @@
             <th>Title</th>
             <th>Church</th>
             <th>Location</th>
-            <th></th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -106,11 +112,14 @@
   </div>
   <div class="modal-body">
     <form class="my-4" [formGroup]="marriageOfficerForm">
-      <div class="row">
+      <div class="row mb-2">
         <div class="col-sm-12">
           <label class="form-label">Name</label>
           <input type="text" formControlName="name" class="form-control form-control-lg" />
         </div>
+      </div>
+      <div *ngIf="marriageOfficerForm.get('name')?.invalid && marriageOfficerForm.get('name')?.touched" class="text-danger">
+        Name is required.
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
@@ -119,21 +128,33 @@
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
+          <div *ngIf="marriageOfficerForm.get('gender')?.invalid && marriageOfficerForm.get('gender')?.touched" class="text-danger">
+            Gender is required.
+          </div>
         </div>
 
         <div class="col-md-6 col-sm-12">
           <label class="form-label">Designation</label>
           <input type="text" formControlName="designation" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('designation')?.invalid && marriageOfficerForm.get('designation')?.touched" class="text-danger">
+            Designation is required.
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label class="form-label">Denomination</label>
           <input type="text" formControlName="denomination" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('denomination')?.invalid && marriageOfficerForm.get('denomination')?.touched" class="text-danger">
+            Denomination is required.
+          </div>
         </div>
         <div class="col-md-6">
           <label class="form-label">Church</label>
           <input type="text" formControlName="church" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('church')?.invalid && marriageOfficerForm.get('church')?.touched" class="text-danger">
+            Church is required.
+          </div>
         </div>
       </div>
       <div class="row">
@@ -159,32 +180,50 @@
             <option value="Ahafo">Ahafo</option>
             <option value="Bono">Bono</option>
           </select>
+          <div *ngIf="marriageOfficerForm.get('region')?.invalid && marriageOfficerForm.get('region')?.touched" class="text-danger">
+            Region is required.
+          </div>
         </div>
         <div class="col-md-6 col-sm-12">
           <label class="form-label">Location</label>
           <input type="text" formControlName="location" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('location')?.invalid && marriageOfficerForm.get('location')?.touched" class="text-danger">
+            Location is required.
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label class="form-label">Gazette Number</label>
           <input type="text" formControlName="gazette_number" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('gazette_number')?.invalid && marriageOfficerForm.get('gazette_number')?.touched" class="text-danger">
+            Gazette Number is required.
+          </div>
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Gazette Date</label>
-          <input type="text" formControlName="gazette_date" class="form-control form-control-lg" />
+          <input type="date" formControlName="gazette_date" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('gazette_date')?.invalid && marriageOfficerForm.get('gazette_date')?.touched" class="text-danger">
+            Gazette Date is required.
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label class="form-label">Licence Officer</label>
           <input type="text" formControlName="license_officer" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('license_officer')?.invalid && marriageOfficerForm.get('license_officer')?.touched" class="text-danger">
+            Licence Officer is required.
+          </div>
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Appointment Date</label>
-          <input type="text" formControlName="appointment_date" class="form-control form-control-lg" />
+          <input type="date" formControlName="appointment_date" class="form-control form-control-lg" />
+          <div *ngIf="marriageOfficerForm.get('appointment_date')?.invalid && marriageOfficerForm.get('appointment_date')?.touched" class="text-danger">
+            Appointment Date is required.
+          </div>
         </div>
       </div>
     </form>

@@ -25,7 +25,9 @@ export class VenuesComponent {
       location: ['',Validators.required],
       region: ['',Validators.required],
       gazette_number: ['',Validators.required],
-      gazette_date: ['',Validators.required]
+      gazette_date: ['',Validators.required],
+      place_of_worship: ['',Validators.required]
+
     })
   }
  

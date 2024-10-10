@@ -25,10 +25,10 @@ export class MuslimMarriageOfficersComponent {
     this.auth.get('/user/marriage-officers/muslim').subscribe({
       next: (response) => {
         this.muslimMarriageOfficers = response['officers'];
-        console.log(response);
+        // console.log(response);
       },
       error: (result) => {
-        console.log(result);
+        // console.log(result);
       },
     });
   }

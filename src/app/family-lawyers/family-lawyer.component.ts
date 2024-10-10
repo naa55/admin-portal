@@ -26,6 +26,9 @@ export class FamilyLawyerComponent {
   familyId: any;
   storeData = false
   editData = false
+  selectedFile: File | null = null;
+  base64String: string | ArrayBuffer = '';
+  responsePicture: any;
 
 
   constructor(
@@ -70,21 +73,24 @@ export class FamilyLawyerComponent {
       case_track_record: new FormControl('', Validators.required),
       work_experience: new FormControl('', Validators.required),
       date_of_call: new FormControl('', Validators.required),
-      profile_picture: new FormControl('', Validators.required),
+      // profile_picture: new FormControl('', Validators.required),
     });
   }
 
   store() {
     this.isLoading = true;
     let payload = this.familyLawyersForm.value;
-    console.log(payload)
-  
+    payload.profile_picture = this.base64String
+
+    // console.log(payload)
+
 
     this.auth.store('/admin/lawyers/store', payload).subscribe({
       next: (result) => {
         this.isLoading = false;
         this.modalService.dismissAll();
         this.alertNotifier.success('Saved Successfully');
+        this.getAllFamilyLawyers()
       },
       error: (result) => {
         this.isLoading = false;
@@ -93,12 +99,41 @@ export class FamilyLawyerComponent {
     });
   }
 
+
+
+  // Capture the file selected
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      // console.log(this.selectedFile)
+      this.convertToBase64()
+    }
+  }
+
+  convertToBase64(): void {
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.selectedFile);
+      reader.onload = () => {
+        this.base64String = reader.result as string;
+        // console.log(this.base64String)
+      };
+      reader.onerror = (error) => {
+        console.error('Error: ', error);
+      };
+    }
+  }
+
+
+
   onFileChange(event: any) {
     const reader = new FileReader();
     const file = event.target.files[0];
 
     reader.onloadend = () => {
       this.base64File = reader.result;
+      // console.log(this.base64File)
     };
 
     reader.readAsDataURL(file);
@@ -109,7 +144,7 @@ export class FamilyLawyerComponent {
     this.auth.get('/admin/lawyers/all').subscribe({
       next: (response) => {
         this.familyLawyers = response['lawyers'];
-        console.log(this.familyLawyers)
+        // console.log(this.familyLawyers)
         this.spinner.hide();
       },
       error: (error) => {
@@ -122,23 +157,33 @@ export class FamilyLawyerComponent {
   edit(item: any, context) {
     this.open(context);
     this.familyId = item?.id
-    console.log(item);
-
+    // console.log(item?.date_of_call);
     this.storeData = false
     this.editData = true
-    
 
+    this.familyLawyersForm.patchValue(item);
+
+
+
+    this.familyLawyersForm.get("professional_membership").patchValue(item?.professional_memberships);
     this.familyLawyersForm.get("lawyer").patchValue(item?.lawyer_name);
     this.familyLawyersForm.get("email").patchValue(item?.contact_details?.email);
     this.familyLawyersForm.get("phone_number").patchValue(item?.contact_details?.phone);
-    this.familyLawyersForm.patchValue(item);
+    // this.familyLawyersForm.get("date_of_call").patchValue(new Date(item?.date_of_call).toISOString().substring(0, 10));
+    console.log('data' + new Date(item?.date_of_call).toISOString().substring(0, 10))
+      this.familyLawyersForm.patchValue({
+        date_of_call: new Date(item?.date_of_call).toISOString().substring(0, 10),
+      });
   }
 
   update() {
     this.isLoading = true;
     let payload = this.familyLawyersForm.value;
-
-    this.auth.update(`/admin/lawyers/update/${this.familyId}`, payload).subscribe({
+    // console.log(payload)
+      payload.profile_picture = this.base64String
+    
+    // console.log(payload)
+    this.auth.store(`/admin/lawyers/update/${this.familyId}`, payload).subscribe({
       next: (result) => {
         this.isLoading = false;
         this.alertNotifier.success('Updated Successfully');
@@ -150,16 +195,19 @@ export class FamilyLawyerComponent {
       },
     });
   }
+  
 
   delete(id: any) {
     const deleteId = id;
 
-    this.auth.delete(`/admin/lawyers/remove/${deleteId}`).subscribe({
+    this.auth.get(`/admin/lawyers/remove/${deleteId}`).subscribe({
       next: (result) => {
         this.alertNotifier.success('Deleted Successfully');
+        this.getAllFamilyLawyers()
       },
       error: (result) => {
-        console.log(result);
+        // console.log(result);
+        this.getAllFamilyLawyers()
         this.alertNotifier.error('Unable to delete');
       },
     });
@@ -184,10 +232,10 @@ export class FamilyLawyerComponent {
   }
 
   searchFamily() {
-    console.log('search')
+    // console.log('search')
     this.auth.get(`/admin/lawyers/filter?name=${this.name}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response['data'])
         if (response) {
           this.familyLawyers = response['data'];
         }

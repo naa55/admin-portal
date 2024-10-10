@@ -110,9 +110,9 @@ export const ROUTES: RouteInfo[] = [
     {
         path: '/courts', title: 'Courts', icon: ' bx bx-building-house', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
-    {
-        path: '/categories', title: 'Categories', icon: ' bx bx-pyramid', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
-    },
+    // {
+    //     path: '/categories', title: 'Categories', icon: ' bx bx-pyramid', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
+    // },
     {
         path: '/glossary', title: 'Glossary', icon: ' bx bx-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
@@ -123,7 +123,7 @@ export const ROUTES: RouteInfo[] = [
         path: '/family-lawyers', title: 'Family Lawyers', icon: 'bx bx-face', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
-        path: '/counsellors', title: 'Family Lawyers', icon: 'bx bx-face', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
+        path: '/counsellors', title: 'Counsellors', icon: 'bx bx-face', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     // {
     //     path: '/application/payment', title: 'Payments', icon: 'bx bx-money', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'

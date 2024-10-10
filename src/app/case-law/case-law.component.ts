@@ -47,7 +47,6 @@ export class CaseLawComponent {
   initialiseForm(){
     this.caseLawGroup = new FormGroup({
       case_title: new FormControl('',Validators.required),
-      case_law: new FormControl('',Validators.required),
       summary: new FormControl('',Validators.required),
       category_id: new FormControl('',Validators.required),
       court: new FormControl('',Validators.required),
@@ -59,17 +58,21 @@ export class CaseLawComponent {
     this.isLoading = true
     let payload = this.caseLawGroup.value
     payload['case_file'] = this.base64File
-    payload['case_law'] = 'First human law'
    
      this.auth.store('/admin/case-law/store', payload).subscribe({
       next: (result) => {
         this.isLoading = false
+        this.alertNotifier.success('Case Uploaded Successfully');
+        this.getAllCases();
+
         this.modalService.dismissAll()
         
       },
       error: (result) => {
         this.isLoading = false
         this.modalService.dismissAll()
+        this.alertNotifier.warning('Case Uploaded Unsuccessfully');
+
        
       }
   })
@@ -87,22 +90,23 @@ onFileChange(event: any) {
 }
 
 getAllCases(){
+
   this.auth.get('/admin/case-law/all').subscribe({
       next: (response) => {
           this.casesArray = response['case_laws']
          
-        console.log(response) 
+        // console.log(response) 
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
 })
 }
 
 getCategories(){
-  this.spinner.show()
   this.auth.get('/admin/categories').subscribe({
     next: (response) => {
+      // console.log(response)
       this.categories = response['categories']
       this.spinner.hide()
     },
@@ -115,7 +119,7 @@ getCategories(){
 edit(category:any,context){
   this.open(context)
   this.case_id = category?.uuid
-  console.log(category)
+  // console.log(category)
   
   this.caseLawGroup.patchValue(category)
 
@@ -133,10 +137,15 @@ update(){
         this.case_id = null
         this.isLoading = false
         this.modalService.dismissAll()
+        this.alertNotifier.success('Case Updated Successfully');
+
+        this.getAllCases()
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
         this.isLoading = false
+        this.alertNotifier.success('Case Updated Unsuccessfully');
+
       }
   })
 }
@@ -144,25 +153,41 @@ update(){
 delete(id:string){
  const deleteId  = id
    
-     this.auth.delete(`/admin/case-law/remove/${deleteId}`).subscribe({
+     this.auth.get(`/admin/case-law/remove/${deleteId}`).subscribe({
       next: (result) => {
-        this.case_id = null
-        console.log(result) 
+        this.alertNotifier.success('Case deleted Successfully')
+        this.getAllCases()
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
+        this.alertNotifier.success('Case deleted Unsuccessfully')
+
       }
   })
+}
+
+getAllCategories(){
+  this.auth.get('/admin/categories').subscribe({
+      next: (response) => {
+        // console.log(response)
+          this.categories = response['categories']
+        // console.log('categories' + response) 
+      },
+      error: (result) => {
+        // console.log(result)
+      }
+})
 }
 
 getAllCourts(){
   this.auth.get('/admin/courts/all').subscribe({
       next: (response) => {
+        // console.log(response)
           this.courtsArray = response['courts']
-        console.log(response) 
+        // console.log('courtsArray' + response) 
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
 })
 }
@@ -184,10 +209,10 @@ close(){
 }
 
 searchCase() {
-   console.log('search')
+  //  console.log('search')
     this.auth.get(`/admin/case-law/filter?title=${this.title}&court=${this.court}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         if(response) {
           this.casesArray = response['caseLaws']
         }

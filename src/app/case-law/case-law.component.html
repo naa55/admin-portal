@@ -37,12 +37,9 @@
           </tr>
         </thead>
         <tbody
-          *ngFor="
-            let user of casesArray
-              | paginate : { itemsPerPage: 10, currentPage: p }
-          "
+          
         >
-          <tr *ngFor="let item of casesArray">
+          <tr *ngFor="let item of casesArray | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{ item.case_title }}</td>
             <td>{{ item.court }}</td>
             <td>{{ item.category_name }}</td>
@@ -66,8 +63,8 @@
                   >
                     Edit
                   </li>
-                  <li (click)="view(item)" class="dropdown-item">View</li>
-                  <li (click)="deleteCat(item.id)" class="dropdown-item">
+                  <!-- <li (click)="view(item)" class="dropdown-item">View</li> -->
+                  <li (click)="delete(item.uuid)" class="dropdown-item">
                     Delete
                   </li>
                 </ul>
@@ -87,7 +84,7 @@
 <ng-template #caseModal let-c="close" let-d="dismiss">
 
       <div class="modal-header">
-        <h5 class="modal-title">New Case</h5>
+        <h5 class="modal-title">Case Law and Statutes</h5>
         <button
           type="button"
           class="btn-close"
@@ -107,7 +104,7 @@
               />
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-sm-12">
               <label class="form-label">Summary</label>
               <textarea
@@ -117,17 +114,17 @@
               ></textarea>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-sm-12">
               <label class="form-label">Court</label>
               <select formControlName="court" id="" class="form-control">
                 <option value="" disabled selected>--Select Court--</option>
-                <option [value]="item.court" *ngFor="let item of courtsArray"  >{{court?.title}}</option>
+                <option [value]="item.court" *ngFor="let item of courtsArray"  >{{ item?.court }}</option>
               </select>
              
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-sm-12">
               <label class="form-label">Category</label>
               <select formControlName="category_id" id="" class="form-control">
@@ -141,9 +138,10 @@
               </select>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-6">
-              <label class="form-label">Case File</label>
+              <label class="form-label">Case File </label>
+              <label class="text-danger">*All uploaded files should be in pdf</label>
               <input
                 type="file"
                 (change)="onFileChange($event)"
@@ -164,7 +162,6 @@
           <button
             type="button"
             class="btn btn-primary"
-            [disabled]="caseLawGroup.invalid"
             (click)="case_id ? update() : store()"
           >
           <span

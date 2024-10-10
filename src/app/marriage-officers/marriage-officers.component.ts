@@ -3,12 +3,18 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertComponent } from '../shared/alert/alert.component';
-
+import { catchError, map, retry, take, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+interface DataType {
+  name: string
+}
 @Component({
   selector: 'app-marriage-officers',
   templateUrl: './marriage-officers.component.html',
   styleUrls: ['./marriage-officers.component.scss']
 })
+
+
 export class MarriageOfficersComponent {
   @ViewChild('#exampleLargeModal') cateogoryModal
   @ViewChild('alert') alertNotifier: AlertComponent
@@ -18,12 +24,13 @@ export class MarriageOfficersComponent {
   p: number = 1
   officers: any;
   category_id: any;
-  region: string = "Greater Accra"
+  region: string = ""
   name: string = ""
   church: string = ""
   storeData = false
   editData = false
   christianId: any;
+  offData$: Observable<any[]>;
   constructor(private auth: AuthService,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal) {
@@ -33,25 +40,28 @@ export class MarriageOfficersComponent {
     this.initializeForm()
     this.getAllOfficers()
     this.initializeSearch()
+    // this.getAllOf()
 
   }
 
   ngAfterViewInit(): void {
-    console.log('cat ', this.cateogoryModal)
+    // console.log('cat ', this.cateogoryModal)
     //this.modalService.open()
   }
 
   open(content) {
+    this.editData = false;
+    this.storeData = true
     this.marriageOfficerForm.reset()
     this.modalService.open(content, { size: 'lg' });
   }
 
   searchMarriage() {
-    console.log('search')
-    console.log(this.region)
+    // console.log('search')
+    // console.log(this.region)
     this.auth.get(`/admin/marriage-officers/filter?type=${'christian'}&name=${this.name}&church=${this.church}&region=${this.region}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         if (response) {
           this.officers = response['officers'];
         }
@@ -86,11 +96,14 @@ export class MarriageOfficersComponent {
   store() {
 
     const payload = this.marriageOfficerForm.value
+    console.log(payload)
 
     this.auth.store('/admin/marriage-officers/christian/store', payload).subscribe({
       next: (result) => {
         this.modalService.dismissAll()
         this.getAllOfficers();
+        this.storeData = false
+        this.editData = false
         this.alertNotifier.success('Marriage Officer created successfully')
       },
       error: (result) => {
@@ -103,13 +116,40 @@ export class MarriageOfficersComponent {
     this.auth.get('/admin/marriage-officers/all').subscribe({
       next: (response) => {
         this.officers = response['officers']
-        console.log(response)
+        // console.log(response)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
+
+  // getAllOf() {
+  //   this.offData$ = this.auth.get('/admin/marriage-officers/all').pipe(
+  //     retry(3),
+  //     take(1),
+  //     map((response) => response['officers']),
+  //     tap((response) => console.log(response)),
+  //     catchError(error => {
+  //       console.error(error)
+  //       return of({ error: 'Failed to load Date' })
+  //     })
+  //   )
+  // }
+
+  // getOff() {
+  //   this.offData$ = this.auth.get('/admin/marriage-officers/all').pipe(
+  //     take(1),
+  //     retry(3),
+  //     map((items) => items['officers']),
+  //     catchError(error => {
+  //       console.error(error)
+  //       return of({ error: 'falied to load' })
+  //     }
+    
+  //     )
+  //    )
+  // }
 
   save() {
     // Perform save operation
@@ -146,8 +186,21 @@ export class MarriageOfficersComponent {
 
   }
 
+  // formateDateForPayload(item) {
+  //   console.log(item)
+  //   let formattedDate: string;
+  //   // if (item instanceof Date) {
+  //     formattedDate = item.toISOString().split('T')[0];  // Convert to 'YYYY-MM-DD'
+
+  //   // } else {
+  //   //   formattedDate = item;  // Assume string is already in the correct format
+  //   // }
+  //     console.log(formattedDate)
+  // }
+
   edit(data: any, modal) {
-    console.log(data)
+    // console.log(this.formateDateForPayload(data?.gazette_date))
+    // console.log(data)
     this.storeData = false
     this.editData = true
     this.open(modal);
@@ -159,7 +212,16 @@ export class MarriageOfficersComponent {
           this.editData = true
           this.marriageOfficerForm.get("name").patchValue(data?.officer_name);
           this.marriageOfficerForm.get("gender").patchValue(data?.gender);
-          this.marriageOfficerForm.get("gazette_date").patchValue(data?.gazette_date);
+
+          this.marriageOfficerForm.patchValue({
+            gazette_date: new Date(data.gazette_date).toISOString().substring(0, 10),
+            appointment_date: new Date(data.appointment_date).toISOString().substring(0, 10),
+          })
+          // this.marriageOfficerForm.get("gazette_date").patchValue(data?.gazette_date);
+          // console.log(this.formateDateForPayload(data?.gazette_date))
+          // this.marriageOfficerForm.patchValue(
+          //   { gazette_date: this.formateDateForPayload(data?.gazette_date) }
+          // );
           this.marriageOfficerForm.get("gazette_number").patchValue(data?.gazette_number);
           this.marriageOfficerForm.get("location").patchValue(data?.location);
           this.marriageOfficerForm.get("region").patchValue(data?.region);
@@ -167,7 +229,7 @@ export class MarriageOfficersComponent {
           this.marriageOfficerForm.get("denomination").patchValue(data?.denomination);
           this.marriageOfficerForm.get("license_officer").patchValue(data?.license_officer);
           this.marriageOfficerForm.get("designation").patchValue(data?.license_officer_designation);
-          this.marriageOfficerForm.get("appointment_date").patchValue(data?.appointment_date);
+          // this.marriageOfficerForm.get("appointment_date").patchValue(data?.appointment_date);
         }
       }
     })
@@ -182,21 +244,23 @@ export class MarriageOfficersComponent {
 
   update() {
     let payload = this.marriageOfficerForm.value;
-    console.log(payload);
-    console.log(this.christianId)
-    
+    // console.log(payload);
+    // console.log(this.christianId)
+
     this.auth.update(`/admin/marriage-officers/christian/update/${this.christianId}`, payload)
       .subscribe({
         next: (result) => {
-          console.log(result)
+          // console.log(result)
           if (result['status'] === "success") {
             this.alertNotifier.success('Updated Successfully');
             this.modalService.dismissAll()
             this.getAllOfficers()
+            this.storeData = false
+            this.editData = false
           }
         },
         error: (error) => {
-          console.log(error)
+          // console.log(error)
         }
       })
 
@@ -204,7 +268,7 @@ export class MarriageOfficersComponent {
 
 
   deleteOfficer(item) {
-    console.log(item)
+    // console.log(item)
     this.auth.destroyUrl(`/admin/marriage-officers/remove?type=${1}&officer_id=${item?.id}`).subscribe({
       next: (response) => {
         if (response['status'] === "success") {

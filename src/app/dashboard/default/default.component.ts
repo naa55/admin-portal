@@ -48,10 +48,10 @@ export class DefaultComponent implements OnInit {
       next: (response) => {
         this.officers = response['officers']
         this.officersLength = response['officers'].length
-        console.log("officers", this.officersLength)
+        // console.log("officers", this.officersLength)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
@@ -61,10 +61,10 @@ export class DefaultComponent implements OnInit {
       next: (response) => {
         this.venuesArray = response['venues'];
         this.venuesLength = response['venues'].length
-        console.log(this.venuesLength)
+        // console.log(this.venuesLength)
       },
       error: (result) => {
-        console.log(result);
+        // console.log(result);
       },
     });
   }
@@ -75,10 +75,10 @@ export class DefaultComponent implements OnInit {
       next: (response) => {
         this.courtList = response['courts'];
         this.courtListLength = response['courts'].length;
-        console.log(response)
+        // console.log(response)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
@@ -87,10 +87,10 @@ export class DefaultComponent implements OnInit {
       next: (response) => {
         this.caseList = response['case_laws'];
         this.caseListLength = response['case_laws'].length;
-        console.log(this.caseListLength)
+        // console.log(this.caseListLength)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
@@ -99,10 +99,10 @@ export class DefaultComponent implements OnInit {
       next: (response) => {
         this.familyLawyerList = response['lawyers'];
         this.familyLawyerLength = response['lawyers'].length;
-        console.log(this.familyLawyerLength)
+        // console.log(this.familyLawyerLength)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
@@ -111,27 +111,27 @@ export class DefaultComponent implements OnInit {
     const category = "muslim";
     this.auth.get(`/admin/marriage-officers/all?type=${category}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         this.ImamList = response['officers'];
         this.ImamLength = response['officers'].length;
-        console.log(this.ImamLength)
+        // console.log(this.ImamLength)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
   getGlossaryList() {
     this.auth.get('/admin/glossary/all').subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         this.glossaryList = response['words'];
         this.glossaryLength = response['words'].length;
 
      
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
@@ -139,14 +139,14 @@ export class DefaultComponent implements OnInit {
   getAllCounsellors() {
     this.auth.get('/admin/marriage-counsellors/all').subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         this.counsellors = response['counsellors'];
         this.counsellorsLength = response['counsellors'].length;
 
-        console.log(this.counsellors)
+        // console.log(this.counsellors)
       },
       error: (error) => {
-        console.log(error)
+        // console.log(error)
       },
     });
   }

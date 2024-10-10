@@ -5,9 +5,10 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -55,10 +56,10 @@ export class AuthService {
   private handleError(err: HttpErrorResponse) {
     if (err.error instanceof ErrorEvent) {
       // clients side
-      console.warn('Clients', err.message);
+      // console.warn('Clients', err.message);
     } else {
       // server side
-      console.warn('Server', err.status);
+      // console.warn('Server', err.status);
     }
     return throwError(() => new Error(err.message));
   }

@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { VenuesRoutingModule } from './venues-routing.module';
 import { VenuesComponent } from './venues.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    VenuesComponent
+    VenuesComponent,
+
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     ReactiveFormsModule,
     NgbModalModule,
-    VenuesRoutingModule
-  ]
+    VenuesRoutingModule,
+    NgbModule,
+    NgbModalModule,
+    SharedModule
+  ],
+  providers: [NgbActiveModal]
 })
 export class VenuesModule { }

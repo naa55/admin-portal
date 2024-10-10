@@ -17,7 +17,7 @@ export class VenuesComponent {
   venuesArray:any;
   category_id: any;
   place: string = "";
-  region: string = "Greater Accra";
+  region: string = "";
   church: string = ""
   storeData = false
   editData = false
@@ -66,7 +66,7 @@ export class VenuesComponent {
             this.getAllVenues();
           },
           error: (result) => {
-            console.log(result)
+            // console.log(result)
           }
   })
 }
@@ -75,10 +75,10 @@ getAllVenues(){
   this.auth.get('/admin/venues/all').subscribe({
       next: (response) => {
           this.venuesArray = response['venues']
-        console.log(response) 
+        // console.log(response) 
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
 })
 }
@@ -86,7 +86,10 @@ getAllVenues(){
 
 
 close() {
+  // console.log('close')
 this.modalService.dismissAll() 
+this.storeData = false
+this.editData = false
 }
 
 
@@ -97,42 +100,46 @@ edit(data:any,modal){
 this.venueId = data.id
 
 this.venueForm.patchValue(data)
+this.venueForm.patchValue({
+  gazette_date: new Date(data.gazette_date).toISOString().substring(0, 10),
+  license_date: new Date(data?.license_date).toISOString().substring(0, 10)
+});
 this.modalService.open(modal, { size: 'lg' });
 
 }
 
 
 deleteCategory(cateogry:any){
-console.log(cateogry)
+// console.log(cateogry)
 const deleteId  = cateogry?.uuid
     this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
      next: (result) => {
        this.category_id = null
        this.modalService.dismissAll()
        this.getAllVenues()
-       console.log(result) 
+      //  console.log(result) 
      },
      error: (result) => {
-       console.log(result)
+      //  console.log(result)
      }
  })
 }
 
 search($event){
-  console.log($event)
+  // console.log($event)
  }
 
  
 
  update() {
   let payload = this.venueForm.value;
-  console.log(payload);
-  console.log(this.venueId);
+  // console.log(payload);
+  // console.log(this.venueId);
 
   this.auth.update(`/admin/venues/update/${this.venueId}`, payload)
     .subscribe({
       next: (result) => {
-        console.log(result)
+        // console.log(result)
         if (result['status'] === "success") {
           this.alertNotifier.success('Updated Successfully');
           this.modalService.dismissAll()
@@ -140,7 +147,7 @@ search($event){
         }
       },
       error: (error) => {
-        console.log(error)
+        // console.log(error)
       }
     })
 
@@ -148,7 +155,7 @@ search($event){
 
 
 deleteFromList(item) {
-  console.log(item)
+  // console.log(item)
   this.auth.destroyUrl(`/admin/venues/remove/${item?.id}`).subscribe({
     next: (response) => {
       if (response['status'] === "success") {
@@ -164,17 +171,18 @@ deleteFromList(item) {
 
  
  searchMarriage() {
-  console.log('search')
-  console.log(this.region)
+  // console.log('search')
+  // console.log(this.region)
   this.auth.get(`/admin/venues/filter?place=${this.place}&denomination=${this.church}&region=${this.region}`).subscribe({
     next: (response) => {
-      console.log(response)
+      // console.log(response)
       if(response) {
         this.venuesArray = response['venues'];
       }
     }
   })
 }
+
 
 
 }

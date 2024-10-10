@@ -23,6 +23,7 @@ export class GlossaryComponent {
   editData = false
   gloId: any;
   word: string = ""
+  getGlossaryListArr: any
 
   constructor(
     private auth: AuthService,
@@ -52,19 +53,19 @@ export class GlossaryComponent {
   getGlossaryList() {
     this.auth.get('/admin/glossary/all').subscribe({
       next: (response) => {
-        console.log(response)
-        this.getGlossaryList = response['words'];
+        // console.log(response)
+        this.getGlossaryListArr = response['words'];
 
 
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
 
   open(content) {
-    console.log(content)
+    // console.log(content)
     this.storeData = true
     this.editData = false
     // this.alertNotifier.success('We have an alert now');
@@ -74,7 +75,7 @@ export class GlossaryComponent {
   edit(data: any, context) {
 
     this.gloId = data.id;
-    console.log(this.gloId)
+    // console.log(this.gloId)
     this.open(context);
     this.storeData = false
     this.editData = true
@@ -106,13 +107,13 @@ export class GlossaryComponent {
 
 
   search($event) {
-    console.log($event)
+    // console.log($event)
   }
 
   store() {
     this.isLoading = true;
     let payload = this.glossaryForm.value;
-    console.log(payload)
+    // console.log(payload)
 
     this.auth.store('/admin/glossary/store', payload).subscribe({
       next: (result) => {
@@ -136,29 +137,30 @@ export class GlossaryComponent {
 
   update() {
     let payload = this.glossaryForm.value;
-    console.log(payload);
-    console.log(this.gloId);
+    // console.log(payload);
+    // console.log(this.gloId);
 
-    // this.auth.update(`/admin/glossary/update/${this.gloId}`, payload)
-    //   .subscribe({
-    //     next: (result) => {
-    //       console.log(result)
-    //       if (result['status'] === "success") {
-    //         this.alertNotifier.success('Updated Successfully');
-    //         this.modalService.dismissAll()
-    //         this.getGlossaryList()
-    //       }
-    //     },
-    //     error: (error) => {
-    //       console.log(error)
-    //     }
-    //   })
+    this.auth.update(`/admin/glossary/update/${this.gloId}`, payload)
+      .subscribe({
+        next: (result) => {
+          // console.log(result)
+          if (result['status'] === "success") {
+            this.alertNotifier.success('Updated Successfully');
+            this.modalService.dismissAll()
+            this.getGlossaryList()
+          }
+        },
+        error: (error) => {
+          // console.log(error)
+        }
+      })
 
   }
 
   deleteFromList(item) {
+    // console.log(item)
     console.log(item)
-    this.auth.destroyUrl(`/admin/glossary/remove/id=${item?.id}`).subscribe({
+    this.auth.destroyUrl(`/admin/glossary/remove/${item?.id}`).subscribe({
       next: (response) => {
         if (response['status'] === "success") {
           this.alertNotifier.success('Deleted Successfully');
@@ -171,12 +173,12 @@ export class GlossaryComponent {
   }
 
   searchWord() {
-    console.log('search')
+    // console.log('search')
     this.auth.get(`/admin/glossary/filter?word=${this.word}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         if (response) {
-          this.getGlossaryList = response['words'];
+          this.getGlossaryListArr = response['words'];
         }
       }
     })

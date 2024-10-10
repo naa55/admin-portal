@@ -59,7 +59,7 @@ export class ImamsComponent implements OnInit {
   store() {
     this.isLoading = true;
     let payload = this.Imamform.value;
-    console.log(payload)
+    // console.log(payload)
 
     this.auth.store('/admin/marriage-officers/muslim/store', payload).subscribe({
       next: (result) => {
@@ -84,18 +84,18 @@ export class ImamsComponent implements OnInit {
     const category = "muslim";
     this.auth.get(`/admin/marriage-officers/all?type=${category}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         this.ImamList = response['officers'];
         this.ImamLength = response['officers'].length;
-        console.log(this.ImamLength)
+        // console.log(this.ImamLength)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
   open(content) {
-    console.log(content)
+    // console.log(content)
     this.storeData = true
     this.editData = false
     // this.alertNotifier.success('We have an alert now');
@@ -104,18 +104,19 @@ export class ImamsComponent implements OnInit {
   }
   edit(id: any, context) {
     this.updateId = id
-    console.log(context)
+    // console.log(context)
     this.open(context);
     // // this.case_id = category?.uuid;
     // console.log(category);
     const type = 'muslim';
-    console.log(id)
+    // console.log(id)
     this.ImamsId = id
 
     this.auth.get(`/admin/marriage-officers/show?officer_id=${id}&type=${type}`).subscribe({
       next: (response) => {
         if (response['officer']) {
           let data = response['officer'];
+          // console.log(data?.license_date)
           this.storeData = false
           this.editData = true
           this.Imamform.get("name").patchValue(data?.officer_name);
@@ -123,7 +124,9 @@ export class ImamsComponent implements OnInit {
           this.Imamform.get("town").patchValue(data?.town);
           this.Imamform.get("license_officer").patchValue(data?.license_officer);
           this.Imamform.get("designation").patchValue(data?.license_officer_designation);
-          this.Imamform.get("license_date").patchValue(data?.license_date);
+          this.Imamform.patchValue({
+            license_date: new Date(data?.license_date).toISOString().substring(0, 10)
+          });
           this.Imamform.get("district").patchValue(data?.district);
         }
       }
@@ -140,19 +143,19 @@ export class ImamsComponent implements OnInit {
 
 
   search($event) {
-    console.log($event)
+    // console.log($event)
   }
 
 
   update() {
     let payload = this.Imamform.value;
-    console.log(payload);
-    console.log(this.ImamsId);
+    // console.log(payload);
+    // console.log(this.ImamsId);
 
     this.auth.update(`/admin/marriage-officers/muslim/update/${this.ImamsId}`, payload)
       .subscribe({
         next: (result) => {
-          console.log(result)
+          // console.log(result)
           if (result['status'] === "success") {
             this.alertNotifier.success('Updated Successfully');
             this.modalService.dismissAll()
@@ -160,14 +163,14 @@ export class ImamsComponent implements OnInit {
           }
         },
         error: (error) => {
-          console.log(error)
+          // console.log(error)
         }
       })
 
   }
 
   deleteFromList(item) {
-    console.log(item)
+    // console.log(item)
     this.auth.destroyUrl(`/admin/marriage-officers/remove?type=${2}&officer_id=${item?.id}`).subscribe({
       next: (response) => {
         if (response['status'] === "success") {
@@ -182,10 +185,10 @@ export class ImamsComponent implements OnInit {
 
   
   searchMarriage() {
-    console.log('search')
+    // console.log('search')
     this.auth.get(`/admin/marriage-officers/filter?type=${'muslim'}&priest=${this.name}&district=${this.district}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         if(response) {
           this.ImamList = response['officers'];
         }

@@ -28,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of getGlossaryList | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <tr *ngFor="let item of getGlossaryListArr | paginate: { itemsPerPage: 10, currentPage: p }">
                         <td>{{item.word}}</td>
 
                         <td>
@@ -45,7 +45,7 @@
                                     </li>
                                     <!-- <li (click)="view(item)" class="dropdown-item">View
                         </li> -->
-                                    <li (click)="deleteCategory(word)" class="dropdown-item">Delete
+                                    <li (click)="deleteFromList(item)" class="dropdown-item">Delete
                                     </li>
                                 </ul>
                             </div>

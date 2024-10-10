@@ -55,7 +55,8 @@ export class SignInComponent implements OnInit {
 
   signIn(e) {
     this.isLoading = true
-    let url  = this.selectedUser == this.UserType.Guest ? '/auth/login':'/admin/auth/login'
+    // let url  = this.selectedUser == this.UserType.Guest ? '/auth/login':'/admin/auth/login'
+    let url = '/admin/auth/login'
     let payload = {
       email: this.signInForms?.get('email')?.value,
       password: this.signInForms?.get('password')?.value,
@@ -72,12 +73,15 @@ export class SignInComponent implements OnInit {
         } else {
           
           sessionStorage.setItem('token', response['token']);
-          if(this.selectedUser == this.UserType.Guest){
-            sessionStorage.setItem('userData', JSON.stringify(response['user']));
-            sessionStorage.setItem('role', 'user')
-          }else{
-            sessionStorage.setItem('userData', JSON.stringify(response['admin']));
-          }
+          // if(this.selectedUser == this.UserType.Guest){
+          //   sessionStorage.setItem('userData', JSON.stringify(response['user']));
+          //   sessionStorage.setItem('role', 'user')
+          // }else{
+          //   sessionStorage.setItem('userData', JSON.stringify(response['admin']));
+          // }
+
+          sessionStorage.setItem('userData', JSON.stringify(response['admin']));
+
          
            this.router.navigateByUrl('/dashboard/default', { replaceUrl: true });
         }

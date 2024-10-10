@@ -20,10 +20,13 @@ export class CounsellorsComponent {
   storeData = false
   editData = false
   counsellors: any;
-  base64File: string | ArrayBuffer;
+  base64File: string | ArrayBuffer = '';
   counsellorsId: any;
   isLoading: boolean;
   name: string = ""
+  selectedFile: File;
+  base64String: string | ArrayBuffer = '';
+  counsellor: any;
 
 
   
@@ -42,16 +45,54 @@ export class CounsellorsComponent {
     this.getAllCounsellors();
   }
 
+    // Capture the file selected
+    onFileSelected(event: Event): void {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length > 0) {
+        this.selectedFile = input.files[0];
+        // console.log(this.selectedFile)
+        this.convertToBase64()
+      }
+    }
+  
+    convertToBase64(): void {
+      if (this.selectedFile) {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.selectedFile);
+        reader.onload = () => {
+          this.base64String = reader.result as string;
+          // console.log(this.base64String)
+        };
+        reader.onerror = (error) => {
+          console.error('Error: ', error);
+        };
+      }
+    }
+  
+  
+  
+    onFileChange(event: any) {
+      const reader = new FileReader();
+      const file = event.target.files[0];
+  
+      reader.onloadend = () => {
+        this.base64File = reader.result;
+        // console.log(this.base64File)
+      };
+  
+      reader.readAsDataURL(file);
+    }
+
   showSuccess(message: string) {
     this.notifier.notify('success', message);
   }
   initialiseForm() {
     this.counselllorsForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      profile_pic: new FormControl('', Validators.required),
+      // profile_pic: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
       bio: new FormControl('', Validators.required),
-      qualifications: new FormControl('', Validators.required),
+      qualification: new FormControl('', Validators.required),
       institution: new FormControl('', Validators.required),
       religion: new FormControl('', Validators.required),
       church: new FormControl('', Validators.required),
@@ -64,9 +105,9 @@ export class CounsellorsComponent {
     this.spinner.show();
     this.auth.get('/admin/marriage-counsellors/all').subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         this.counsellors = response['counsellors'];
-        console.log(this.counsellors)
+        // console.log(this.counsellors)
         this.spinner.hide();
       },
       error: (error) => {
@@ -89,7 +130,8 @@ export class CounsellorsComponent {
   }
   store() {
     let payload = this.counselllorsForm.value;
-    console.log(payload)
+    payload.profile_pic = this.base64String
+    // console.log(payload)
 
     this.auth.store('/admin/marriage-counsellors/store', payload).subscribe({
       next: (result) => {
@@ -103,32 +145,35 @@ export class CounsellorsComponent {
     });
   }
 
-  onFileChange(event: any) {
-    const reader = new FileReader();
-    const file = event.target.files[0];
+  // onFileChange(event: any) {
+  //   const reader = new FileReader();
+  //   const file = event.target.files[0];
 
-    reader.onloadend = () => {
-      this.base64File = reader.result;
-    };
+  //   reader.onloadend = () => {
+  //     this.base64File = reader.result;
+  //   };
 
-    reader.readAsDataURL(file);
-  }
+  //   reader.readAsDataURL(file);
+  // }
 
   edit(item: any, context) {
     this.open(context);
+    this.counsellor = item
     this.counsellorsId = item?.id
-    console.log(item);
+    // console.log(item);
 
     this.storeData = false
     this.editData = true
     this.counselllorsForm.patchValue(item);
   }
 
-  
   update() {
     let payload = this.counselllorsForm.value;
+    payload.lawyer = this.counsellor?.name
+      payload.profile_pic = this.base64File
+      // console.log(payload)
 
-    this.auth.update(`/admin/lawyers/update/${this.counsellorsId}`, payload).subscribe({
+    this.auth.store(`/admin/marriage-counsellors/update/${this.counsellorsId}`, payload).subscribe({
       next: (result) => {
         this.isLoading = false;
         this.alertNotifier.success('Updated Successfully');
@@ -151,17 +196,17 @@ export class CounsellorsComponent {
         this.getAllCounsellors()
       },
       error: (result) => {
-        console.log(result);
+        // console.log(result);
         this.alertNotifier.error('Unable to delete');
       },
     });
   }
 
   searchFamily() {
-    console.log('search')
-    this.auth.get(`/admin/lawyers/filter?name=${this.name}`).subscribe({
+    // console.log('search')
+    this.auth.get(`/admin/marriage-counsellors/filter?name=${this.name}`).subscribe({
       next: (response) => {
-        console.log(response)
+        // console.log(response)
         if (response) {
           this.counsellors = response['counsellors'];
         }

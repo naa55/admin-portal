@@ -60,7 +60,7 @@ export class CourtsComponent {
   store() {
 
     const payload = this.courtForm.value
-    console.log(payload)
+    // console.log(payload)
 
     this.auth.store('/admin/courts/store', payload).subscribe({
       next: (result) => {
@@ -78,10 +78,10 @@ export class CourtsComponent {
     this.auth.get('/admin/courts/all').subscribe({
       next: (response) => {
         this.courtArray = response['courts']
-        console.log(response)
+        // console.log(response)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
@@ -90,16 +90,16 @@ export class CourtsComponent {
     this.auth.get('/admin/categories').subscribe({
       next: (response) => {
         this.categoryArray = response['categories']
-        console.log(response)
+        // console.log(response)
       },
       error: (result) => {
-        console.log(result)
+        // console.log(result)
       }
     })
   }
 
   getCategoryFromItem(e) {
-    console.log(e)
+    // console.log(e)
   }
 
   deleteCat(data: any) {
@@ -111,12 +111,12 @@ export class CourtsComponent {
   }
 
   edit(data: any, modal) {
-    console.log(data)
+    // console.log(data)
 
-    this.courtId = data?.id
+    this.courtId = data?.uuid
     this.open(modal)
-    console.log(this.courtId)
-    console.log(data);
+    // console.log(this.courtId)
+    // console.log(data);
     this.storeData = false
     this.editData = true
     this.courtForm.patchValue(data)
@@ -127,13 +127,14 @@ export class CourtsComponent {
 
   update() {
     let payload = this.courtForm.value;
-    console.log(payload);
-    console.log(this.courtId);
+    // console.log(payload);
+    // console.log(payload)
+    // console.log(this.courtId);
 
     this.auth.update(`/admin/courts/update/${this.courtId}`, payload)
       .subscribe({
         next: (result) => {
-          console.log(result)
+          // console.log(result)
           if (result['status'] === "success") {
             this.alertNotifier.success('Updated Successfully');
             this.modalService.dismissAll()
@@ -141,7 +142,7 @@ export class CourtsComponent {
           }
         },
         error: (error) => {
-          console.log(error)
+          // console.log(error)
         }
       })
 
@@ -150,17 +151,18 @@ export class CourtsComponent {
 
 
   deleteCourt(item: any) {
-    console.log(item)
+    // console.log(item)
 
     const deleteId = item?.uuid
-    this.auth.delete(`/admin/courts/remove/${deleteId}`).subscribe({
+    this.auth.get(`/admin/courts/remove/${deleteId}`).subscribe({
       next: (result) => {
         this.getAllCourt()
         this.modalService.dismissAll()
         this.alertNotifier.success('Court deleted successfully')
       },
       error: (result) => {
-        this.alertNotifier.error('Court deleted successfully')
+        this.alertNotifier.error('Court deleted unsuccessfully')
+        // this.getAllCourt()
       }
     })
   }
@@ -170,6 +172,6 @@ export class CourtsComponent {
   }
 
   search($event) {
-    console.log($event)
+    // console.log($event)
   }
 }

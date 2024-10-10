@@ -26,10 +26,10 @@ export class WordsComponent {
     this.auth.get('/guest/active-word').subscribe({
       next: (response) => {
         this.wordsArray = response['glossary'];
-        console.log(response);
+        // console.log(response);
       },
       error: (result) => {
-        console.log(result);
+        // console.log(result);
       },
     });
   }

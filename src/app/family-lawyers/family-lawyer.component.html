@@ -38,7 +38,8 @@
                 | paginate : { itemsPerPage: 10, currentPage: p }
             "
           >
-            <td>{{ item.lawyer_name}}</td>
+            <td *ngIf="item.lawyer_name">{{ item.lawyer_name}}</td>
+            <td *ngIf="item.lawyer">{{ item.lawyer}}</td>
             <td>
               <span>{{ item.case_track_record }}</span>
             </td>
@@ -62,8 +63,8 @@
                   >
                     Edit
                   </li>
-                  <li (click)="view(item)" class="dropdown-item">View</li>
-                  <li (click)="deleteCategory(item)" class="dropdown-item">
+                  <!-- <li (click)="view(item)" class="dropdown-item">View</li> -->
+                  <li (click)="delete(item.id)" class="dropdown-item">
                     Delete
                   </li>
                 </ul>
@@ -182,14 +183,22 @@
             class="form-control form-control-lg"
           />
         </div>
-        <div class="col-sm-12">
+
+        <div class="mt-3">
+          <p >Profile Picture</p>
+          <p class="text-danger">Picture formats should be in png and jpg</p>
+          <input type="file" (change)="onFileSelected($event)" />
+          <button (click)="convertToBase64()" [disabled]="!selectedFile">Choose Image</button>
+        </div>
+        
+        <!-- <div class="col-sm-12">
           <label class="form-label">Profile Picture</label>
           <input
             type="date"
             formControlName="profile_picture"
             class="form-control form-control-lg"
           />
-        </div>
+        </div>  -->
       </div>
     </form>
   </div>
