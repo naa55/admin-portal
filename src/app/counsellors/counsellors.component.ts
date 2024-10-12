@@ -170,8 +170,8 @@ export class CounsellorsComponent {
   update() {
     let payload = this.counselllorsForm.value;
     payload.lawyer = this.counsellor?.name
-      payload.profile_pic = this.base64File
-      // console.log(payload)
+      payload.profile_pic = this.base64String
+      console.log(payload)
 
     this.auth.store(`/admin/marriage-counsellors/update/${this.counsellorsId}`, payload).subscribe({
       next: (result) => {

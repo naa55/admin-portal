@@ -17,6 +17,8 @@ import { AlertComponent } from "../shared/alert/alert.component";
     p:number = 1
     categoryArray:any;
     category_id: any;
+    storeData = false
+    editData = false
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,){
@@ -33,6 +35,8 @@ import { AlertComponent } from "../shared/alert/alert.component";
     }
 
     open(content){
+      this.storeData = true
+      this.editData = false
       this.categoriesForm.reset()
       this.modalService.open(content, { size: 'lg' });
     }
@@ -81,18 +85,42 @@ view(data:any){
 }
 
 edit(data:any,context){
+  this.storeData = false
+  this.editData = true
   this.category_id = null
   this.categoriesForm.reset()
   this.category_id = data?.uuid
 
   this.modalService.open(context, { size: 'lg' });
-this.categoriesForm.patchValue(data)
+  this.categoriesForm.patchValue(data)
+
+}
+
+update() {
+  let payload = this.categoriesForm.value;
+  // console.log(payload);
+  // console.log(this.venueId);
+
+  this.auth.update(`/admin/update-category/${this.category_id}`, payload)
+    .subscribe({
+      next: (result) => {
+        // console.log(result)
+        if (result['status'] === "success") {
+          this.alertNotifier.success('Updated Successfully');
+          this.modalService.dismissAll()
+          this.getAllCategories()
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
 
 }
 
 
+
 deleteCategory(cateogry:any){
-  console.log(cateogry)
   const deleteId  = cateogry?.uuid
       this.auth.delete(`/admin/remove-category/${deleteId}`).subscribe({
        next: (result) => {
@@ -102,13 +130,18 @@ deleteCategory(cateogry:any){
          this.alertNotifier.success('Category deleted successfully')
        },
        error: (result) => {
-        this.alertNotifier.success('Failed to delete category')
+        this.getAllCategories()
+        // this.alertNotifier.success('Failed to delete category')
+        this.modalService.dismissAll()
+
        }
    })
  }
 
  close(){
   this.modalService.dismissAll()
+  this.storeData = false
+this.editData = false
 }
 
 search($event){
