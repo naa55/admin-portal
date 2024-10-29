@@ -7,7 +7,7 @@ import { NgbActiveModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-boot
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from '../shared/shared.module';
-
+import { DataTablesModule } from "angular-datatables";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { SharedModule } from '../shared/shared.module';
     VenuesRoutingModule,
     NgbModule,
     NgbModalModule,
-    SharedModule
+    SharedModule,
+    DataTablesModule
   ],
   providers: [NgbActiveModal]
 })

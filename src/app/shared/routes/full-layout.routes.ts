@@ -35,7 +35,7 @@ export const Full_ROUTES: Routes = [
 
     },
     {
-        path: 'glossary',
+        path: 'term-trove',
         loadChildren: () => import('../../glossary/glossary.module').then(m => m.GlossaryModule),
         canActivate: [AuthGuard]
 

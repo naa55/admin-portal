@@ -11,9 +11,11 @@ import { AlertComponent } from '../shared/alert/alert.component';
 })
 export class VenuesComponent {
   @ViewChild('alert') alertNotifier: AlertComponent
-
+  page = 1;
   venueForm:FormGroup
   p:number = 1
+  itemsPerPage: number = 20; // Default items per page
+  perPageOptions: number[] = [];
   venuesArray:any;
   category_id: any;
   place: string = "";
@@ -22,6 +24,8 @@ export class VenuesComponent {
   storeData = false
   editData = false
   venueId: any;
+  totalItems: any;
+
 
   constructor(private auth: AuthService,
     private modalService: NgbModal){
@@ -33,11 +37,30 @@ export class VenuesComponent {
      
   }
 
+  generatePerPageOptions() {
+    const maxOption = Math.ceil(this.venuesArray?.length / 20) * 20; // Maximum option based on total items
+    console.log(maxOption)
+    this.perPageOptions = [];
+    for (let i = 20; i <= maxOption; i += 20) {
+      this.perPageOptions.push(i);
+    }
+  }
+
   open(content){
     this.storeData = true
     this.editData = false
     this.venueForm.reset()
     this.modalService.open(content, { size: 'lg' });
+  }
+
+  getStartIndex(): number {
+    return (this.p - 1) * this.itemsPerPage;
+  }
+
+  // Calculate the end index of the current page
+  getEndIndex(): number {
+    const endIndex = this.p * this.itemsPerPage;
+    return endIndex > this.venuesArray?.length ? this.venuesArray?.length : endIndex;
   }
 
   initializeForm(){
@@ -75,6 +98,10 @@ getAllVenues(){
   this.auth.get('/admin/venues/all').subscribe({
       next: (response) => {
           this.venuesArray = response['venues']
+          this.generatePerPageOptions()
+
+          this.totalItems = this.venuesArray?.length;
+
         // console.log(response) 
       },
       error: (result) => {
@@ -141,7 +168,7 @@ search($event){
       next: (result) => {
         // console.log(result)
         if (result['status'] === "success") {
-          this.alertNotifier.success('Updated Successfully');
+          // this.alertNotifier.success('Updated Successfully');
           this.modalService.dismissAll()
           this.getAllVenues()
         }
@@ -159,6 +186,7 @@ deleteFromList(item) {
   this.auth.destroyUrl(`/admin/venues/remove/${item?.id}`).subscribe({
     next: (response) => {
       if (response['status'] === "success") {
+
         this.alertNotifier.success('Deleted Successfully');
         this.getAllVenues()
         this.modalService.dismissAll()

@@ -16,7 +16,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class GlossaryComponent {
   @ViewChild('alert') alertNotifier: AlertComponent
   p: number = 1;
-
+  itemsPerPage: number = 20; // Default items per page
+  perPageOptions: number[] = [];
   glossaryForm: FormGroup;
   isLoading: boolean;
   storeData = false
@@ -24,6 +25,7 @@ export class GlossaryComponent {
   gloId: any;
   word: string = ""
   getGlossaryListArr: any
+  totalItems: any;
 
   constructor(
     private auth: AuthService,
@@ -50,12 +52,16 @@ export class GlossaryComponent {
     })
   }
 
+
+
   getGlossaryList() {
     this.auth.get('/admin/glossary/all').subscribe({
       next: (response) => {
         // console.log(response)
         this.getGlossaryListArr = response['words'];
+        this.generatePerPageOptions()
 
+        this.totalItems = this.getGlossaryListArr?.length;
 
       },
       error: (result) => {
@@ -63,6 +69,25 @@ export class GlossaryComponent {
       }
     })
   }
+
+  generatePerPageOptions() {
+    const maxOption = Math.ceil(this.getGlossaryListArr?.length / 20) * 20; // Maximum option based on total items
+    console.log(maxOption)
+    this.perPageOptions = [];
+    for (let i = 20; i <= maxOption; i += 20) {
+      this.perPageOptions.push(i);
+    }
+  }
+  getStartIndex(): number {
+    return (this.p - 1) * this.itemsPerPage;
+  }
+
+    // Calculate the end index of the current page
+    getEndIndex(): number {
+      const endIndex = this.p * this.itemsPerPage;
+      return endIndex > this.getGlossaryListArr?.length ? this.getGlossaryListArr?.length : endIndex;
+    }
+  
 
   open(content) {
     // console.log(content)

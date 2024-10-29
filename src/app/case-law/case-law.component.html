@@ -14,18 +14,18 @@
 <div class="card mt-2">
   <div class="card-body">
     <div class="d-lg-flex align-items-center mb-4 gap-3">
-      <div class="position-relative">
+      <div class="position-relative mb-2">
         <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="title" placeholder="Case" 
            />
       </div>
-      <div class="position-relative">
+      <div class="position-relative mb-2">
         <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="court" placeholder="Court"/>
       </div>
-      <div>
+      <div class="mb-2">
         <button type="submit" (click)="searchCase()" class="btn btn-primary">Search</button>
       </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive-sm">
       <table class="table table-striped table-bordered align-middle mb-0">
         <thead class="table-light">
           <tr>

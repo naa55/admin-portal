@@ -19,6 +19,8 @@ import { AlertComponent } from "../shared/alert/alert.component";
     category_id: any;
     storeData = false
     editData = false
+    searchName = ''
+    order = ''
 
     constructor(private auth: AuthService,
       private modalService: NgbModal,){
@@ -144,9 +146,30 @@ deleteCategory(cateogry:any){
 this.editData = false
 }
 
-search($event){
-  console.log($event)
+getOrder(e) {
+  this.order = e.target.value
+  this.search()
+
+}
+
+ getFilter(e) {
+  console.log(e)
+  this.searchName = e.target.value
+
+  this.search()
  }
+
+ search(){
+
+  this.auth.get(`/admin/categories/filter?parameter=${this.searchName}&order=${this.order}`).subscribe({
+    next: (response) => {
+      // console.log(response)
+      this.categoryArray = response['categories']
+
+    }
+  })
+ }
+
 
   }
   

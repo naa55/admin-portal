@@ -154,7 +154,7 @@
     symbol-observable "4.0.0"
     yargs "17.6.2"
 
-"@angular/common@^11.0.0", "@angular/common@^15.0.0", "@angular/common@^15.2.2", "@angular/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@angular/common@>= 16.0.0 < 17.0.0", "@angular/common@>=13.0.0", "@angular/common@>=15.0.0", "@angular/common@>=6.0.0", "@angular/common@>=7.2.0", "@angular/common@>=9.0.0", "@angular/common@>12.0.0", "@angular/common@15.2.2":
+"@angular/common@^11.0.0", "@angular/common@^15.0.0", "@angular/common@^15.2.2", "@angular/common@^18.0.5", "@angular/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@angular/common@>= 16.0.0 < 17.0.0", "@angular/common@>=13.0.0", "@angular/common@>=15.0.0", "@angular/common@>=6.0.0", "@angular/common@>=7.2.0", "@angular/common@>=9.0.0", "@angular/common@>12.0.0", "@angular/common@15.2.2":
   version "15.2.2"
   resolved "https://registry.npmjs.org/@angular/common/-/common-15.2.2.tgz"
   integrity sha512-407yHyMR5CGFWjZPeiBNHa4UKwOTTMCNn7gmfi243AxIaPjIHwCDvIOx2w5OfrV+OUKSMIuqMRHLP4eUYkJDjA==
@@ -184,7 +184,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^11.0.0", "@angular/core@^15.0.0", "@angular/core@^15.2.2", "@angular/core@^6.0.0 || ^7.0.0 || ^8.0.0", "@angular/core@>= 16.0.0 < 17.0.0", "@angular/core@>=13.0.0", "@angular/core@>=15.0.0", "@angular/core@>=5.0.0", "@angular/core@>=6.0.0", "@angular/core@>=7.2.0", "@angular/core@>=9.0.0", "@angular/core@>12.0.0", "@angular/core@15.2.2":
+"@angular/core@^11.0.0", "@angular/core@^15.0.0", "@angular/core@^15.2.2", "@angular/core@^18.0.5", "@angular/core@^6.0.0 || ^7.0.0 || ^8.0.0", "@angular/core@>= 16.0.0 < 17.0.0", "@angular/core@>=13.0.0", "@angular/core@>=15.0.0", "@angular/core@>=5.0.0", "@angular/core@>=6.0.0", "@angular/core@>=7.2.0", "@angular/core@>=9.0.0", "@angular/core@>12.0.0", "@angular/core@15.2.2":
   version "15.2.2"
   resolved "https://registry.npmjs.org/@angular/core/-/core-15.2.2.tgz"
   integrity sha512-Rn9LKeeryV0hVrOxlOPnQJdgUxbKdB8NByhptzB6XSzZ0ODx0ZN+iYVRLqu0Fu95zh5oSeYYU+2yT6+FIIX65w==
@@ -214,7 +214,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-browser@^15.2.2", "@angular/platform-browser@15.2.2":
+"@angular/platform-browser@^15.2.2", "@angular/platform-browser@^18.0.5", "@angular/platform-browser@15.2.2":
   version "15.2.2"
   resolved "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-15.2.2.tgz"
   integrity sha512-kH1vUsFF7iRQ+DCQ/UkQtCWAzXzTDRO1p40RMf2IzDduESMcMwyWtheZflOuL1l4ubMbLitQiL846Hj/4CUl4g==
@@ -1609,10 +1609,10 @@
   resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-3.6.11.tgz"
   integrity sha512-S6pvzQDvMZHrkBz2Mcn/8Du7cpr76PlRJBAoHnSDNbulULsH5dp0Gns+WRyNX5LHejz/ljxK4/vIHK/caHt6SQ==
 
-"@types/jquery@^3.5.5":
-  version "3.5.5"
-  resolved "https://registry.npmjs.org/@types/jquery/-/jquery-3.5.5.tgz"
-  integrity sha512-6RXU9Xzpc6vxNrS6FPPapN1SxSHgQ336WC6Jj/N8q30OiaBZ00l1GBgeP7usjVZPivSkGUfL1z/WW6TX989M+w==
+"@types/jquery@^3.5.31":
+  version "3.5.31"
+  resolved "https://registry.npmjs.org/@types/jquery/-/jquery-3.5.31.tgz"
+  integrity sha512-rf/iB+cPJ/YZfMwr+FVuQbm7IaWC4y3FVYfVDxRGqmUCFjjPII0HWaP0vTPJGp6m4o13AXySCcMbWfrWtBFAKw==
   dependencies:
     "@types/sizzle" "*"
 
@@ -1931,6 +1931,13 @@ angular-calendar@^0.28.24:
     calendar-utils "^0.8.4"
     positioning "^2.0.1"
     tslib "^1.14.1"
+
+angular-datatables@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.npmjs.org/angular-datatables/-/angular-datatables-18.0.0.tgz"
+  integrity sha512-2eWHevDnG9/7vkYxbbjdm4NspKRTpVYga8St3G92/vnPPB8225y8BC8YNpOXaRl6Smc2tlXQu9AxyHEjhfVwWw==
+  dependencies:
+    tslib "^2.3.0"
 
 angular-draggable-droppable@^4.6.0:
   version "4.6.0"
@@ -2706,6 +2713,21 @@ custom-event@~1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/custom-event/-/custom-event-1.0.1.tgz"
   integrity sha1-XQKkaFCt8bSjF5RqOSj8y1v9BCU=
+
+datatables.net-dt@^2.0.3, datatables.net-dt@^2.1.8:
+  version "2.1.8"
+  resolved "https://registry.npmjs.org/datatables.net-dt/-/datatables.net-dt-2.1.8.tgz"
+  integrity sha512-/ScKmyKIpKXzjOJrnJLOWMf2jOQfrYjayNMhUyeMzf3jKhNevHNvImU9MQ/Bab9yheKLjHLL24IgnshAvRFrng==
+  dependencies:
+    datatables.net "2.1.8"
+    jquery ">=1.7"
+
+datatables.net@^2.0.3, datatables.net@^2.1.8, datatables.net@2.1.8:
+  version "2.1.8"
+  resolved "https://registry.npmjs.org/datatables.net/-/datatables.net-2.1.8.tgz"
+  integrity sha512-47ULt+U4bcjbuGTpTlT6SnCuSFVRBxxdWa6X3NfvTObBJ2BZU0o+JUIl05wQ6cABNIavjbAV51gpgvFsMHL9zA==
+  dependencies:
+    jquery ">=1.7"
 
 date-fns@2.16.1:
   version "2.16.1"
@@ -3906,10 +3928,10 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jquery@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
-  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+jquery@^3.6.0, jquery@^3.7.1, jquery@>=1.7:
+  version "3.7.1"
+  resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -4013,6 +4035,15 @@ karma-source-map-support@1.4.0:
   integrity sha512-RsBECncGO17KAoJCYXjv+ckIz+Ii9NCi+9enk+rq6XC81ezYkb4/RHE6CTXdA7IOJqoF3wcaLfVG0CPmE5ca6A==
   dependencies:
     source-map-support "^0.5.5"
+
+karma-webpack@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/karma-webpack/-/karma-webpack-5.0.1.tgz"
+  integrity sha512-oo38O+P3W2mSPCSUrQdySSPv1LvPpXP+f+bBimNomS5sW+1V4SuhCuW8TfJzV+rDv921w2fDSDw0xJbPe6U+kQ==
+  dependencies:
+    glob "^7.1.3"
+    minimatch "^9.0.3"
+    webpack-merge "^4.1.5"
 
 karma@*, karma@^6.3.0, karma@>=0.9, karma@~6.3.0:
   version "6.3.4"
@@ -4125,7 +4156,7 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
-lodash@^4.17.13, lodash@^4.17.21:
+lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -4375,6 +4406,13 @@ minimatch@^6.1.6:
   version "6.2.0"
   resolved "https://registry.npmjs.org/minimatch/-/minimatch-6.2.0.tgz"
   integrity sha512-sauLxniAmvnhhRjFwPNnJKaPFYyddAgbYdeUpHULtCT/GhzdCx/MDNy+Y40lBxTQUrMzDE8e0S43Z5uqfO0REg==
+  dependencies:
+    brace-expansion "^2.0.1"
+
+minimatch@^9.0.3:
+  version "9.0.5"
+  resolved "https://registry.npmjs.org/minimatch/-/minimatch-9.0.5.tgz"
+  integrity sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==
   dependencies:
     brace-expansion "^2.0.1"
 
@@ -5316,7 +5354,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@^6.3.3, "rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.3 || ^7.6.0", rxjs@^6.5.5, rxjs@~6.6.0, rxjs@6.6.7:
+rxjs@^6.3.3, "rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.3 || ^7.6.0", rxjs@^6.5.5, rxjs@^7.4.0, rxjs@~6.6.0, rxjs@6.6.7:
   version "6.6.7"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-6.6.7.tgz"
   integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
@@ -6273,6 +6311,13 @@ webpack-dev-server@^4.0.0, webpack-dev-server@4.11.1:
     webpack-dev-middleware "^5.3.1"
     ws "^8.4.2"
 
+webpack-merge@^4.1.5:
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/webpack-merge/-/webpack-merge-4.2.2.tgz"
+  integrity sha512-TUE1UGoTX2Cd42j3krGYqObZbOD+xF7u28WB7tfUordytSjbWTIjK/8V0amkBfTYN4/pB/GIDlJZZ657BGG19g==
+  dependencies:
+    lodash "^4.17.15"
+
 webpack-merge@5.8.0:
   version "5.8.0"
   resolved "https://registry.npmjs.org/webpack-merge/-/webpack-merge-5.8.0.tgz"
@@ -6470,7 +6515,7 @@ yargs@^17.2.1, yargs@17.6.2:
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
 
-zone.js@~0.11.4, "zone.js@~0.11.4 || ~0.12.0 || ~0.13.0":
+zone.js@~0.11.4, "zone.js@~0.11.4 || ~0.12.0 || ~0.13.0", zone.js@~0.14.3:
   version "0.11.4"
   resolved "https://registry.npmjs.org/zone.js/-/zone.js-0.11.4.tgz"
   integrity sha512-DDh2Ab+A/B+9mJyajPjHFPWfYU1H+pdun4wnnk0OcQTNjem1XQSZ2CDW+rfZEUDjv5M19SBqAkjZi0x5wuB5Qw==
