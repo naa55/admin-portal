@@ -51,13 +51,16 @@ export class CaseLawComponent {
       category_id: new FormControl('',Validators.required),
       court: new FormControl('',Validators.required),
       case_file: new FormControl(''),
+      case_reference: new FormControl(),
     })
 }
 
   store(){
     this.isLoading = true
     let payload = this.caseLawGroup.value
+    
     payload['case_file'] = this.base64File
+    console.log(payload)
    
      this.auth.store('/admin/case-law/store', payload).subscribe({
       next: (result) => {

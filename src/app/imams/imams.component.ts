@@ -53,6 +53,9 @@ export class ImamsComponent implements OnInit {
       license_officer: new FormControl('', Validators.required),
       designation: new FormControl('', Validators.required),
       license_date: new FormControl('', Validators.required),
+      source: new FormControl('', Validators.required),
+      gazette_number: new FormControl('', Validators.required),
+
     })
   }
 
@@ -116,7 +119,7 @@ export class ImamsComponent implements OnInit {
       next: (response) => {
         if (response['officer']) {
           let data = response['officer'];
-          // console.log(data?.license_date)
+          console.log(data?.license_date)
           this.storeData = false
           this.editData = true
           this.Imamform.get("name").patchValue(data?.officer_name);
@@ -124,6 +127,8 @@ export class ImamsComponent implements OnInit {
           this.Imamform.get("town").patchValue(data?.town);
           this.Imamform.get("license_officer").patchValue(data?.license_officer);
           this.Imamform.get("designation").patchValue(data?.license_officer_designation);
+          this.Imamform.get("source").patchValue(data?.source);
+          this.Imamform.get("gazette_number").patchValue(data?.gazette_number);
           this.Imamform.patchValue({
             license_date: new Date(data?.license_date).toISOString().substring(0, 10)
           });

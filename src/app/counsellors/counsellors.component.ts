@@ -98,6 +98,10 @@ export class CounsellorsComponent {
       church: new FormControl('', Validators.required),
       marital_status: new FormControl('', Validators.required),
       years_of_experience: new FormControl('', Validators.required),
+      name_of_firm: new FormControl(''),
+      phone: new FormControl(''),
+      email: new FormControl(''),
+      affiliates: new FormControl("")
     });
   }
 
@@ -186,11 +190,11 @@ export class CounsellorsComponent {
       },
     });
   }
-
+  
   delete(id: any) {
     const deleteId = id;
 
-    this.auth.delete(`/admin/lawyers/remove/${deleteId}`).subscribe({
+    this.auth.get(`/admin/marriage-counsellors/remove/${deleteId}`).subscribe({
       next: (result) => {
         this.alertNotifier.success('Deleted Successfully');
         this.getAllCounsellors()

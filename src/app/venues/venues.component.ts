@@ -75,6 +75,7 @@ export class VenuesComponent {
         license_date: new FormControl(),
         gazette_number: new FormControl(),
         gazette_date: new FormControl(),
+        local_assembly: new FormControl(),
 
       })
   }

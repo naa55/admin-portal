@@ -66,8 +66,7 @@
                   >
                     Edit
                   </li>
-                  <li (click)="view(item)" class="dropdown-item">View</li>
-                  <li (click)="deleteCategory(item)" class="dropdown-item">
+                  <li (click)="delete(item?.id)" class="dropdown-item">
                     Delete
                   </li>
                 </ul>
@@ -106,6 +105,38 @@
             class="form-control form-control-lg"
           />
         </div>
+        <div class="col-sm-12">
+          <label class="form-label">Email</label>
+          <input
+            type="text"
+            formControlName="email"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Phone</label>
+          <input
+            type="text"
+            formControlName="phone"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Bio</label>
+          <textarea
+            type="text"
+            formControlName="bio"
+            class="form-control form-control-lg"
+          ></textarea>
+        </div>
+        <div class="col-sm-12">
+          <label class="form-label">Affiliated Professional Bodies</label>
+          <input
+            type="text"
+            formControlName="affiliates"
+            class="form-control form-control-lg"
+          />
+        </div>
         <!-- <div class="col-md-6 col-sm-12">
           <label class="form-label">Profile Picture</label>
           <input
@@ -122,14 +153,7 @@
             class="form-control form-control-lg"
           />
         </div>
-        <div class="col-md-6 col-sm-12">
-          <label class="form-label">Bio</label>
-          <input
-            type="text"
-            formControlName="bio"
-            class="form-control form-control-lg"
-          />
-        </div>
+        
         <!-- <div class="col-md-6 col-sm-12">
           <label class="form-label">Location</label>
           <input
@@ -144,6 +168,15 @@
           <input
             type="text"
             formControlName="qualification"
+            class="form-control form-control-lg"
+          />
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label">Name of Firm
+        </label>
+          <input
+            type="text"
+            formControlName="name_of_firm"
             class="form-control form-control-lg"
           />
         </div>

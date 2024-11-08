@@ -50,8 +50,9 @@ export class CourtsComponent {
     this.courtForm = new FormGroup({
       court: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      category: new FormControl('', Validators.required)
-
+      category: new FormControl('', Validators.required),
+      location: new FormControl(''),
+      google_map: new FormControl('')
     })
   }
 

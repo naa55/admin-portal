@@ -81,6 +81,7 @@ export class MarriageOfficersComponent {
       gazette_number: new FormControl('', Validators.required),
       gazette_date: new FormControl('', Validators.required),
       license_officer: new FormControl('', Validators.required),
+      source: new FormControl('', Validators.required),
       appointment_date: new FormControl('', Validators.required),
     })
   }
