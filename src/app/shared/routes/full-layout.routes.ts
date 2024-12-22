@@ -23,6 +23,24 @@ export const Full_ROUTES: Routes = [
 
     },
     {
+        path: 'statutes',
+        loadChildren: () => import('../../statutes/statutes.module').then(m => m.StatutesModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'gazette',
+        loadChildren: () => import('../../gazette/gazette.module').then(m => m.GazetteModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'gazette-request',
+        loadChildren: () => import('../../gazette-request/gazette-request.module').then(m => m.GazetteRequestModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
         path: 'categories',
         loadChildren: () => import('../../categories/categories.component.module').then(m => m.CategoriesModule),
         canActivate: [AuthGuard]
@@ -31,6 +49,12 @@ export const Full_ROUTES: Routes = [
     {
         path: 'counsellors',
         loadChildren: () => import('../../counsellors/counsellors.module').then(m => m.CounsellorsModule),
+        canActivate: [AuthGuard]
+
+    },
+    {
+        path: 'term-trove',
+        loadChildren: () => import('../../glossary/glossary.module').then(m => m.GlossaryModule),
         canActivate: [AuthGuard]
 
     },

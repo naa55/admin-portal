@@ -1,0 +1,168 @@
+<div class="d-flex justify-content-end mx-3">
+  <!-- <button type="button" class="btn btn-primary">Add User</button> -->
+  <!-- <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleLargeModal"
+    (click)="open(gazetteModal)"
+  >
+    Add Gazette
+  </button> -->
+</div>
+<div class="card mt-2">
+  <div class="card-body">
+    <!-- <div class="d-lg-flex align-items-center mb-4 gap-3">
+      <div class="position-relative mb-2">
+        <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="gazette_number" placeholder="Gazette Number" 
+           />
+      </div>
+      <div class="position-relative mb-2">
+        <input type="text" class="form-control ps-5 radius-10" [(ngModel)]="gazette_title" placeholder="Gazette Title"/>
+      </div>
+      <div class="position-relative mb-2">
+        <input type="date" class="form-control ps-5 radius-10" [(ngModel)]="gazette_date" placeholder="Gazette Date"/>
+      </div>
+      <div class="mb-2">
+        <button type="submit" (click)="searchGazette()" class="btn btn-primary">Search</button>
+      </div>
+    </div> -->
+    <div class="table-responsive-sm">
+      <table class="table table-striped table-bordered align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Gazette Number</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Request Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody
+          
+        >
+          <tr *ngFor="let item of gazetteArray | paginate: { itemsPerPage: 10, currentPage: p }">
+            <td>{{ item.gazette_number }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.email}}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.request_status}}</td>
+            <td>
+              <div class="dropdown">
+                <button
+                  class="btn btn-primary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Action
+                </button>
+                <ul class="dropdown-menu">
+                  <!-- <li
+                    (click)="edit(item,gazetteModal)"
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleLargeModal"
+                  >
+                    Edit
+                  </li> -->
+                  <li (click)="fullfillRequest(item)" class="dropdown-item" style="cursor: pointer;">FulFil</li>
+                  <!-- <li (click)="delete(item.id)" class="dropdown-item">
+                    Delete
+                  </li> -->
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div style="float: right; margin-bottom: 50px">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<!-- <ng-template #gazetteModal let-c="close" let-d="dismiss">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Gazette</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="close()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form class="my-4" [formGroup]="gazetteForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="form-label">Gazette Number</label>
+              <input
+                type="text"
+                formControlName="gazette_number"
+                class="form-control form-control-lg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="form-label">Gazette Title</label>
+              <input
+                type="text"
+                formControlName="gazette_title"
+                class="form-control form-control-lg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="form-label">Gazette Date</label>
+              <input
+                type="date"
+                formControlName="gazette_date"
+                class="form-control form-control-lg"
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-6">
+              <label class="form-label">Gazette File </label>
+              <label class="text-danger">*All upload file</label>
+              <input
+                type="file"
+                (change)="onFileChange($event)"
+                formControlName="gazette_file"
+                accept=".pdf,.docx,.doc,.xlsx,.xls,.csv"
+                class="form-control form-control-lg"
+              />
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="close()"
+          >Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="gazette_id ? update() : store()"
+          >
+          <span
+              [ngClass]="{ 'spinner-border': isLoading }"
+              style="font-size: 10px; height: 20px; width: 20px"
+              role="status"
+            >
+        </span>
+            {{ gazette_id ? " Update " : "Save changes" }}
+          </button>
+        </div>
+      </div>
+    
+</ng-template> -->

@@ -27,6 +27,7 @@
             <option value="Greater Accra">Greater Accra</option>
             <option value="Northern">Northern</option>
             <option value="Upper West">Upper West</option>
+            <option value="Volta">Volta</option>
             <option value="Ashanti">Ashanti</option>
             <option value="Brong Ahafo">Brong Ahafo</option>
             <option value="Central">Central</option>
@@ -46,6 +47,24 @@
         <button type="submit" (click)="searchMarriage()" class="btn btn-primary">Search</button>
       </div>
     </div>
+ <!-- Items per page dropdown and Showing X out of Y info -->
+ <div class="d-flex justify-content-between align-items-center mb-2">
+  <!-- Items per page -->
+  <div>
+    <label for="itemsPerPage">Show</label>
+    <select id="itemsPerPage" [(ngModel)]="itemsPerPage">
+      <option *ngFor="let option of perPageOptions" [value]="option">{{ option }}</option>
+    </select>
+    entries
+  </div>
+  
+  <!-- Showing X out of Y -->
+  <div>
+    <p>Showing {{ getStartIndex() + 1 }} to {{ getEndIndex() }} out of {{ officers.length }} entries</p>
+  </div>
+</div>
+
+    <!-- Table -->
     <div *ngIf="officers" class="table-responsive-sm">
       <div class="table-responsive">
         <table class="table table-striped table-bordered align-middle mb-0">

@@ -27,7 +27,7 @@
 				<div class="card-body">
 					<div class="d-flex align-items-center">
 						<div>
-							<p class="mb-0 text-secondary">Case Law & Statutes</p>
+							<p class="mb-0 text-secondary">Case Law</p>
 							<h4 *ngIf="caseListLength; else notCase" class="my-1 text-success">{{ caseListLength }}
 							</h4>
 							<ng-template #notCase>
@@ -36,7 +36,8 @@
 								</div>
 							</ng-template>
 						</div>
-						<div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bx-book-reader' style='color:#ffffff' ></i>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
+								class='bx bx-book-reader' style='color:#ffffff'></i>
 						</div>
 					</div>
 				</div>
@@ -58,34 +59,36 @@
 							</ng-template>
 							<!-- <p class="mb-0 font-13">+5.4% from last week</p> -->
 						</div>
-						<div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bx-buildings' style='color:#ffffff' ></i>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i
+								class='bx bx-buildings' style='color:#ffffff'></i>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</a>
-<a routerLink="/imams">
-	<div class="col">
-		<div class="card radius-10 border-start border-0 border-3 border-success">
-			<div class="card-body">
-				<div class="d-flex align-items-center">
-					<div>
-						<p class="mb-0 text-secondary">Imams</p>
-						<h4 *ngIf="ImamLength; else notImam" class="my-1 text-success">{{ ImamLength }}</h4>
+	<a routerLink="/imams">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-success">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Imams</p>
+							<h4 *ngIf="ImamLength; else notImam" class="my-1 text-success">{{ ImamLength }}</h4>
 							<ng-template #notImam>
 								<div *ngIf="!ImamLength" class="spinner-border mt-4" role="status"> <span
 										class="visually-hidden">Loading...</span>
 								</div>
 							</ng-template>
-					</div>
-					<div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bx-user'></i>
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
+								class='bx bx-user'></i>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</a>
+	</a>
 	<a routerLink="/courts">
 		<div class="col">
 			<div class="card radius-10 border-start border-0 border-3 border-warning">
@@ -101,7 +104,8 @@
 								</div>
 							</ng-template>
 						</div>
-						<div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bx-building-house'></i>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i
+								class='bx bx-building-house'></i>
 						</div>
 					</div>
 				</div>
@@ -114,7 +118,7 @@
 				<div class="card-body">
 					<div class="d-flex align-items-center">
 						<div>
-							<p class="mb-0 text-secondary">Family Law  Lawyers</p>
+							<p class="mb-0 text-secondary">Family Law Lawyers</p>
 							<h4 *ngIf="familyLawyerLength; else notLawyer" class="my-1 text-info">{{ familyLawyerLength
 								}}</h4>
 							<ng-template #notLawyer>
@@ -147,7 +151,8 @@
 								</div>
 							</ng-template>
 						</div>
-						<div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bx-book'></i>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i
+								class='bx bx-book'></i>
 						</div>
 					</div>
 				</div>
@@ -162,7 +167,8 @@
 					<div class="d-flex align-items-center">
 						<div>
 							<p class="mb-0 text-secondary">Counsellors</p>
-							<h4 *ngIf="counsellorsLength; else notCounsellors" class="my-1 text-danger">{{ counsellorsLength }}</h4>
+							<h4 *ngIf="counsellorsLength; else notCounsellors" class="my-1 text-danger">{{
+								counsellorsLength }}</h4>
 							<ng-template #notCounsellors>
 								<div *ngIf="!counsellorsLength" class="spinner-border mt-4" role="status"> <span
 										class="visually-hidden">Loading...</span>
@@ -170,7 +176,83 @@
 							</ng-template>
 							<!-- <p class="mb-0 font-13">+5.4% from last week</p> -->
 						</div>
-						<div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bx-user' style='color:#ffffff' ></i>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i
+								class='bx bx-user' style='color:#ffffff'></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+	<a routerLink="/gazette">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-info">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Gazette</p>
+							<h4 *ngIf="gazetteListLength; else notGazette" class="my-1 text-info">{{ gazetteListLength
+								}}</h4>
+							<ng-template #notGazette>
+								<div *ngIf="!gazetteListLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+								class='bx bx-book-reader'></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+
+	<a routerLink="/statutes">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-info">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Statutes</p>
+							<h4 *ngIf="statuteListLength; else notCase" class="my-1 text-success">{{ statuteListLength
+								}}
+							</h4>
+							<ng-template #notCase>
+								<div *ngIf="!statuteListLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div>
+							</ng-template>
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
+								class='bx bx-book-reader' style='color:#ffffff'></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+	<a routerLink="/gazette-request">
+		<div class="col">
+			<div class="card radius-10 border-start border-0 border-3 border-danger">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div>
+							<p class="mb-0 text-secondary">Gazette Requests</p>
+							<h4 *ngIf="gazetteRequestListLength" class="my-1 text-danger">{{
+								gazetteRequestListLength }}</h4>
+							<ng-template #notRequest>
+								<h4 *ngIf="!gazetteRequestListLength" class="my-1 text-danger">0
+									</h4>
+							
+								<!-- <div *ngIf="!gazetteRequestListLength" class="spinner-border mt-4" role="status"> <span
+										class="visually-hidden">Loading...</span>
+								</div> -->
+							</ng-template>
+							<!-- <p class="mb-0 font-13">+5.4% from last week</p> -->
+						</div>
+						<div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i
+								class='bx bx-book-reader' style='color:#ffffff'></i>
 						</div>
 					</div>
 				</div>

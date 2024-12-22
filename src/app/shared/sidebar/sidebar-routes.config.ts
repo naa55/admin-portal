@@ -120,6 +120,15 @@ export const ROUTES: RouteInfo[] = [
         path: '/case-law', title: 'Case Law', icon: 'bx bx-book-reader', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {
+        path: '/statutes', title: 'Statutes', icon: 'bx bx-book-reader', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
+    },
+    {
+        path: '/gazette', title: 'Gazette', icon: 'bx bx-book-reader', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
+    },
+    {
+        path: '/gazette-request', title: 'Gazette Requests', icon: 'bx bx-book-reader', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
+    },
+    {
         path: '/family-lawyers', title: 'Family Law Lawyers', icon: 'bx bx-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [], permission: 'admin'
     },
     {

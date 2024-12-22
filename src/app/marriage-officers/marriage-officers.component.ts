@@ -22,6 +22,8 @@ export class MarriageOfficersComponent {
   marriageOfficerForm: FormGroup
   marriageOfficerSeacrh: FormGroup
   p: number = 1
+  itemsPerPage: number = 20; // Default items per page
+  perPageOptions: number[] = [];
   officers: any;
   category_id: any;
   region: string = ""
@@ -30,6 +32,8 @@ export class MarriageOfficersComponent {
   storeData = false
   editData = false
   christianId: any;
+  totalItems: any;
+
   offData$: Observable<any[]>;
   constructor(private auth: AuthService,
     private modalService: NgbModal,
@@ -117,12 +121,35 @@ export class MarriageOfficersComponent {
     this.auth.get('/admin/marriage-officers/all').subscribe({
       next: (response) => {
         this.officers = response['officers']
+
+        this.generatePerPageOptions()
+
+        this.totalItems = this.officers?.length;
         // console.log(response)
       },
       error: (result) => {
         // console.log(result)
       }
     })
+  }
+
+  generatePerPageOptions() {
+    const maxOption = Math.ceil(this.officers?.length / 20) * 20; // Maximum option based on total items
+    console.log(maxOption)
+    this.perPageOptions = [];
+    for (let i = 20; i <= maxOption; i += 20) {
+      this.perPageOptions.push(i);
+    }
+  }
+
+  getStartIndex(): number {
+    return (this.p - 1) * this.itemsPerPage;
+  }
+
+  // Calculate the end index of the current page
+  getEndIndex(): number {
+    const endIndex = this.p * this.itemsPerPage;
+    return endIndex > this.officers?.length ? this.officers?.length : endIndex;
   }
 
   // getAllOf() {

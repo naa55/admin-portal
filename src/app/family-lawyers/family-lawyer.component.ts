@@ -16,6 +16,8 @@ export class FamilyLawyerComponent {
   @ViewChild('alert') alertNotifier: AlertComponent
 
   p: number = 1;
+  itemsPerPage: number = 20; // Default items per page
+  perPageOptions: number[] = [];
   familyLawyersForm: FormGroup;
   base64File: any;
   categories: [] = [];
@@ -29,6 +31,7 @@ export class FamilyLawyerComponent {
   selectedFile: File | null = null;
   base64String: string | ArrayBuffer = '';
   responsePicture: any;
+  totalItems: number;
 
 
   constructor(
@@ -144,14 +147,32 @@ export class FamilyLawyerComponent {
     this.auth.get('/admin/lawyers/all').subscribe({
       next: (response) => {
         this.familyLawyers = response['lawyers'];
-        // console.log(this.familyLawyers)
-        this.spinner.hide();
+        this.generatePerPageOptions()
+
+        this.totalItems = this.familyLawyers?.length;        this.spinner.hide();
       },
       error: (error) => {
         this.spinner.hide();
         this.alertNotifier.error('Failed to fetch');
       },
     });
+  }
+  generatePerPageOptions() {
+    const maxOption = Math.ceil(this.familyLawyers?.length / 20) * 20; // Maximum option based on total items
+    console.log(maxOption)
+    this.perPageOptions = [];
+    for (let i = 20; i <= maxOption; i += 20) {
+      this.perPageOptions.push(i);
+    }
+  }
+
+  getStartIndex(): number {
+    return (this.p - 1) * this.itemsPerPage;
+  }
+
+  getEndIndex(): number {
+    const endIndex = this.p * this.itemsPerPage;
+    return endIndex > this.familyLawyers?.length ? this.familyLawyers?.length : endIndex;
   }
 
   edit(item: any, context) {

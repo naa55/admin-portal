@@ -23,6 +23,12 @@ export class DefaultComponent implements OnInit {
   glossaryLength: any;
   counsellors: any;
   counsellorsLength: any;
+  gazetteList: any;
+  gazetteListLength: any;
+  statuteList: any;
+  statuteListLength: any;
+  gazetteRequestList: any;
+  gazetteRequestListLength: any;
   
 
 
@@ -39,6 +45,9 @@ export class DefaultComponent implements OnInit {
     this.getImamList();
     this.getGlossaryList()
     this.getAllCounsellors()
+    this.getAllGazette()
+    this.getAllStatutes()
+    this.getAllGazetteRequest()
   }
 
 
@@ -88,6 +97,46 @@ export class DefaultComponent implements OnInit {
         this.caseList = response['case_laws'];
         this.caseListLength = response['case_laws'].length;
         // console.log(this.caseListLength)
+      },
+      error: (result) => {
+        // console.log(result)
+      }
+    })
+  }
+
+
+  getAllGazette() {
+    this.auth.get('/admin/gazette/all').subscribe({
+      next: (response) => {
+        console.log(response)
+        this.gazetteList = response['gazettes'];
+        this.gazetteListLength = response['gazettes'].length;
+      },
+      error: (result) => {
+        // console.log(result)
+      }
+    })
+  }
+  getAllGazetteRequest() {
+    this.auth.get('/admin/gazette/requests').subscribe({
+      next: (response) => {
+        console.log(response)
+        this.gazetteRequestList = response['gazette_requests'];
+        this.gazetteRequestListLength = response['gazette_requests'].length;
+      },
+      error: (result) => {
+        // console.log(result)
+      }
+    })
+  }
+
+
+  getAllStatutes() {
+    this.auth.get('/admin/statutes/all').subscribe({
+      next: (response) => {
+        console.log(response)
+        this.statuteList = response['statutes'];
+        this.statuteListLength = response['statutes'].length;
       },
       error: (result) => {
         // console.log(result)
