@@ -100,9 +100,33 @@
                  class="form-control form-control-lg" ></textarea>
             </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label class="form-label">Region</label>
+            <select name="" id="" class="form-control" formControlName="region">
+              <option value="Greater Accra">Greater Accra</option>
+              <option value="Ashanti">Ashanti</option>
+              <option value="Brong Ahafo">Brong Ahafo</option>
+              <option value="Central">Central</option>
+              <option value="Eastern">Eastern</option>
+              <option value="Northern">Northern</option>
+              <option value="Upper East">Upper East</option>
+              <option value="Upper West">Upper West</option>
+              <option value="Volta">Volta</option>
+              <option value="Western">Western</option>  
+              <option value="Savannah">Savannah</option>
+              <option value="Bono East">Bono East</option>
+              <option value="Oti">Oti</option>
+              <option value="North East">North East</option>
+              <option value="Ahafo">Ahafo</option>
+              <option value="Bono">Bono</option>
+            </select>
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm-12">
-              <label for="categorySelect">Select Category</label>
+              <label for="categorySelect">Select Type</label>
               <select name="categorySelect" id="categorySelect" class="form-control" formControlName="category">
                   <option *ngFor="let item of categoryArray" [value]="item.title">{{ item.title }}</option>
               </select>

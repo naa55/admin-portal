@@ -52,6 +52,7 @@ export class CourtsComponent {
       description: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required),
       location: new FormControl(''),
+      region: new FormControl(''),
       google_map: new FormControl('')
     })
   }
