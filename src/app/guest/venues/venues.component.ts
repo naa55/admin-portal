@@ -40,10 +40,8 @@ export class VenuesComponent {
     this.auth.get('/user/venues/all').subscribe({
       next: (response) => {
         this.venuesArray = response['venues'];
-        console.log(response);
       },
       error: (result) => {
-        console.log(result);
       },
     });
   }

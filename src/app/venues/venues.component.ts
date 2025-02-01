@@ -39,7 +39,6 @@ export class VenuesComponent {
 
   generatePerPageOptions() {
     const maxOption = Math.ceil(this.venuesArray?.length / 20) * 20; // Maximum option based on total items
-    console.log(maxOption)
     this.perPageOptions = [];
     for (let i = 20; i <= maxOption; i += 20) {
       this.perPageOptions.push(i);

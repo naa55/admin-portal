@@ -75,7 +75,6 @@ export class ResetPasswordComponent implements OnInit {
       password_reset_code: this.resetForms.controls['password_reset_code'].value,
     }
 
-    console.log(payload)
 
     // this.auth.store('/user/reset_password', payload).subscribe({
     //   next: async (response) => {

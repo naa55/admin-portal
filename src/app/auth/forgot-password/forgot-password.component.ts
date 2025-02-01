@@ -41,9 +41,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit(e) {
     e.preventDefault()
-    console.log(this.sendEmail.value)
     let payload = {email: this.sendEmail.get('email')?.value}
-    console.log(payload)
 
     this.auth.store('/user/email-validate', payload).subscribe({
       next: async (response) => {

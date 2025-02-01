@@ -119,7 +119,6 @@ export class ImamsComponent implements OnInit {
       next: (response) => {
         if (response['officer']) {
           let data = response['officer'];
-          console.log(data?.license_date)
           this.storeData = false
           this.editData = true
           this.Imamform.get("name").patchValue(data?.officer_name);

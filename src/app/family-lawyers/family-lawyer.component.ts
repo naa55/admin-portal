@@ -159,7 +159,6 @@ export class FamilyLawyerComponent {
   }
   generatePerPageOptions() {
     const maxOption = Math.ceil(this.familyLawyers?.length / 20) * 20; // Maximum option based on total items
-    console.log(maxOption)
     this.perPageOptions = [];
     for (let i = 20; i <= maxOption; i += 20) {
       this.perPageOptions.push(i);
@@ -191,7 +190,6 @@ export class FamilyLawyerComponent {
     this.familyLawyersForm.get("email").patchValue(item?.contact_details?.email);
     this.familyLawyersForm.get("phone_number").patchValue(item?.contact_details?.phone);
     // this.familyLawyersForm.get("date_of_call").patchValue(new Date(item?.date_of_call).toISOString().substring(0, 10));
-    console.log('data' + new Date(item?.date_of_call).toISOString().substring(0, 10))
       this.familyLawyersForm.patchValue({
         date_of_call: new Date(item?.date_of_call).toISOString().substring(0, 10),
       });

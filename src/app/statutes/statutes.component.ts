@@ -48,7 +48,6 @@ export class StatutesComponent implements OnInit {
     let payload = this.statutesForm.value
 
     payload['statute_file'] = this.base64File
-    console.log(payload)
 
 
 
@@ -99,9 +98,7 @@ export class StatutesComponent implements OnInit {
         
     this.auth.get('/admin/statutes/all').subscribe({
       next: (response) => {
-        console.log(response)
         this.statutesArray = response['statutes']
-        console.log(this.statutesArray)
 
         // console.log(response) 
       },
@@ -115,8 +112,6 @@ export class StatutesComponent implements OnInit {
     this.open(context)
     this.statutes_id = item?.id
     this.updateItem = item
-    console.log(this.statutes_id)
-    console.log(item)
 
     this.statutesForm.patchValue(item)
     this.statutesForm.patchValue({
@@ -178,11 +173,9 @@ export class StatutesComponent implements OnInit {
       statute_title: this.statute_title,
     }
 
-    console.log(payload)
 
     this.auth.store(`/admin/statutes/filter`, payload).subscribe({
       next: (response) => {
-        console.log(response)
         if (response) {
           this.statutesArray = response['statutes']
         }

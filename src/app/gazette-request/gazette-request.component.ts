@@ -61,9 +61,7 @@ export class GazetteRequestComponent {
 
     this.auth.get('/admin/gazette/requests').subscribe({
       next: (response) => {
-        console.log(response)
         this.gazetteArray = response['gazette_requests']
-        console.log(this.gazetteArray)
 
         // console.log(response) 
       },
@@ -78,14 +76,10 @@ export class GazetteRequestComponent {
    const payload =  {
       gazette_number: item?.gazette_number,
       id: item?.id
-
     }
-    
-    console.log(payload)
-    
+        
     this.auth.store('/admin/gazette/fulfill', payload).subscribe({
       next: (result) => {
-        console.log(result)
         // this.alertNotifier.success('Gazette Uploaded Successfully');
         this.getAllRequetedGazette();
 

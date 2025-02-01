@@ -49,7 +49,6 @@ export class GazetteComponent implements OnInit {
     let payload = this.gazetteForm.value
 
     payload['gazette_file'] = this.base64File
-    console.log(payload)
 
 
 
@@ -101,7 +100,6 @@ export class GazetteComponent implements OnInit {
     this.auth.get('/admin/gazette/all').subscribe({
       next: (response) => {
         this.gazetteArray = response['gazettes']
-        console.log(this.gazetteArray)
 
         // console.log(response) 
       },
@@ -115,8 +113,6 @@ export class GazetteComponent implements OnInit {
     this.open(context)
     this.gazette_id = item?.id
     this.updateItem = item
-    console.log(this.gazette_id)
-    console.log(item)
 
     this.gazetteForm.patchValue(item)
     this.gazetteForm.patchValue({
@@ -179,11 +175,8 @@ export class GazetteComponent implements OnInit {
       gazette_date: this.gazette_date
     }
 
-    console.log(payload)
-
     this.auth.store(`/admin/gazette/filter`, payload).subscribe({
       next: (response) => {
-        console.log(response)
         if (response) {
           this.gazetteArray = response['gazettes']
         }

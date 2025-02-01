@@ -66,7 +66,6 @@ export class SignInComponent implements OnInit {
     this.auth.store(url, payload).subscribe({
       next: (response: any) => {
         this.isLoading = false
-        console.log(response);
 
         if (response['status'] === 'failed') {
           this.alertNotifier.error('Invalid credentials')

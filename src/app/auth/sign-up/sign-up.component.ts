@@ -40,7 +40,6 @@ export class SignUpComponent implements OnInit {
   let url = '/auth/register'
   this.auth.register(url,this.registrationForm.value).subscribe({
     next: (response) => {
-      console.log(response)
       sessionStorage.setItem('token', response['token']);
       sessionStorage.setItem('userData', JSON.stringify(response['user']));
       this.router.navigateByUrl('/dashboard/default', { replaceUrl: true });

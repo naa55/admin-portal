@@ -108,7 +108,6 @@ export class DefaultComponent implements OnInit {
   getAllGazette() {
     this.auth.get('/admin/gazette/all').subscribe({
       next: (response) => {
-        console.log(response)
         this.gazetteList = response['gazettes'];
         this.gazetteListLength = response['gazettes'].length;
       },
@@ -120,7 +119,6 @@ export class DefaultComponent implements OnInit {
   getAllGazetteRequest() {
     this.auth.get('/admin/gazette/requests').subscribe({
       next: (response) => {
-        console.log(response)
         this.gazetteRequestList = response['gazette_requests'];
         this.gazetteRequestListLength = response['gazette_requests'].length;
       },
@@ -134,7 +132,6 @@ export class DefaultComponent implements OnInit {
   getAllStatutes() {
     this.auth.get('/admin/statutes/all').subscribe({
       next: (response) => {
-        console.log(response)
         this.statuteList = response['statutes'];
         this.statuteListLength = response['statutes'].length;
       },

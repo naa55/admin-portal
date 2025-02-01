@@ -51,7 +51,7 @@ export class CaseLawComponent {
       category_id: new FormControl('',Validators.required),
       court: new FormControl('',Validators.required),
       case_file: new FormControl(''),
-      case_reference: new FormControl(),
+      case_reference: new FormControl('', Validators.required),
     })
 }
 
@@ -98,7 +98,7 @@ getAllCases(){
       next: (response) => {
           this.casesArray = response['case_laws']
          
-        // console.log(response) 
+        console.log(response) 
       },
       error: (result) => {
         // console.log(result)

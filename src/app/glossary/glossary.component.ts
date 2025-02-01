@@ -72,7 +72,6 @@ export class GlossaryComponent {
 
   generatePerPageOptions() {
     const maxOption = Math.ceil(this.getGlossaryListArr?.length / 20) * 20; // Maximum option based on total items
-    console.log(maxOption)
     this.perPageOptions = [];
     for (let i = 20; i <= maxOption; i += 20) {
       this.perPageOptions.push(i);
@@ -184,7 +183,6 @@ export class GlossaryComponent {
 
   deleteFromList(item) {
     // console.log(item)
-    console.log(item)
     this.auth.destroyUrl(`/admin/glossary/remove/${item?.id}`).subscribe({
       next: (response) => {
         if (response['status'] === "success") {
@@ -198,7 +196,7 @@ export class GlossaryComponent {
   }
 
   searchWord() {
-    // console.log('search')
+    // .log('search')
     this.auth.get(`/admin/glossary/filter?word=${this.word}`).subscribe({
       next: (response) => {
         // console.log(response)

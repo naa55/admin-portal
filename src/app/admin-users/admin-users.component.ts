@@ -140,7 +140,6 @@ this.adminForm.patchValue(data)
 
 
 deleteCategory(cateogry:any){
-console.log(cateogry)
 const deleteId  = cateogry?.uuid
     this.auth.get(`/admin/remove/${deleteId}`).subscribe({
      next: (result) => {

@@ -101,7 +101,6 @@ export class MarriageOfficersComponent {
   store() {
 
     const payload = this.marriageOfficerForm.value
-    console.log(payload)
 
     this.auth.store('/admin/marriage-officers/christian/store', payload).subscribe({
       next: (result) => {

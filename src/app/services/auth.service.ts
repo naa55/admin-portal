@@ -148,12 +148,9 @@ export class AuthService {
     return this.http.delete(`${this.server}${url}/${id}`, { headers: config });
   }
   destroyUrl(url) {
-    console.log(url)
-    console.log(url)
     const config = new HttpHeaders({
       Authorization: 'Bearer ' + this.token,
     });
-    console.log(config)
     return this.http.get(`${this.server}${url}`, { headers: config });
   }
 
